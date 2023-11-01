@@ -3,12 +3,13 @@ import AccessDenied from "@/views/AccessDenied";
 import CzpHome from "@/views/large/CzpHome";
 import Register from "@/views/login/Register";
 import RetrievePassword from "@/views/login/RetrievePassword";
+import UserHome from "@/views/user/UserHome";
 
 const routers = [
     {
         path: '/',
         name: '/',
-        component: CzpHome,
+        component: UserLogin,
         meta: {title: "Czp Data"}
     },
     {
@@ -41,6 +42,13 @@ const routers = [
         name: 'accessDenied',
         component: AccessDenied,
         meta: {title: '访问受限'}
+    },
+    {
+        path: '/uh',
+        name: 'userHome',
+        component: UserHome,
+        meta: {title: '首页'}
+
     }
 ];
 

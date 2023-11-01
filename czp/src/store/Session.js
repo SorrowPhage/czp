@@ -1,12 +1,10 @@
 export default {
-    namespaced: true,
-    actions: {
-
-    },
+    namespace: true,
+    actions: {},
     mutations: {
         userInfo(state,user) {
-            state.id = user.username;
-            state.permissions = user.permissions;
+            state.id = user.data.username;
+            state.permissions = user.data.permissions;
         },
     },
     state: {
@@ -15,7 +13,5 @@ export default {
         //权限列表
         permissions: [],
     },
-    getters:{
-
-    }
+    getters:{}
 }

@@ -1,14 +1,13 @@
 //该文件用于创建Vuex中最为核心的store
-import Vue from 'vue'
+import Vue from "vue"
 //引入Vuex
-import Vuex from 'vuex'
+import Vuex from "vuex"
+
+import CzpUser from "./CzpUser";
 
 Vue.use(Vuex)
-
-import CzpUser from "@/store/CzpUser";
-
-export default new Vuex.store({
-    modules:{
+export default new Vuex.Store({
+    modules: {
         CzpUser,
     }
 })

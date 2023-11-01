@@ -48,9 +48,10 @@ export default {
                         message: res.message,
                         type: 'success',
                     })
-                    localStorage.setItem("czpToken", res.data.token);
+                    localStorage.setItem("czpToken", res.data.czpUser.token);
+                    this.$store.commit("CzpUser/userInfo", res.data);
                     this.$router.push({
-                        name: 'czpHome',
+                        name: 'userHome',
                     })
                 }else if (res.flag === false) {
                     this.$message({
