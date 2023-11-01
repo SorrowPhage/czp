@@ -5,6 +5,7 @@ import com.sorrowphage.czp.entity.LoginUser;
 import com.sorrowphage.czp.utils.JwtUtil;
 import com.sorrowphage.czp.utils.RedisCache;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,11 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+
+/**
+ * 认证过滤器
+ * @author: SorrowPhage
+ * @date: 2023/10/27
+ */
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private RedisCache redisCache;
+    private final RedisCache redisCache;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

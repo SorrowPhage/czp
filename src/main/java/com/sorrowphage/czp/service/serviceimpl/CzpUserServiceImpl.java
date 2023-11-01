@@ -72,9 +72,9 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
             //authenticate存入redis
             redisCache.setCacheObject(RedisCache.TOKEN_KEY + userId, loginUser);
             //token返回前端
-            HashMap<String, String> map = new HashMap<>();
-            map.put("token", jwt);
-            return ResultMessage.success("登录成功", map);
+            loginUser.getCzpUser().setToken(jwt);
+
+            return ResultMessage.success("登录成功", loginUser);
         } else {
             return ResultMessage.failure("该账号已禁用");
         }

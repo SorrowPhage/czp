@@ -62,7 +62,17 @@ public class CzpUser implements Serializable {
     @TableField("email")
     private String email;
 
+    @TableField("generation")
+    private String generation;
+
+    @TableField("generation_rank")
+    private String generationRank;
+
+
     @TableField(exist = false)
     private String verCode;
+
+    @TableField(exist = false)
+    private String token;
 
 }

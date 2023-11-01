@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * 鉴权失败
  * @author: SorrowPhage
- * @date: 2023/10/18
+ * @date: 2023/10/27
  */
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
