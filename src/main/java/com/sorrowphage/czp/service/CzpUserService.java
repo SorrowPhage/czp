@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Email;
 import com.sorrowphage.czp.entity.ResultMessage;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -41,4 +44,12 @@ public interface CzpUserService extends IService<CzpUser> {
      * @return 发送结果
      */
     ResultMessage sendCode(Email email);
+
+    ResultMessage userInfo(String id);
+
+    ResultMessage setAvatar(MultipartFile file, String id);
+
+    ResultMessage updateUserInfo(CzpUser czpUser);
+
+    ResultMessage updatePassword(Map<String, String> params);
 }

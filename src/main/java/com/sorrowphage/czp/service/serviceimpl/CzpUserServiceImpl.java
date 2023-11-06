@@ -1,16 +1,23 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Email;
 import com.sorrowphage.czp.entity.LoginUser;
 import com.sorrowphage.czp.entity.ResultMessage;
+import com.sorrowphage.czp.entity.vo.UserVo;
+import com.sorrowphage.czp.mapper.CzpMenuMapper;
 import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.service.CzpUserService;
 import com.sorrowphage.czp.utils.DigitGeneratorUtils;
+import com.sorrowphage.czp.utils.FileUploadUtil;
 import com.sorrowphage.czp.utils.JwtUtil;
 import com.sorrowphage.czp.utils.RedisCache;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,8 +29,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +48,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> implements CzpUserService {
 
     private final AuthenticationManager authenticationManager;
@@ -47,9 +59,21 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
 
     private final PasswordEncoder passwordEncoder;
 
+    private final CzpUserMapper czpUserMapper;
+
+    private final CzpMenuMapper czpMenuMapper;
+
+    private final FileUploadUtil fileUploadUtil;
+
+
     @Value("${spring.mail.username}")
     private String username;
 
+    /**
+     * 登录接口
+     * @param user 登录用户信息（id，password）
+     * @return
+     */
     @Override
     public ResultMessage login(CzpUser user) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getId(), user.getPassword());
@@ -72,9 +96,9 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
             //authenticate存入redis
             redisCache.setCacheObject(RedisCache.TOKEN_KEY + userId, loginUser);
             //token返回前端
-            loginUser.getCzpUser().setToken(jwt);
+            // loginUser.getCzpUser().setToken(jwt);
 
-            return ResultMessage.success("登录成功", loginUser);
+            return ResultMessage.success("登录成功", jwt);
         } else {
             return ResultMessage.failure("该账号已禁用");
         }
@@ -133,6 +157,73 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
         //将验证码存到 redis 中，并设置5分钟的过期时间
         redisCache.setCacheObject(RedisCache.VER_CODE_KEY + email.getTos(), verCode, 5, TimeUnit.MINUTES);
         return ResultMessage.success("验证码发送成功");
+    }
+
+    @Override
+    public ResultMessage userInfo(String id) {
+        log.info(id);
+        UserVo userVo = czpUserMapper.userInfo(id);
+        List<String> list = czpMenuMapper.menuListByUserId(id);
+        userVo.setPermissions(list);
+        return ResultMessage.success(userVo);
+    }
+
+    @Override
+    public ResultMessage setAvatar(MultipartFile file, String id) {
+        if (file != null) {
+            CzpUser user = this.getById(id);
+            try {
+                String newAvatarUrl = fileUploadUtil.uploadAvatar(file);
+                String oldAvatarUrl = user.getAvatar();
+                boolean isDelete = fileUploadUtil.deleteAvatar(oldAvatarUrl);
+                if (isDelete) {
+                    LambdaUpdateWrapper<CzpUser> wrapper = new LambdaUpdateWrapper<>();
+                    wrapper.set(CzpUser::getAvatar, newAvatarUrl).eq(CzpUser::getId, id);
+                    boolean update = this.update(wrapper);
+                    if (update) {
+                        return ResultMessage.success("修改成功", newAvatarUrl);
+                    } else {
+                        return ResultMessage.failure("修改失败");
+                    }
+                } else {
+                    return ResultMessage.failure("修改失败");
+                }
+            } catch (IOException e) {
+                return ResultMessage.failure("图片上传失败");
+            }
+        } else {
+            return ResultMessage.failure("图片不能为空");
+        }
+    }
+
+    @Override
+    public ResultMessage updateUserInfo(CzpUser czpUser) {
+        boolean update = this.saveOrUpdate(czpUser);
+        if (!update) {
+            return ResultMessage.failure("修改失败");
+        }
+        return ResultMessage.success("修改成功", czpUser.getName());
+    }
+
+    @Override
+    public ResultMessage updatePassword(Map<String, String> params) {
+        String id = params.get("id");
+        String password = params.get("password");
+        String oldPassword = params.get("oldPassword");
+
+        CzpUser user = this.getById(id);
+        boolean matches = passwordEncoder.matches(oldPassword, user.getPassword());
+        if (matches) {
+            user.setPassword(passwordEncoder.encode(password));
+            boolean update = this.saveOrUpdate(user);
+            if (update) {
+                return ResultMessage.success("密码修改成功");
+            } else {
+                return ResultMessage.failure("密码修改失败");
+            }
+        } else {
+            return ResultMessage.failure("密码错误");
+        }
     }
 
 }

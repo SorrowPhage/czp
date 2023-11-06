@@ -32,23 +32,8 @@ public class CzpUser implements Serializable {
     @TableField("sex")
     private String sex;
 
-    @TableField("area_id")
-    private String areaId;
-
-    @TableField("parent_id")
-    private String parentId;
-
-    @TableField("root_id")
-    private String rootId;
-
     @TableField("birthday")
     private String birthday;
-
-    @TableField("mate_id")
-    private String mateId;
-
-    @TableField("small_group")
-    private String smallGroup;
 
     @TableField("avatar")
     private String avatar;
@@ -68,6 +53,14 @@ public class CzpUser implements Serializable {
     @TableField("generation_rank")
     private String generationRank;
 
+    @TableField("family_rank")
+    private String familyRank;
+
+    @TableField("death_time")
+    private String deathTime;
+
+    @TableField("phone")
+    private String phone;
 
     @TableField(exist = false)
     private String verCode;
