@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import {post} from "@/api/api";
+import {postRequest} from "@/api/api";
 export default {
     name: "Register",
     data() {
@@ -72,7 +72,7 @@ export default {
             if (this.userInfo.email === '') {
                 this.message.email = '邮箱不能为空';
             } else if (this.message.email === '') {
-                post('/czpUser/sendcode', {tos: this.userInfo.email, subject: '注册'}).then(res=>{
+                postRequest('/czpUser/sendcode', {tos: this.userInfo.email, subject: '注册'}).then(res=>{
                     console.log(res);
                 });
                 this.display_button = false;
@@ -96,7 +96,7 @@ export default {
             }else if (this.userInfo.verCode === '') {
                 this.message.verCode = '验证码不能为空';
             } else if (this.message.name === '' && this.message.password === '' && this.message.email === '') {
-                post('/czpUser/register', this.userInfo).then(response => {
+                postRequest('/czpUser/register', this.userInfo).then(response => {
                     console.log(response)
                     if (response.flag === false) {
                         this.message.verCode = '验证码错误';

@@ -8,6 +8,9 @@ import store from './store'
 import dataV from '@jiaminghi/data-view'
 Vue.use(dataV)
 
+import VueAreaLinkage from 'vue-area-linkage';
+Vue.use(VueAreaLinkage)
+
 import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 import geoJson from '@/utils/china.json'

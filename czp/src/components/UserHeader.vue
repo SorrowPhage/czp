@@ -12,14 +12,18 @@
             <ul class="notification-menu">
                 <li>
                     <label ref="showUl" class="btn btn-default dropdown-toggle" @click="isTrue=!isTrue">
-                        <img src="http://localhost:8088/upload/sepim/avatar/cf3fbfb4b3a3492f99e5ae1c3296430bfile.png" alt="头像"/>
-                        {{ id }}
+                        <img :src="avatar" alt="头像"/>
+                        {{ name }}
                         <span class="caret"></span>
                     </label>
                     <ul v-show="isTrue" ref="myUI" class="dropdown-menu dropdown-menu-usermenu pull-right sp-userinfo">
                         <li class="sp-li-space" @click="goIndex">
                             <i class="el-icon-menu"></i> 主页
                         </li>
+                        <li class="sp-li-space" @click="logout">
+                            <i class="el-icon-right"></i> 退出
+                        </li>
+    
                     </ul>
                 </li>
             </ul>
@@ -31,16 +35,21 @@
 import {mapState} from "vuex"
 import SideInformationBar from "@/components/SideInformationBar";
 import {sessionReplaceStore} from "@/utils/session_util"
+import {getRequest} from "@/api/api";
 export default {
     name: "UserHeader",
     components: {SideInformationBar},
     data() {
         return{
             isTrue: false,
+            // userInfo:{
+            //     avatar: '',
+            //     name: '',
+            // }
         }
     },
     computed: {
-        ...mapState("CzpUser", ["id"])
+        ...mapState("CzpUser", ["id", "avatar", "name"])
     },
     methods: {
         personalCenter() {
@@ -48,13 +57,34 @@ export default {
         },
         goIndex() {
             this.isTrue = false;
+            this.$router.push({
+                name: 'userHome',
+            })
         },
+        logout() {
+            this.isTrue = false;
+            localStorage.removeItem("czpToken");
+            this.$router.push({
+                name: "login"
+            });
+        },
+
         showListUI(e) {
             //需要使用v-show绑定
             if (!(this.$refs.myUI.contains(e.target) || this.$refs.showUl.contains(e.target))) this.isTrue = false;
         },
         loadData() {
-            console.log(this.id);
+            //加载用户信息（该组件会出现在所有页面中，它的数据放在vuex中）
+            // getRequest("/czpUser/userinfo", {id: this.$store.state.CzpUser.id}).then(res => {
+            //     console.log("UserHeader", res);
+            //     this.userInfo = res.data[0];
+            // })
+            //让该组件加载时根据token获取用户信息(在router中做了)
+            // getRequest("/czpUser/token/userinfo",{}).then(res =>{
+            //     console.log("UserHeader",res.data)
+            //     this.$store.commit("CzpUser/userInfo", res.data);
+            // })
+            
         },
     },
     created() {
@@ -67,6 +97,7 @@ export default {
     },
     mounted() {
         document.addEventListener('click', this.showListUI);
+        // this.loadData();
     },
     destroyed() {
         document.removeEventListener('click', this.showListUI);

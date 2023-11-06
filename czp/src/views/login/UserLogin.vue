@@ -29,27 +29,30 @@
 </template>
 
 <script>
-import {post} from "@/api/api";
+import {postRequest} from "@/api/api";
 export default {
     name: "UserLogin",
     data() {
         return {
             user: {
-                id: '',
+                id: 'sp9444708',
                 password: '',
             }
         }
     },
+    mounted() {
+    },
     methods:{
         login() {
-            post("/czpUser/login",this.user).then(res=>{
+            postRequest("/czpUser/login",this.user).then(res=>{
                 if (res.flag === true) {
                     this.$message({
                         message: res.message,
                         type: 'success',
                     })
-                    localStorage.setItem("czpToken", res.data.czpUser.token);
-                    this.$store.commit("CzpUser/userInfo", res.data);
+                    //登录只存token不做其它
+                    localStorage.setItem("czpToken", res.data);
+
                     this.$router.push({
                         name: 'userHome',
                     })

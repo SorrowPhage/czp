@@ -1,17 +1,46 @@
 <template>
     <el-container>
-        <UserHeader/>
         <el-header>Header</el-header>
-        <el-main>Main
+        <el-main>Mainasss
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
+            <br>
+            <hr>
         </el-main>
     </el-container>
 </template>
 
 <script>
-import UserHeader from "@/components/UserHeader";
 export default {
     name: "UserHome",
-    components:{UserHeader}
 }
 </script>
 
