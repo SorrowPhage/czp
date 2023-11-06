@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sorrowphage.czp.mapper.CzpUserMapper">
 
+    <select id="userInfo" resultType="com.sorrowphage.czp.entity.vo.UserVo">
+        select * from czp_user u where u.id = #{id}
+    </select>
 </mapper>
