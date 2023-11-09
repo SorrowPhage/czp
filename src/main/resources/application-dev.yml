@@ -35,6 +35,11 @@ spring:
             enable: true
             required: true
 
+file:
+  avatar:
+    base: E:\\ProgrammingSoftware\\apache-tomcat-10.0.12\\webapps\\czp\\avatar\\
+    serve: http://localhost:8088/czp/avatar/
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
 

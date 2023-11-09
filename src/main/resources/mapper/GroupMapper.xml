@@ -22,7 +22,7 @@
         select g.*,pg.group_name as parent_name
         from czp_group g
                  left join czp_group pg on pg.id=g.parent_id
-        where g.id=#{id} or g.group_name like #{id}
+        where g.id=#{id} or g.group_name like concat("%",#{id},"%")
 
     </select>
     <select id="getUserList" resultType="com.sorrowphage.czp.entity.CzpUser">
