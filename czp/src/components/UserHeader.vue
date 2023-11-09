@@ -3,9 +3,8 @@
         <div class="nav-box">
             <div style="display: inline">
                 <SideInformationBar/>
-                <div class="sp-nav" @click="personalCenter">Repository</div>
-                <div class="sp-nav" @click="personalCenter" v-if="hasPerm('czp::admin')">admin</div>
-                <div class="sp-nav" @click="personalCenter" v-if="hasPerm('czp::home')">home</div>
+                <div class="sp-nav" @click="goGroup">族群信息</div>
+                <div class="sp-nav" @click="audit" >申请</div>
             </div>
         </div>
         <div  class="menu-right">
@@ -28,6 +27,14 @@
                 </li>
             </ul>
         </div>
+        <el-dialog
+            :visible.sync="dialogVisible"
+            title="新建族群"
+            width="882px"
+            append-to-body
+        >
+                <CreateGroup/>
+        </el-dialog>
     </div>
 </template>
 
@@ -36,11 +43,13 @@ import {mapState} from "vuex"
 import SideInformationBar from "@/components/SideInformationBar";
 import {sessionReplaceStore} from "@/utils/session_util"
 import {getRequest} from "@/api/api";
+import CreateGroup from "@/views/group/CreateGroup";
 export default {
     name: "UserHeader",
-    components: {SideInformationBar},
+    components: {SideInformationBar,CreateGroup},
     data() {
         return{
+            dialogVisible: false,
             isTrue: false,
             // userInfo:{
             //     avatar: '',
@@ -55,6 +64,21 @@ export default {
         personalCenter() {
         
         },
+        createGroup() {
+            this.$router.push({
+                name: "cg",
+            })
+        },
+        goGroup() {
+            this.$router.push({
+                name: "group",
+            })
+        },
+        audit() {
+            this.$router.push({
+                name: "audit",
+            })
+        },
         goIndex() {
             this.isTrue = false;
             this.$router.push({
@@ -68,7 +92,7 @@ export default {
                 name: "login"
             });
         },
-
+        
         showListUI(e) {
             //需要使用v-show绑定
             if (!(this.$refs.myUI.contains(e.target) || this.$refs.showUl.contains(e.target))) this.isTrue = false;

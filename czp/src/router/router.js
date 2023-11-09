@@ -9,7 +9,13 @@ import Personal from "@/views/user/Personal";
 import PersnoalNav from "@/views/user/PersnoalNav";
 import FamilyInfo from "@/views/user/FamilyInfo";
 import PasswordChange from "@/views/user/PasswordChange";
-
+import CreateGroup from "@/views/group/CreateGroup";
+import GroupNav from "@/views/group/GroupNav";
+import GroupList from "@/views/group/GroupList";
+import AuditList from "@/views/audit/AuditList";
+import GroupMangger from "@/views/group/GroupMangger";
+import AuditNav from "@/views/audit/AuditNav";
+import AuditHistory from "@/views/audit/AuditHistory";
 const routers = [
     {
         path: '/',
@@ -59,7 +65,7 @@ const routers = [
                 path: 'uh',
                 name: 'userHome',
                 component: UserHome,
-                meta: {title: '首页',ver:true}
+                meta: {title: '首页', ver: true}
             },
             {
                 path: "setting",
@@ -85,6 +91,55 @@ const routers = [
                         name: "pc",
                         component: PasswordChange,
                         meta: {title: "修改密码", ver: true}
+                    }
+                ]
+            },
+            {
+                path: 'group',
+                name: 'group',
+                component: GroupNav,
+                redirect: "/index.html/group/create",
+                meta: {title: "家族", ver: true},
+                children: [
+                    {
+                        path: "create",
+                        name: "create",
+                        component: CreateGroup,
+                        meta: {title: "家族", ver: true}
+                    },
+                    {
+                        path: "list",
+                        name: "list",
+                        component: GroupList,
+                        meta: {title: "家族", ver: true}
+                    },
+                    {
+                        path: "gb",
+                        name: "gb",
+                        component: GroupMangger,
+                        meta: {title: "gb", ver: true}
+                    }
+                ]
+            },
+
+            {
+                path: "audit",
+                name: "audit",
+                component: AuditNav,
+                meta: {title: "申请", ver: true},
+                redirect: "/index.html/audit/judge",
+                children: [
+                    {
+                        path: "judge",
+                        name: "judge",
+                        component: AuditList,
+                        meta: {title: "申请", ver: true}
+                    },
+                    {
+                        path: "ah",
+                        name: "ah",
+                        component: AuditHistory,
+                        meta: {title: "历史", ver: true}
                     }
                 ]
             }

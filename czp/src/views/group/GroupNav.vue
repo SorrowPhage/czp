@@ -14,21 +14,21 @@
                     >
                         <el-menu-item index="1">
                             <i class="el-icon-user-solid"></i>
-                            <span slot="title">基本信息</span>
+                            <span slot="title">新建族群</span>
                         </el-menu-item>
                         <el-menu-item index="2">
                             <i class="el-icon-s-home"></i>
-                            <span slot="title">家族信息</span>
+                            <span slot="title">族群信息</span>
                         </el-menu-item>
                         <el-menu-item index="3">
                             <i class="el-icon-setting"></i>
-                            <span slot="title">修改密码</span>
+                            <span slot="title">族群管理</span>
                         </el-menu-item>
                     </el-menu>
                 </el-col>
             </el-row>
         </el-aside>
-    
+        
         <el-main>
             <router-view></router-view>
         </el-main>
@@ -37,15 +37,15 @@
 
 <script>
 export default {
-    name: "PersnoalNav",
+    name: "GroupNav",
     methods: {
         handleSelect(key) {
             if (key === "1") {
-                this.$router.push({name: 'own'})
+                this.$router.push({name: 'create'})
             } else if (key === "2") {
-                this.$router.push({name: 'fam'})
+                this.$router.push({name: 'list'})
             }else if (key === "3") {
-                this.$router.push({name: 'pc'});
+                this.$router.push({name: 'gb'});
             }
             
         },
