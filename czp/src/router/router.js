@@ -21,6 +21,7 @@ const routers = [
         path: '/',
         name: '/',
         component: HomePage,
+        redirect: '/home/uh',
         meta: {title: "Czp Data", ver: true}
     },
     {
@@ -55,10 +56,10 @@ const routers = [
         meta: {title: '访问受限'}
     },
     {
-        path: '/index.html',
-        name: 'index',
+        path: '/home',
+        name: 'home',
         component: HomePage,
-        redirect: '/index.html/uh',
+        redirect: '/home/uh',
         meta: {title: '首页', ver: true},
         children: [
             {
@@ -72,7 +73,7 @@ const routers = [
                 name: "setting",
                 component: PersnoalNav,
                 meta: {title: "修改资料", ver: true},
-                redirect: "/index.html/setting/own",
+                redirect: "/home/setting/own",
                 children: [
                     {
                         path: 'own',
@@ -98,20 +99,20 @@ const routers = [
                 path: 'group',
                 name: 'group',
                 component: GroupNav,
-                redirect: "/index.html/group/create",
+                redirect: "/home/group/create",
                 meta: {title: "家族", ver: true},
                 children: [
                     {
                         path: "create",
                         name: "create",
                         component: CreateGroup,
-                        meta: {title: "家族", ver: true}
+                        meta: {title: "create", ver: true}
                     },
                     {
                         path: "list",
                         name: "list",
                         component: GroupList,
-                        meta: {title: "家族", ver: true}
+                        meta: {title: "list", ver: true}
                     },
                     {
                         path: "gb",
@@ -127,7 +128,7 @@ const routers = [
                 name: "audit",
                 component: AuditNav,
                 meta: {title: "申请", ver: true},
-                redirect: "/index.html/audit/judge",
+                redirect: "/home/audit/judge",
                 children: [
                     {
                         path: "judge",

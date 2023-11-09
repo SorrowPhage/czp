@@ -9,18 +9,19 @@
                         background-color="#fff"
                         class="el-menu-container"
                         text-color="#545c64"
-                        @select="handleSelect"
-                        default-active="1"
+
+                        :router="true"
+                        :default-active="$route.path"
                     >
-                        <el-menu-item index="1">
+                        <el-menu-item index="/home/group/create">
                             <i class="el-icon-user-solid"></i>
                             <span slot="title">新建族群</span>
                         </el-menu-item>
-                        <el-menu-item index="2">
+                        <el-menu-item index="/home/group/list">
                             <i class="el-icon-s-home"></i>
                             <span slot="title">族群信息</span>
                         </el-menu-item>
-                        <el-menu-item index="3">
+                        <el-menu-item index="/home/group/gb">
                             <i class="el-icon-setting"></i>
                             <span slot="title">族群管理</span>
                         </el-menu-item>
@@ -38,18 +39,6 @@
 <script>
 export default {
     name: "GroupNav",
-    methods: {
-        handleSelect(key) {
-            if (key === "1") {
-                this.$router.push({name: 'create'})
-            } else if (key === "2") {
-                this.$router.push({name: 'list'})
-            }else if (key === "3") {
-                this.$router.push({name: 'gb'});
-            }
-            
-        },
-    }
 }
 </script>
 

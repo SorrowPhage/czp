@@ -5,15 +5,15 @@
                 <div style="display: inline-block">
                     <span class="gcard_text">{{groupName}}</span>
                 </div>
-                <div class="gcard_btn">
-                    <el-button type="primary" plain v-if="hasPerm('group::edit')">设置</el-button>
-                </div>
+<!--                <div class="gcard_btn">-->
+<!--                    <el-button type="primary" plain v-if="hasPerm('group::edit')" size="mini">编辑</el-button>-->
+<!--                </div>-->
             </div>
             <div class="gcard_body">
-                <div class="body_body">
-                    <span class="text_color">{{des}}</span>
+                <div class="body_body text_color">
+                    {{des}}
                 </div>
-                <div style="width: 100%">
+                <div style="height: 20px;margin-top: 5px;margin-bottom: 5px">
                     <create-card v-for="u in create" :key="u.id"
                                  :avatar="u.avatar" :name="u.name"
                     />
@@ -72,6 +72,7 @@ export default {
     padding: 15px;
     display: flex;
     flex-wrap: wrap;
+    width: 120px;
 }
 .gcard_text {
     font-size: 20px;
@@ -84,10 +85,11 @@ export default {
 }
 .gcard_top {
     width: 100%;
+    height: 20px;
     /*display: flex;*/
 }
 .gcard_btn {
-    width: 100px;
+    /*width: 100px;*/
     float: right;
     /*margin-right: 10px;*/
     /*display: inline-block;*/
@@ -97,9 +99,12 @@ export default {
     display: flex;
     margin-top: 10px;
     flex-wrap: wrap;
+    height: 120px;
 }
 .body_body {
     width: 100%;
+    height: 100px;
+    overflow: auto;
 }
 .text_color{
     color: #5a8da1;
@@ -108,6 +113,7 @@ export default {
     width: 100%;
     display: flex;
     margin-top: 10px;
+    height: 20px;
 }
 .foot_card{
     margin-left: 15px;

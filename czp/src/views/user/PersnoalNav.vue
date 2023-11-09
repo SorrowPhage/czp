@@ -9,18 +9,18 @@
                         background-color="#fff"
                         class="el-menu-container"
                         text-color="#545c64"
-                        @select="handleSelect"
-                        default-active="1"
+                        :router="true"
+                        :default-active="$route.path"
                     >
-                        <el-menu-item index="1">
+                        <el-menu-item index="/home/setting/own">
                             <i class="el-icon-user-solid"></i>
                             <span slot="title">基本信息</span>
                         </el-menu-item>
-                        <el-menu-item index="2">
+                        <el-menu-item index="/home/setting/fam">
                             <i class="el-icon-s-home"></i>
                             <span slot="title">家族信息</span>
                         </el-menu-item>
-                        <el-menu-item index="3">
+                        <el-menu-item index="/home/setting/pc">
                             <i class="el-icon-setting"></i>
                             <span slot="title">修改密码</span>
                         </el-menu-item>
@@ -39,16 +39,6 @@
 export default {
     name: "PersnoalNav",
     methods: {
-        handleSelect(key) {
-            if (key === "1") {
-                this.$router.push({name: 'own'})
-            } else if (key === "2") {
-                this.$router.push({name: 'fam'})
-            }else if (key === "3") {
-                this.$router.push({name: 'pc'});
-            }
-            
-        },
     }
 }
 </script>

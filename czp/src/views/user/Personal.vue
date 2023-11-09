@@ -4,13 +4,6 @@
             <div class="person_top_img">
                 <AvatarCropper :id="userInfo.id"/>
             </div>
-<!--            <div class="person_top_text">-->
-<!--                <div class="user_text">-->
-<!--                    <div class="user_name">-->
-<!--                        <span> {{ userInfo.name }} </span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
         <div class="person_body">
             <div style="margin: 15px;width: 100%">

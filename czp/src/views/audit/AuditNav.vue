@@ -9,20 +9,16 @@
                         background-color="#fff"
                         class="el-menu-container"
                         text-color="#545c64"
-                        @select="handleSelect"
-                        default-active="1"
+                        :router="true"
+                        :default-active="$route.path"
                     >
-                        <el-menu-item index="1">
+                        <el-menu-item index="/home/audit/judge">
                             <i class="el-icon-user-solid"></i>
                             <span slot="title" v-if="hasPerm('audit::apply')">审核管理</span>
                         </el-menu-item>
-                        <el-menu-item index="2">
+                        <el-menu-item index="/home/audit/ah">
                             <i class="el-icon-s-home"></i>
                             <span slot="title">历史操作</span>
-                        </el-menu-item>
-                        <el-menu-item index="3">
-                            <i class="el-icon-setting"></i>
-                            <span slot="title">族群管理</span>
                         </el-menu-item>
                     </el-menu>
                 </el-col>
@@ -39,16 +35,7 @@
 export default {
     name: "AuditNav",
     methods: {
-        handleSelect(key) {
-            if (key === "1") {
-                this.$router.push({name: 'judge'})
-            } else if (key === "2") {
-                this.$router.push({name: 'ah'})
-            }else if (key === "3") {
-                this.$router.push({name: 'list'});
-            }
-            
-        },
+
     }
 }
 </script>
