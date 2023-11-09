@@ -53,7 +53,7 @@ public class AuditController {
     }
 
     /**
-     * 审核历史记录
+     * 审核历史
      * @param id
      * @return
      */

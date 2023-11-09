@@ -47,7 +47,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Override
     public ResultMessage groupList(String userId) {
         List<GroupVO> list = groupMapper.selectGroupList(userId);
-        return ResultMessage.success(list);
+        return ResultMessage.success("请求成功", list);
     }
 
     @Override

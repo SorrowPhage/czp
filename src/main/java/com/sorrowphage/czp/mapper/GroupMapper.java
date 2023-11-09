@@ -33,6 +33,11 @@ public interface GroupMapper extends BaseMapper<Group> {
      */
     List<UserVo> createList(String id);
 
+    /**
+     * 搜索族群，
+     * @param id 族群id或族群名称（模糊查询）
+     * @return
+     */
     List<GroupVO> searchGroupList(String id);
 
     List<CzpUser> getUserList(String id);
