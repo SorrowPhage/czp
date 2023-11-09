@@ -62,6 +62,9 @@ public class CzpUser implements Serializable {
     @TableField("phone")
     private String phone;
 
+    @TableField("des")
+    private String des;
+
     @TableField(exist = false)
     private String verCode;
 

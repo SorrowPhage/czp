@@ -1,6 +1,5 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.entity.CzpUser;
@@ -17,7 +16,6 @@ import com.sorrowphage.czp.utils.JwtUtil;
 import com.sorrowphage.czp.utils.RedisCache;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -32,7 +30,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -72,7 +69,7 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
     /**
      * 登录接口
      * @param user 登录用户信息（id，password）
-     * @return
+     * @return token
      */
     @Override
     public ResultMessage login(CzpUser user) {
@@ -161,7 +158,6 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
 
     @Override
     public ResultMessage userInfo(String id) {
-        log.info(id);
         UserVo userVo = czpUserMapper.userInfo(id);
         List<String> list = czpMenuMapper.menuListByUserId(id);
         userVo.setPermissions(list);
