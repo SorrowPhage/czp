@@ -70,12 +70,51 @@ public class GroupController {
 
 
     /**
-     * TODO 成为groupId族群的第一级
+     * 成为groupId族群的第一级
+     *
      * @param params
      * @return
      */
     @PostMapping("/bf")
     public ResultMessage becomeFirst(@RequestBody Map<String, String> params) {
         return groupService.becomeFirst(params);
+    }
+
+    /**
+     * 获取用户管理的族群
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/clan")
+    public ResultMessage getClanGroupList(@RequestParam("id") String id) {
+        return groupService.getClanGroupList(id);
+    }
+
+    /**
+     * 修改族群信息
+     *
+     * @param group
+     * @return
+     */
+    @PostMapping("/update")
+    public ResultMessage updateGroupInfo(@RequestBody Group group) {
+        return groupService.updateGroupInfo(group);
+    }
+
+    /**
+     * 获取id族群的所有用户信息需要将创建者标出
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/ul")
+    public ResultMessage groupUserList(@RequestParam("id") String id) {
+        return groupService.groupUserList(id);
+    }
+
+    @GetMapping("/tree")
+    public ResultMessage groupTree(@RequestParam("id") String id) {
+        return groupService.groupTree(id);
     }
 }

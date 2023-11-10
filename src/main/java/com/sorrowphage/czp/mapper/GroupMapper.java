@@ -42,4 +42,7 @@ public interface GroupMapper extends BaseMapper<Group> {
 
     List<CzpUser> getUserList(String id);
 
+    List<UserVo> groupUserList(String id);
+
+    List<String> groupCreaterList(String id);
 }

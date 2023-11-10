@@ -28,4 +28,12 @@ public interface GroupService extends IService<Group> {
 
     ResultMessage becomeFirst(Map<String, String> params);
 
+    ResultMessage getClanGroupList(String id);
+
+    ResultMessage updateGroupInfo(Group group);
+
+    ResultMessage groupUserList(String id);
+
+    ResultMessage groupTree(String id);
+
 }

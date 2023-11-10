@@ -39,6 +39,10 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
      */
     @Override
     public ResultMessage applyJoinGroup(Audit audit) {
+        UserGroup exist = userGroupMapper.isExist(audit.getGroupId(), audit.getUserId());
+        if (exist != null) {
+            return ResultMessage.failure("该用户已在此族群当中");
+        }
         audit.setCreateTime(DateUtil.getSystemDateTimeString());
         boolean save = this.save(audit);
         if (save) {
@@ -79,7 +83,13 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
             return ResultMessage.success("操作成功");
         } else {
             //反之则失败
-            this.saveOrUpdate(audit);
+            //插入历史表
+            auditMapper.insertToHistory(audit);
+            //删除中间表中的数据
+            LambdaUpdateWrapper<Audit> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(Audit::getId, audit.getId());
+            this.remove(wrapper);
+
             return ResultMessage.success("操作成功");
         }
     }
