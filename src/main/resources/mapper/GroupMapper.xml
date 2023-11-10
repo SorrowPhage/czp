@@ -30,4 +30,14 @@
             left join czp_user u on u.id=g.user_id
         where g.group_id=#{id}
     </select>
+    <select id="groupUserList" resultType="com.sorrowphage.czp.entity.vo.UserVo">
+        select u.*,ug.parent_id from user_group ug
+            left join czp_user u on u.id=ug.user_id
+        where ug.group_id=#{id}
+    </select>
+    <select id="groupCreaterList" resultType="java.lang.String">
+        select u.id from user_group ug
+        left join czp_user u on u.id=ug.user_id
+        where ug.group_id=#{id} and ISNULL(parent_id)
+    </select>
 </mapper>
