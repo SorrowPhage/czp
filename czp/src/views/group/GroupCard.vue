@@ -1,37 +1,32 @@
 <template>
-    <div style="margin: 5px">
-        <div class="gcard">
-            <div class="gcard_top">
-                <div style="display: inline-block">
-                    <span class="gcard_text">{{groupName}}</span>
-                </div>
-<!--                <div class="gcard_btn">-->
-<!--                    <el-button type="primary" plain v-if="hasPerm('group::edit')" size="mini">编辑</el-button>-->
-<!--                </div>-->
+    <div class="gcard">
+        <div class="gcard_top">
+            <div style="display: inline-block">
+                <span class="gcard_text">{{groupName}}</span>
             </div>
-            <div class="gcard_body">
-                <div class="body_body text_color">
-                    {{des}}
-                </div>
-                <div style="height: 20px;margin-top: 5px;margin-bottom: 5px">
-                    <create-card v-for="u in create" :key="u.id"
-                                 :avatar="u.avatar" :name="u.name"
-                    />
-                </div>
+        </div>
+        <div class="gcard_body">
+            <div class="body_body text_color">
+                {{des}}
             </div>
-            <div class="gcard_foot text_color">
-                <div>
-                    <i class="el-icon-location-outline"></i>
-                    <span>{{area}}</span>
-                </div>
-                <div class="foot_card">
-                    <i class="el-icon-alarm-clock"></i>
-                    <span>{{createTime}}</span>
-                </div>
-                <div class="foot_card" v-if="parentName">
-                    <i class="el-icon-d-caret"></i>
-                    <span>{{parentName}}</span>
-                </div>
+            <div style="height: 20px;margin-top: 5px;margin-bottom: 5px">
+                <create-card v-for="u in create" :key="u.id"
+                             :avatar="u.avatar" :name="u.name"
+                />
+            </div>
+        </div>
+        <div class="gcard_foot text_color">
+            <div>
+                <i class="el-icon-location-outline"></i>
+                <span>{{area}}</span>
+            </div>
+            <div class="foot_card">
+                <i class="el-icon-alarm-clock"></i>
+                <span>{{createTime}}</span>
+            </div>
+            <div class="foot_card" v-if="parentName">
+                <i class="el-icon-d-caret"></i>
+                <span>{{parentName}}</span>
             </div>
         </div>
     </div>
@@ -67,12 +62,12 @@ export default {
 
 <style scoped>
 .gcard {
-    /*width: 400px;*/
-    background-color: white;
+    background-image: linear-gradient(#409EFF, #7ce6f1);
     padding: 15px;
     display: flex;
     flex-wrap: wrap;
     width: 120px;
+    margin-left: 5px;
 }
 .gcard_text {
     font-size: 20px;

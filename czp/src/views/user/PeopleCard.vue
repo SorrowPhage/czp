@@ -22,7 +22,7 @@ export default {
 <style scoped>
 .pcard {
     width: 60px;
-    background-color: white;
+    background-image: linear-gradient(#409EFF, #7ce6f1);
     display: flex;
     flex-wrap: wrap;
 }

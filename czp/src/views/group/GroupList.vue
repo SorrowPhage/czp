@@ -7,10 +7,23 @@
                 <el-breadcrumb-item class="now_text">族群信息</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <div>
-            <GroupCard v-for="g in groupList" :key="g.id"
-                       :id="g.id" :group-name="g.groupName" :avatar="g.avatar" :des="g.des" :name="g.name" :area="g.area" :create-time="g.createTime"
-            />
+        <div style="background-color: white;display: flex;height: 100%">
+            <div class="mannage_box">
+                <span>拥有族群</span>
+                <div style="display: flex">
+                    <GroupCard v-for="g in mangeList" :key="g.id"
+                               :id="g.id" :group-name="g.groupName" :avatar="g.avatar" :des="g.des" :name="g.name" :area="g.area" :create-time="g.createTime"
+                    />
+                </div>
+            </div>
+            <div class="join_box">
+                <span>已加入族群</span>
+                <div style="display: flex">
+                    <GroupCard v-for="g in groupList" :key="g.id"
+                               :id="g.id" :group-name="g.groupName" :avatar="g.avatar" :des="g.des" :name="g.name" :area="g.area" :create-time="g.createTime"
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -25,11 +38,11 @@ export default {
     data() {
         return{
             groupList: [],
+            mangeList: [],
         }
     },
     mounted() {
         this.loadData();
-        console.log(this.$route.path)
     },
     methods:{
         loadData() {
@@ -44,6 +57,11 @@ export default {
                     hideLoadingAndNotify(err)
                 }
             );
+            getRequest("/group/clan",{id: this.$store.state.CzpUser.id}).then(res=>{
+                if (res.code === 200) {
+                    this.mangeList = res.data;
+                }
+            })
         },
     }
 }
@@ -53,5 +71,13 @@ export default {
 .breadcrumb_body {
     height: 30px;
     padding: 10px;
+}
+.mannage_box {
+    width: 50%;
+    padding: 30px;
+}
+.join_box {
+    width: 50%;
+    padding: 30px;
 }
 </style>

@@ -16,10 +16,6 @@
                             <i class="el-icon-user-solid"></i>
                             <span slot="title">基本信息</span>
                         </el-menu-item>
-                        <el-menu-item index="/home/setting/fam">
-                            <i class="el-icon-s-home"></i>
-                            <span slot="title">家族信息</span>
-                        </el-menu-item>
                         <el-menu-item index="/home/setting/pc">
                             <i class="el-icon-setting"></i>
                             <span slot="title">修改密码</span>

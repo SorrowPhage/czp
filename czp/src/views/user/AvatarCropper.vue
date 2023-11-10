@@ -187,7 +187,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 .avatar_box {
     /*width: 300px;*/
     /*border-right: 1px solid #3083ff;*/

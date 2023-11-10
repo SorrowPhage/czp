@@ -8,6 +8,9 @@
             </el-breadcrumb>
         </div>
         <div class="cg_panel">
+<!--                <div class="sp-explain">-->
+<!--                    <p>每个用户最多只能管理一个族群！</p>-->
+<!--                </div>-->
                 <div class="form_box">
                     <el-form ref="form" :model="group" :rules="rules" label-width="80px" size="medium" >
                         <el-form-item label="族群名称" prop="groupName">
@@ -67,6 +70,11 @@ export default {
                         message: "创建成功",
                         type: "success",
                     });
+                } else {
+                    this.$message({
+                        message: res.message,
+                        type: "warning",
+                    });
                 }
             })
         }
@@ -95,5 +103,17 @@ export default {
 .form_box {
     width: 50%;
     margin: 0 auto;
+}
+.sp-explain {
+    /*width: 1182px;*/
+    background-image: linear-gradient(#dafbe1, #dafbe1);
+    border-color: rgb(74, 194, 107, 0.4);
+    position: relative;
+    padding: 10px 16px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin: auto auto 10px;
 }
 </style>
