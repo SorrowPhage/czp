@@ -40,4 +40,18 @@
         left join czp_user u on u.id=ug.user_id
         where ug.group_id=#{id} and ISNULL(parent_id)
     </select>
+    <select id="getGroupById" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
+        select * from czp_group where id=#{id}
+    </select>
+    <select id="selectSonGroup" resultType="java.lang.String">
+        select id from czp_group where parent_id=#{id}
+    </select>
+    <select id="getUserListEliminateCreate" resultType="com.sorrowphage.czp.entity.vo.UserVo">
+        select u.*,ug.parent_id from user_group ug
+            left join czp_user u on u.id=ug.user_id
+        where ug.group_id=#{id} and NOT ISNULL(ug.parent_id)
+
+
+
+    </select>
 </mapper>
