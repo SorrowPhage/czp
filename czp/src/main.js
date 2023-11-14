@@ -16,6 +16,10 @@ Vue.prototype.$echarts = echarts
 import geoJson from '@/utils/china.json'
 echarts.registerMap('china', geoJson);
 
+//拖拽·缩放·画布插件
+import VueDraggableResizable from 'vue-draggable-resizable'
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 Vue.use(ElementUI, {
   size: 'small'
