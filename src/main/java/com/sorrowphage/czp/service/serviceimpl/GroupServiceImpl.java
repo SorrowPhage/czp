@@ -1,5 +1,6 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.entity.CzpUser;
@@ -15,6 +16,7 @@ import com.sorrowphage.czp.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -145,6 +147,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return userVoList.stream().filter(node -> creates.contains(node.getId())).collect(Collectors.toList());
     }
 
+
+    /**
+     * 获取族群树结构数据
+     * @param id 族群id
+     * @return
+     */
     @Override
     public ResultMessage groupTree(String id) {
         //获取用户列表
@@ -153,12 +161,60 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         List<String> creaters = groupMapper.groupCreaterList(id);
         //封装为树型结构
         List<UserVo> groupTree = this.createGroupTree(list, creaters);
-        //再创始人不止一个时,树型结构的根节点也不止一个,需要在封装一个根源
-        GroupVO resultData = new GroupVO();
-        //TODO 这个名称是族群名称,
-        resultData.setGroupName(groupMapper.searchGroupList(id).get(0).getName());
+        //当创始人不止一个时,树型结构的根节点也不止一个,需要在封装一个根源,这里将源头封装为族群不是用户
+        GroupVO resultData = groupMapper.getGroupById(id);
         resultData.setChildren(groupTree);
         return ResultMessage.success(resultData);
+    }
+
+
+    /**
+     * 递归查询所有的子级数据
+     * @param id
+     * @return
+     */
+    @Override
+    public ResultMessage groupTreeHasSon(String id) {
+        //获取族群创建者
+        List<String> creaters = groupMapper.groupCreaterList(id);
+        //获取用户列表
+        List<UserVo> list = groupMapper.groupUserList(id);
+        //获取子级族群
+        List<String> sonGroups = groupMapper.selectSonGroup(id);
+        //获取子级族群用户数据
+        list.addAll(subgroupList(sonGroups));
+        //封装为树型结构
+        List<UserVo> groupTree = this.createGroupTree(list, creaters);
+        GroupVO resultData = groupMapper.getGroupById(id);
+        resultData.setChildren(groupTree);
+        return ResultMessage.success(resultData);
+    }
+
+
+    /**
+     * 递归查询包含子级节点的用户树，但是数据库设计的时候，创建者在当前族群和子级族群都有数据，
+     * 查询时，应该直接剔除掉这些用户：使用这种方法最高级族群的创建者也会被剔除，所以最高级族群不参与递归
+     * @param subgroup 子级族群节点
+     * @return 所有的子级族群用户
+     */
+    public List<UserVo> subgroupList(List<String> subgroup) {
+        List<UserVo> resultList = new ArrayList<>();
+        if (subgroup.size() > 0) {
+            for (String s : subgroup) {
+                //查询s族群子级族群
+                List<String> sonGroups = groupMapper.selectSonGroup(s);
+                if (sonGroups != null && sonGroups.size() > 0) {
+                    //有子级族群，先查询子级节点，并递归
+                    resultList.addAll(subgroupList(sonGroups));
+                }
+                //到达这里时，已经没用子级节点，递归结束，查询s族群的用户
+                List<UserVo> userList = groupMapper.getUserListEliminateCreate(s);
+                resultList.addAll(userList);
+            }
+        } else {
+            return null;
+        }
+        return resultList;
     }
 
 

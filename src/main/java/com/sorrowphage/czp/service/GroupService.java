@@ -36,4 +36,6 @@ public interface GroupService extends IService<Group> {
 
     ResultMessage groupTree(String id);
 
+    ResultMessage groupTreeHasSon(String id);
+
 }

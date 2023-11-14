@@ -113,8 +113,20 @@ public class GroupController {
         return groupService.groupUserList(id);
     }
 
+
+    /**
+     * 查询id族群的族群树结构（不包含子级族群）
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/tree")
     public ResultMessage groupTree(@RequestParam("id") String id) {
         return groupService.groupTree(id);
+    }
+
+    @GetMapping("/hassontree")
+    public ResultMessage groupTreeHasSon(@RequestParam("id") String id) {
+        return groupService.groupTreeHasSon(id);
     }
 }

@@ -1,11 +1,10 @@
 package com.sorrowphage.czp.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Group;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sorrowphage.czp.entity.vo.GroupVO;
 import com.sorrowphage.czp.entity.vo.UserVo;
-import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -45,4 +44,25 @@ public interface GroupMapper extends BaseMapper<Group> {
     List<UserVo> groupUserList(String id);
 
     List<String> groupCreaterList(String id);
+
+    /**
+     * 根据id获取族群
+     * @param id
+     * @return
+     */
+    GroupVO getGroupById(String id);
+
+    /**
+     * 获取s族群的子级族群
+     * @param s
+     * @return
+     */
+    List<String> selectSonGroup(String s);
+
+    /**
+     * 获取族群用户，不包含创建者
+     * @param s
+     * @return
+     */
+    List<UserVo> getUserListEliminateCreate(String s);
 }
