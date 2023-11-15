@@ -66,6 +66,7 @@ export default {
         },
         agree(row) {
             row.status = "1";
+            row.operateId = this.$store.state.CzpUser.id;
             postRequest("/audit/result",row).then(res=>{
                 console.log("Audit", res);
                 if (res.code === 200) {
@@ -76,6 +77,7 @@ export default {
         },
         disAgree(row) {
             row.status = "-1";
+            row.operateId = this.$store.state.CzpUser.id;
             postRequest("/audit/result",row).then(res=>{
                 console.log("Audit", res);
                 if (res.code === 200) {

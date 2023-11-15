@@ -45,7 +45,7 @@
                             <el-form-item label="排行：">
                                 <el-input v-model="userInfo.familyRank"  class="info-input"></el-input>
                             </el-form-item>
-                            <el-form-item label="世代排行：">
+                            <el-form-item label="世代排行：" prop="generationRank">
                                 <el-input v-model="userInfo.generationRank"  class="info-input"></el-input>
                             </el-form-item>
                             <el-form-item label="辈分：">
@@ -73,6 +73,13 @@ export default {
     name: "Personal",
     components: {AvatarCropper},
     data() {
+        var checkGenerationRank=(rule, value, callback) =>{
+            if (!Number.isInteger(value)) {
+                callback(new Error('请输入数字值'));
+            } else {
+                callback();
+            }
+        }
         return {
             options: [{
                 value: '男',
@@ -98,6 +105,11 @@ export default {
                 area: '',
                 familyName: ''
             },
+            rules:{
+                generationRank:[
+                    {validator: checkGenerationRank, trigger: 'blur'}
+                ]
+            }
         };
     },
     mounted() {

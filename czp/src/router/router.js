@@ -13,11 +13,12 @@ import CreateGroup from "@/views/group/CreateGroup";
 import GroupNav from "@/views/group/GroupNav";
 import GroupList from "@/views/group/GroupList";
 import AuditList from "@/views/audit/AuditList";
-import GroupMangger from "@/views/group/GroupMangger";
+import GroupMangger from "@/views/audit/GroupMangger";
 import AuditNav from "@/views/audit/AuditNav";
 import AuditHistory from "@/views/audit/AuditHistory";
-import GroupCreaterList from "@/views/group/GroupCreaterList";
+import GroupCreaterList from "@/views/audit/GroupCreaterList";
 import GroupTree from "@/views/group/GroupTree";
+
 const routers = [
     {
         path: '/',
@@ -95,7 +96,7 @@ const routers = [
                 path: 'group',
                 name: 'group',
                 component: GroupNav,
-                redirect: "/home/group/create",
+                redirect: "/home/group/list",
                 meta: {title: "家族", ver: true},
                 children: [
                     {
@@ -115,18 +116,6 @@ const routers = [
                         name: 'fam',
                         component: FamilyInfo,
                         meta: {title: "修改资料", ver: true}
-                    },
-                    {
-                        path: "gb",
-                        name: "gb",
-                        component: GroupMangger,
-                        meta: {title: "gb", ver: true}
-                    },
-                    {
-                        path: "gcl",
-                        name: "gcl",
-                        component: GroupCreaterList,
-                        meta: {ver: true}
                     },
                     {
                         path: "gt",
@@ -155,7 +144,19 @@ const routers = [
                         name: "ah",
                         component: AuditHistory,
                         meta: {title: "历史", ver: true}
-                    }
+                    },
+                    {
+                        path: "gb",
+                        name: "gb",
+                        component: GroupMangger,
+                        meta: {title: "gb", ver: true}
+                    },
+                    {
+                        path: "gcl",
+                        name: "gcl",
+                        component: GroupCreaterList,
+                        meta: {ver: true}
+                    },
                 ]
             }
         ]

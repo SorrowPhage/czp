@@ -20,18 +20,12 @@
                             <i class="el-icon-s-home"></i>
                             <span slot="title">加入族群</span>
                         </el-menu-item>
-                        <el-menu-item index="/home/group/gb">
-                            <i class="el-icon-setting"></i>
-                            <span slot="title">信息修改</span>
-                        </el-menu-item>
+
                         <el-menu-item index="/home/group/create">
                             <i class="el-icon-user-solid"></i>
                             <span slot="title">新建族群</span>
                         </el-menu-item>
-                        <el-menu-item index="/home/group/gcl">
-                            <i class="el-icon-user-solid"></i>
-                            <span slot="title">人员管理</span>
-                        </el-menu-item>
+
                         <el-menu-item index="/home/group/gt">
                             <i class="el-icon-user-solid"></i>
                             <span slot="title">族群树</span>

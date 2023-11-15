@@ -4,7 +4,8 @@
             <div style="display: inline">
                 <SideInformationBar/>
                 <div class="sp-nav" @click="goGroup">族群信息</div>
-                <div class="sp-nav" @click="audit" >申请</div>
+                <div class="sp-nav" @click="audit" v-if="hasPerm('audit::apply')">族群操作</div>
+<!--                <div class="sp-nav" @click="large">large</div>-->
             </div>
         </div>
         <div  class="menu-right">
@@ -77,6 +78,11 @@ export default {
         audit() {
             this.$router.push({
                 name: "audit",
+            })
+        },
+        large() {
+            this.$router.push({
+                name: "czpHome",
             })
         },
         goIndex() {

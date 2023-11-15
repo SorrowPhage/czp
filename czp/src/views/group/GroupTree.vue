@@ -1,8 +1,8 @@
 <template>
     <div style="width: 100%;height:100%;display: flex;flex-direction: column">
-        <div style="width: 100%;background-color: white">
-            选择族群:
-            <el-select v-model="value" placeholder="请选择">
+        <div class="op_lan">
+            家族:
+            <el-select v-model="value" placeholder="请选择" size="mini">
                 <el-option
                     v-for="item in options"
                     :key="item.id"
@@ -10,10 +10,11 @@
                     :value="item.id">
                 </el-option>
             </el-select>
-            <el-button type="primary" plain @click="loadGroupTreeData">搜索</el-button>
-            <el-button type="primary" plain @click="laodGroupTreeHasSonGroupData">包含子级族群</el-button>
+            <el-button type="primary" plain @click="laodGroupTreeHasSonGroupData" style="float: right;" size="mini">包含子级族群</el-button>
+            <el-button type="primary" plain @click="loadGroupTreeData" style="float: right;margin-right: 15px" size="mini">搜索</el-button>
+            
         </div>
-        <div style="overflow: hidden;flex: 1;">
+        <div style="overflow: hidden;flex: 1;margin-top: 15px">
             <div class="BaseDragResize" style="height: 100%;width: 100%;">
                 <vue-draggable-resizable  class="BaseDragResize-drag"
                                          w="auto"
@@ -60,13 +61,16 @@ export default {
     methods:{
         loadData() {
             showLoading()
-            getRequest("/group/clan",{id: this.$store.state.CzpUser.id}).then(res=>{
-                hideLoadingAndNotify(res);
+            //这个接口能查出所有的族群信息
+            getRequest("/group/possess", {id: this.$store.state.CzpUser.id}).then(res => {
+                // hideLoadingAndNotify(res);
+                console.log(res)
+                hideLoading()
                 if (res.code === 200) {
                     this.options = res.data;
                 }
-            }).catch( err=>{
-                    hideLoadingAndNotify(err)
+            }).catch(err => {
+                hideLoadingAndNotify(err);
                 }
             );
         },
@@ -80,8 +84,8 @@ export default {
                     this.treeData = res.data;
                 }
             }).catch(err => {
-                    // hideLoadingAndNotify(err)
-                hideLoading();
+                    hideLoadingAndNotify(err)
+                // hideLoading();
                 }
             );
         },
@@ -144,6 +148,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.op_lan {
+    background-color: #f2f2f2;
+    border-left: 2px solid #367fff;
+    padding: 5px;
+    font-size: 14px;
+}
 .BaseDragResize {
     position: relative;
     width: 100%;

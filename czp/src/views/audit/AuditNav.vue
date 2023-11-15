@@ -14,11 +14,19 @@
                     >
                         <el-menu-item index="/home/audit/judge">
                             <i class="el-icon-user-solid"></i>
-                            <span slot="title" v-if="hasPerm('audit::apply')">审核管理</span>
+                            <span slot="title">审核管理</span>
                         </el-menu-item>
                         <el-menu-item index="/home/audit/ah">
                             <i class="el-icon-s-home"></i>
                             <span slot="title">历史操作</span>
+                        </el-menu-item>
+                        <el-menu-item index="/home/audit/gb">
+                            <i class="el-icon-setting"></i>
+                            <span slot="title">信息修改</span>
+                        </el-menu-item>
+                        <el-menu-item index="/home/audit/gcl">
+                            <i class="el-icon-user-solid"></i>
+                            <span slot="title">人员管理</span>
                         </el-menu-item>
                     </el-menu>
                 </el-col>
