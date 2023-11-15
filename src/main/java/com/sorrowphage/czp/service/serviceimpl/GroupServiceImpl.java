@@ -1,6 +1,5 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.entity.CzpUser;
@@ -190,10 +189,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return ResultMessage.success(resultData);
     }
 
-
     /**
-     * 递归查询包含子级节点的用户树，但是数据库设计的时候，创建者在当前族群和子级族群都有数据，
-     * 查询时，应该直接剔除掉这些用户：使用这种方法最高级族群的创建者也会被剔除，所以最高级族群不参与递归
+     * 递归查询包含子级节点的用户树，但是数据库设计的时候，子级族群的创建者在当前族群和子级族群都有数据，
+     * 查询时，应该直接剔除掉族群的创建者用户：使用这种方法最高级族群的创建者也会被剔除，所以最高级族群不参与递归
      * @param subgroup 子级族群节点
      * @return 所有的子级族群用户
      */
@@ -215,6 +213,13 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
             return null;
         }
         return resultList;
+    }
+
+    @Override
+    public ResultMessage userInGroups(String id) {
+        //查出该用户所在族群
+        List<GroupVO> dataList = groupMapper.selectAllGroupId();
+        return ResultMessage.success(dataList);
     }
 
 

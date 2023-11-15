@@ -65,4 +65,8 @@ public interface GroupMapper extends BaseMapper<Group> {
      * @return
      */
     List<UserVo> getUserListEliminateCreate(String s);
+
+    List<GroupVO> selectAllGroupId();
+
+
 }

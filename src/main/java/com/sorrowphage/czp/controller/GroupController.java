@@ -5,7 +5,6 @@ import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.service.GroupService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -125,8 +124,24 @@ public class GroupController {
         return groupService.groupTree(id);
     }
 
+    /**
+     * 查询id族群的族群树结构（包含子级族群）
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/hassontree")
     public ResultMessage groupTreeHasSon(@RequestParam("id") String id) {
         return groupService.groupTreeHasSon(id);
+    }
+
+    /**
+     * 查询普通用户所能查看的所有族群（和子级族群有关联的族群都应该返回）
+     * @param id
+     * @return
+     */
+    @GetMapping("/possess")
+    public ResultMessage userInGroups(@RequestParam("id") String id) {
+        return groupService.userInGroups(id);
     }
 }

@@ -54,4 +54,7 @@
 
 
     </select>
+    <select id="selectAllGroupId" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
+        select * from czp_group
+    </select>
 </mapper>

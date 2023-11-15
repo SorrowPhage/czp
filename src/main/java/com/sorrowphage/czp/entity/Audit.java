@@ -9,7 +9,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author SorrowPhage
@@ -42,6 +42,12 @@ public class Audit implements Serializable {
 
     @TableField("update_time")
     private String updateTime;
+
+    @TableField(exist = false)
+    private String operateId;
+
+    @TableField(exist = false)
+    private String cause;
 
 
 }

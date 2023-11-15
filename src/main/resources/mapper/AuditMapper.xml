@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sorrowphage.czp.mapper.AuditMapper">
     <insert id="insertToHistory">
-        insert into audit_history(`id`,`user_id`,`group_id`,`parent_id`,`status`,`create_time`,`update_time`)
-        values (#{id},#{userId},#{groupId},#{parentId},#{status},#{createTime},#{updateTime})
+        insert into audit_history(`id`,`user_id`,`group_id`,`parent_id`,`status`,`create_time`,`update_time`,`operate_id`,`cause`)
+        values (#{id},#{userId},#{groupId},#{parentId},#{status},#{createTime},#{updateTime},#{operateId},#{cause})
     </insert>
 
     <select id="auditList" resultType="com.sorrowphage.czp.entity.vo.AuditVO">
