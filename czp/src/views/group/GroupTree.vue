@@ -16,15 +16,8 @@
         </div>
         <div style="overflow: hidden;flex: 1;margin-top: 15px">
             <div class="BaseDragResize" style="height: 100%;width: 100%;">
-                <vue-draggable-resizable  class="BaseDragResize-drag"
-                                         w="auto"
-                                         h="auto"
-                                         :x="0"
-                                         :y="0"
-                                         :resizable="false"
-                                         :key="groupId"
-                                         parentLimitation
-                                         @resizing="onResize"
+                <vue-draggable-resizable  class="BaseDragResize-drag" w="auto" h="auto" :x="0" :y="0" :resizable="false" :key="groupId" parentLimitation
+                     @resizing="onResize"
                 >
                     <TreeChat :json="treeData"
                               ref="czpTree" @wheel.prevent="handleTableWheel($event)" ></TreeChat>

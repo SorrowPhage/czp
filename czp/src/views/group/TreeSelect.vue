@@ -3,7 +3,7 @@
         <tr>
             <td :class="{parentLevel: treeData.children, extend: treeData.children && treeData.extend}"
                 :colspan="treeData.children ? treeData.children.length * 2 : 1">
-                <div :class="{node: true}" style="background-color: #545c64" @click="apply(treeData)">
+                <div :class="{node: true}" >
                     <div v-if="treeData.name" class="person" @click="$emit('click-node', treeData)">
                         <div class="avat" style="border: none">
                             <img :src="treeData.avatar" :title="treeData.name"
@@ -21,9 +21,11 @@
                                 ({{ treeData.familyRank }})
                             </span>
                         </div>
+                        <el-button  @click="apply(treeData)">加入</el-button>
                     </div>
                     <div v-if="treeData.groupName" class="person">
                         <div class="name group_text">{{ treeData.groupName }}</div>
+                        <el-button  @click="apply(treeData)">加入</el-button>
                     </div>
                 </div>
                 <div v-if="treeData.children" class="extend_handle" @click="toggleExtend(treeData)"></div>
