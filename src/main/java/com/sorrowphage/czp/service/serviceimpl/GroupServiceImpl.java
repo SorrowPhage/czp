@@ -1,5 +1,6 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.entity.CzpUser;
@@ -8,6 +9,7 @@ import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.entity.UserGroup;
 import com.sorrowphage.czp.entity.vo.GroupVO;
 import com.sorrowphage.czp.entity.vo.UserVo;
+import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.mapper.GroupMapper;
 import com.sorrowphage.czp.mapper.UserGroupMapper;
 import com.sorrowphage.czp.service.GroupService;
@@ -15,10 +17,7 @@ import com.sorrowphage.czp.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +35,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     private final GroupMapper groupMapper;
 
     private final UserGroupMapper userGroupMapper;
+
+    private final CzpUserMapper czpUserMapper;
 
     @Override
     public ResultMessage createGroup(Group group) {
@@ -85,9 +86,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         if (!Objects.isNull(exist)) {
             return ResultMessage.failure("已在该族群当中");
         }
-
-        List<CzpUser> list = groupMapper.getUserList(id);
-        return ResultMessage.success(list);
+        // List<CzpUser> list = groupMapper.getUserList(id);
+        return this.groupTree(id);
     }
 
     @Override
@@ -220,6 +220,24 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         //查出该用户所在族群
         List<GroupVO> dataList = groupMapper.selectAllGroupId();
         return ResultMessage.success(dataList);
+    }
+
+    @Override
+    public ResultMessage groupUserNums(String id) {
+        Integer resultData = groupMapper.groupUserNums(id);
+        return ResultMessage.success(resultData);
+    }
+
+    @Override
+    public ResultMessage recommendGroup(String id) {
+        List<GroupVO> dataList = groupMapper.recommendGroup();
+        return ResultMessage.success(dataList);
+    }
+
+    @Override
+    public ResultMessage getClanUser(String id) {
+        List<UserVo> data = groupMapper.getClanUser(id);
+        return ResultMessage.success(data);
     }
 
 

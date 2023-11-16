@@ -39,4 +39,10 @@ public interface GroupService extends IService<Group> {
     ResultMessage groupTreeHasSon(String id);
 
     ResultMessage userInGroups(String id);
+
+    ResultMessage groupUserNums(String id);
+
+    ResultMessage recommendGroup(String id);
+
+    ResultMessage getClanUser(String id);
 }

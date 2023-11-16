@@ -69,4 +69,9 @@ public interface GroupMapper extends BaseMapper<Group> {
     List<GroupVO> selectAllGroupId();
 
 
+    Integer groupUserNums(String id);
+
+    List<GroupVO> recommendGroup();
+
+    List<UserVo> getClanUser(String id);
 }

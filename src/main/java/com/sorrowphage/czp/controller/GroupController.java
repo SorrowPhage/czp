@@ -137,11 +137,42 @@ public class GroupController {
 
     /**
      * 查询普通用户所能查看的所有族群（和子级族群有关联的族群都应该返回）
+     *
      * @param id
      * @return
      */
     @GetMapping("/possess")
     public ResultMessage userInGroups(@RequestParam("id") String id) {
         return groupService.userInGroups(id);
+    }
+
+    /**
+     * 获取族群人数
+     * @param id 族群id
+     * @return
+     */
+    @GetMapping("/nums")
+    public ResultMessage groupUserNums(@RequestParam("id") String id) {
+        return groupService.groupUserNums(id);
+    }
+
+    /**
+     * 根据用户推荐族群
+     * @param id 用户id
+     * @return
+     */
+    @GetMapping("/recommend")
+    public ResultMessage recommendGroup(@RequestParam("id") String id) {
+        return groupService.recommendGroup(id);
+    }
+
+    /**
+     * 获取clan用户信息
+     * @param id 族群id
+     * @return
+     */
+    @GetMapping("/clanu")
+    public ResultMessage getClanUser(@RequestParam("id") String id) {
+        return groupService.getClanUser(id);
     }
 }
