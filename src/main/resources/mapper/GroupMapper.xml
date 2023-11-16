@@ -57,4 +57,15 @@
     <select id="selectAllGroupId" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
         select * from czp_group
     </select>
+    <select id="groupUserNums" resultType="java.lang.Integer">
+        select count(*) from user_group where group_id=#{id}
+    </select>
+    <select id="recommendGroup" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
+        select * from czp_group order by rand() limit 10
+    </select>
+    <select id="getClanUser" resultType="com.sorrowphage.czp.entity.vo.UserVo">
+        select u.* from czp_group g
+            left join czp_user u on u.id = g.clan_elder
+        where g.id=#{id}
+    </select>
 </mapper>
