@@ -1,15 +1,13 @@
 <template>
-    <el-container>
-        <el-header>Header</el-header>
-        <el-main>
-
-        </el-main>
-    </el-container>
+    <div>
+            ajfj
+    </div>
 </template>
 
 <script>
 export default {
     name: "UserHome",
+
 }
 </script>
 

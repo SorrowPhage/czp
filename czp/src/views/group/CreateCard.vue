@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div style="width: 25px;height: 25px;margin-left: 5px">
         <el-popover
             placement="top-start"
-            width="300"
+            width="50"
             trigger="hover"
         >
             <div>
