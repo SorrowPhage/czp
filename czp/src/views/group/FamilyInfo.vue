@@ -87,18 +87,6 @@ export default {
                 }
             })
         },
-        //成为第一个节点
-        becomeFirst() {
-            postRequest("/audit/apply", {groupId: this.groupId, userId: this.$store.state.CzpUser.id}).then(res => {
-                if (res.code === 200) {
-                    this.$message({
-                        message: res.message,
-                        type: "success",
-                    })
-                    this.active = this.active + 1;
-                }
-            })
-        },
         selectGroup(id) {
             this.groupId = id;
             //写成族谱树，让用户点击某一个节点，加入

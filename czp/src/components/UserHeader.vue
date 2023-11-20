@@ -3,8 +3,11 @@
         <div class="nav-box">
             <div style="display: inline">
                 <SideInformationBar/>
+                <input v-model="search" class="sp-search-input" placeholder="Search" type="text" @keydown.enter="goSearch"/>
+                <i class="el-icon-search sp-search-icon" @click="goSearch"></i>
                 <div class="sp-nav" @click="goGroup">族群信息</div>
                 <div class="sp-nav" @click="audit" v-if="hasPerm('audit::apply')">族群操作</div>
+                <div class="sp-nav" @click="message" >消息</div>
 <!--                <div class="sp-nav" @click="large">large</div>-->
             </div>
         </div>
@@ -52,6 +55,7 @@ export default {
         return{
             dialogVisible: false,
             isTrue: false,
+            search: '',
             // userInfo:{
             //     avatar: '',
             //     name: '',
@@ -62,8 +66,13 @@ export default {
         ...mapState("CzpUser", ["id", "avatar", "name"])
     },
     methods: {
-        personalCenter() {
-        
+        goSearch() {
+            this.$router.push({
+                name: 'search',
+                query:{
+                    q: this.search,
+                }
+            })
         },
         createGroup() {
             this.$router.push({
@@ -78,6 +87,11 @@ export default {
         audit() {
             this.$router.push({
                 name: "audit",
+            })
+        },
+        message() {
+            this.$router.push({
+                name: "msg",
             })
         },
         large() {

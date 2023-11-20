@@ -18,6 +18,11 @@ import AuditNav from "@/views/audit/AuditNav";
 import AuditHistory from "@/views/audit/AuditHistory";
 import GroupCreaterList from "@/views/audit/GroupCreaterList";
 import GroupTree from "@/views/group/GroupTree";
+import SearchNav from "@/views/search/SearchNav";
+import user from "@/views/search/User";
+import UserDeatil from "@/views/search/UserDeatil";
+import Chat from "@/views/chat/Chat";
+import ChatNav from "@/views/chat/ChatNav";
 
 const routers = [
     {
@@ -125,7 +130,6 @@ const routers = [
                     }
                 ]
             },
-
             {
                 path: "audit",
                 name: "audit",
@@ -156,6 +160,43 @@ const routers = [
                         name: "gcl",
                         component: GroupCreaterList,
                         meta: {ver: true}
+                    },
+                ]
+            },
+            {
+                name: "search",
+                path: "search",
+                component: SearchNav,
+                redirect: "/home/search/user",
+                meta: {title: "搜索", ver: true},
+                children: [
+                    {
+                        path: "user",
+                        name: 'user',
+                        component: user,
+                        meta: {title: "搜索", ver: true},
+                    }
+                ]
+            },
+            {
+                path: "detail",
+                name: "detail",
+                component: UserDeatil,
+                meta: {title: "用户", ver: true},
+            },
+
+            {
+                path: 'msg',
+                name: "msg",
+                component: ChatNav,
+                redirect: "/home/msg/chat",
+                meta: {title: "消息", ver: true},
+                children: [
+                    {
+                        path: "chat",
+                        name: "chat",
+                        component: Chat,
+                        meta: {title: "消息", ver: true},
                     },
                 ]
             }
