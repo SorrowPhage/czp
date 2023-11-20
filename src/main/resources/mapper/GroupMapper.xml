@@ -6,7 +6,9 @@
         insert into `user_group`(`user_id`, `group_id`, `create_time`, `update_time`)
         values (#{userId}, #{groupId}, #{createTime}, #{updateTime});
     </insert>
-    <insert id="becomeFirst"></insert>
+    <insert id="becomeFirst">
+
+    </insert>
     <select id="selectGroupList" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
         select g.*,pg.group_name as parent_name from user_group ug
             left join czp_group g on g.id=ug.group_id
@@ -50,9 +52,6 @@
         select u.*,ug.parent_id from user_group ug
             left join czp_user u on u.id=ug.user_id
         where ug.group_id=#{id} and NOT ISNULL(ug.parent_id)
-
-
-
     </select>
     <select id="selectAllGroupId" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
         select * from czp_group

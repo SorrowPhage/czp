@@ -139,11 +139,33 @@ public class CzpUserController {
 
     /**
      * 修改密码
+     *
      * @param params
      * @return
      */
     @PostMapping("/updatePassword")
     public ResultMessage updatePassword(@RequestBody Map<String, String> params) {
         return czpUserService.updatePassword(params);
+    }
+
+    /**
+     * 搜索用户pageIndex: this.currentPage, pageSize: this.pageSize
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/search")
+    public ResultMessage searchUserList(@RequestParam("id") String id, @RequestParam("pageIndex") String pageIndex, @RequestParam("pageSize") String pageSize) {
+        return czpUserService.searchUser(id, pageIndex, pageSize);
+    }
+
+    /**
+     * 获取用户信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/su")
+    public ResultMessage searchUser(@RequestParam("id") String id) {
+        return czpUserService.getUser(id);
     }
 }

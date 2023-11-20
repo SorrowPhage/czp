@@ -52,4 +52,8 @@ public interface CzpUserService extends IService<CzpUser> {
     ResultMessage updateUserInfo(CzpUser czpUser);
 
     ResultMessage updatePassword(Map<String, String> params);
+
+    ResultMessage searchUser(String id,String pageIndex,String pageSize);
+
+    ResultMessage getUser(String id);
 }

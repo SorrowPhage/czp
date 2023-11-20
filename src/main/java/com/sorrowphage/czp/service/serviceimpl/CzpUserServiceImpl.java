@@ -1,7 +1,10 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Email;
 import com.sorrowphage.czp.entity.LoginUser;
@@ -220,6 +223,23 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
         } else {
             return ResultMessage.failure("密码错误");
         }
+    }
+
+    @Override
+    public ResultMessage searchUser(String id,String pageIndex,String pageSize) {
+        LambdaQueryWrapper<CzpUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(CzpUser::getId, id).or().like(CzpUser::getName, id);
+        PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+        List<CzpUser> list = this.list(wrapper);
+        return ResultMessage.success(new PageInfo(list));
+    }
+
+    @Override
+    public ResultMessage getUser(String id) {
+        LambdaQueryWrapper<CzpUser> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(CzpUser::getId, id);
+        CzpUser user = this.getOne(wrapper);
+        return ResultMessage.success(user);
     }
 
 }
