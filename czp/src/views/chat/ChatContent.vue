@@ -5,8 +5,6 @@
         </div>
         <div class="message-list">
             <div class="message-list-content min_h_100">
-<!--                <ChatLine v-for="u in userList" :content="u.content" :avatar-url="u.avatarUrl" :time="u.time" />-->
-<!--                <ChatLineRight v-for="u in userList" :content="u.content" :avatar-url="u.avatarUrl" :time="u.time" />-->
                 <div v-for="(m,index) in msgList" :key="index">
                     <chat-line-right v-if="m.fromId===$store.state.CzpUser.id" :content="m.content" :avatar-url="m.user.avatar" :type="m.type" :time="m.sendTime"/>
                     <chat-line v-else :content="m.content" :avatar-url="m.user.avatar" :type="m.type" :time="m.sendTime"/>
@@ -57,40 +55,6 @@ export default {
     props: ['id'],
     data() {
         return{
-            userList:[
-                {
-                    content: "哈哈哈",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },
-                {
-                    content: "1",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },
-                {
-                    content: "1",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },
-                {
-                    content: "1",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },                {
-                    content: "1",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },                {
-                    content: "1",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },                {
-                    content: "1",
-                    avatarUrl:"http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png",
-                    time: "2023-10-01",
-                },
-            ],
             msgList: [],
             text:'',
             showEmoji: false,
