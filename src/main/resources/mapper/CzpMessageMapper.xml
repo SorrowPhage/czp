@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sorrowphage.czp.mapper.CzpMessageMapper">
+
+    <select id="getChatList" resultType="com.sorrowphage.czp.entity.CzpUser">
+        select u.* from czp_user u
+            left join chat_list cl on  cl.other_id=u.id
+        where cl.own_id=#{id} and cl.`status`="1"
+    </select>
+    <select id="getMessageList" resultType="com.sorrowphage.czp.entity.vo.MessageVO">
+        select * from czp_message where (from_id=#{u1} and to_id=#{u2}) or (from_id=#{u2} and to_id=#{u1})
+    </select>
+</mapper>
