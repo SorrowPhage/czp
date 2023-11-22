@@ -14,8 +14,8 @@
                         </div>
                         <div class="list_container ps--active-y">
                                 <div class="list">
-                                    <UserItem
-                                        v-for="i in count" class="infinite-list-item" v-infinite-scroll="load" :id="i" @click.native="chat(i)"
+                                    <UserItem v-for="u in chatList" class="infinite-list-item"  :style="u.id === $route.query.id ? ' background-color: #e4e5e6;' : 'color:#ffffff;'"
+                                          :key="u.id"  :id="u.id" :avatar="u.avatar" :name="u.name" :des="u.des" @click.native="chat(u.id)"
                                     />
                                 </div>
                         </div>
@@ -38,6 +38,7 @@
 <script>
 import ChatContent from "@/views/chat/ChatContent";
 import UserItem from "@/views/chat/UserItem";
+import {getRequest} from "@/api/api";
 export default {
     name: "Chat",
     components:{UserItem,ChatContent},
@@ -56,6 +57,8 @@ export default {
             tabIndex: 2,
             count: 10,
             showContent: true,
+            chatList: [],
+            
         }
     },
     watch: {
@@ -67,13 +70,23 @@ export default {
         },
     },
     mounted() {
+        this.loadData()
         if (this.$route.query.id !== undefined) {
             this.showContent = false;
         } else {
             this.showContent = true;
+            //加载数据
         }
     },
     methods: {
+        loadData() {
+            getRequest("/czp-message/chat-list",{id:this.$store.state.CzpUser.id}).then(res=>{
+                console.log(res);
+                if (res.code === 200) {
+                    this.chatList = res.data;
+                }
+            })
+        },
         show() {
             if (this.$route.query.id !== undefined) {
                 this.showContent = false;
@@ -265,5 +278,7 @@ export default {
         }
     }
 }
-
+.showuser{
+    background-color: #e4e5e6;
+}
 </style>

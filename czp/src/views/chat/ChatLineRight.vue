@@ -25,11 +25,7 @@ export default {
 <style scoped>
 .chat-line-box {
     z-index: 99;
-    font-family: "Ubuntu Light", "Ubuntu", "Ubuntu Mono", "Segoe Print", "Segoe UI", serif;
-    /*border:0;*/
-    /*border-bottom: none;*/
-    /*padding:10px;*/
-    font-size: 1.0em;
+    font-size: 14px;
     display: flex;
     justify-content: flex-end;
     padding: 5px;
@@ -37,15 +33,11 @@ export default {
 .chat-line-avatar-box {
     margin-right: 5px;
     width: 30px;
-    /*background: dimgrey;*/
 }
 .chat-line-content-box {
-    /*width: 90%;*/
-    /*white-space: pre-wrap;*/
     margin-left: 35px;
-    /*width: 100%;*/
     margin-right: 5px;
     border-radius: 3px;
-    background: #227cf9;
+    background: #ffffff;
 }
 </style>

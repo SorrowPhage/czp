@@ -1,18 +1,15 @@
 <template>
-    <div class="list_item" @mouseenter="showDiv=true" @mouseleave="showDiv=false">
-        <div class="avatar">
-        
-        </div>
+    <div class="list_item"  @mouseenter="showDiv=true" @mouseleave="showDiv=false">
+<!--        <div class="avatar">-->
+<!--        -->
+<!--        </div>-->
+        <el-avatar :src="avatar" style="margin-right: 8px;"/>
         <div class="name_box">
             <div class="name">
-                "给我一个镜头"{{id}}
+                {{name}}
             </div>
             <div class="last_word">
-                尊敬的团伙你好，咱们首部系列片《犯罪日记：罪与罚》已正式完结，非常感谢您的喜欢和一路的支持，后续本频道恢复正常更新，会开始更新日常的短片内容《人间日记剧场版》，并且《诈术第三季》的内容策划也在准备提上日程，最后衷心感谢已包月充电入股的骨干团伙，今年大部分时间都在更新了充电内容，第一次尝试这样的模式，能得到您的支持和理解，我非常幸运，在频道最困难的时期，您的鼓励和支持，让本频道终于顶住了低谷期的压力，瑞思拜！
-    
-                （另外已包月充电的团伙请回复一下私信，我发一下骨干专属群的二维码给您，群内除了日常吹水，分享故事，还可以与我一起谈论内容上的创作doge）
-    
-                犯罪日记·罪与罚全集链接：https://www.bilibili.com/blackboard/activity-q64MMzZ3MY.html
+                {{des}}
             </div>
         </div>
         <transition  name="changeShow" appear>
@@ -29,7 +26,7 @@
 <script>
 export default {
     name: "UserItem",
-    props: ['id'],
+    props: ['id',"avatar","name","des"],
     data() {
         return{
             showDiv: false,
@@ -151,6 +148,9 @@ export default {
     
 }
 .list_item:hover{
+    background-color: #e4e5e6;
+}
+.showuser{
     background-color: #e4e5e6;
 }
 .changeShow-enter-active {

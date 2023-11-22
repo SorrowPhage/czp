@@ -13,7 +13,7 @@
                                 <span style="font-size: 20px;font-family: 华文行楷">{{user.name}}</span>
                             </div>
                             <div style="width: 200px;display: flex;align-items: center">
-                                <el-button type="primary" plain >发消息</el-button>
+                                <el-button type="primary" plain @click.native="chat(user.id)">发消息</el-button>
                             </div>
                         </div>
                     </div>
@@ -46,6 +46,14 @@ export default {
                 console.log(res);
                 if (res.code === 200) {
                     this.user = res.data;
+                }
+            })
+        },
+        chat(id) {
+            this.$router.push({
+                name:"chat",
+                query:{
+                    id: id,
                 }
             })
         },

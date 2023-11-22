@@ -5,8 +5,12 @@
         </div>
         <div class="message-list">
             <div class="message-list-content min_h_100">
-                <ChatLine v-for="u in userList" :content="u.content" :avatar-url="u.avatarUrl" :time="u.time" />
-                <ChatLineRight v-for="u in userList" :content="u.content" :avatar-url="u.avatarUrl" :time="u.time" />
+<!--                <ChatLine v-for="u in userList" :content="u.content" :avatar-url="u.avatarUrl" :time="u.time" />-->
+<!--                <ChatLineRight v-for="u in userList" :content="u.content" :avatar-url="u.avatarUrl" :time="u.time" />-->
+                <div v-for="(m,index) in msgList" :key="index">
+                    <chat-line-right v-if="m.fromId===$store.state.CzpUser.id" :content="m.content" :avatar-url="m.user.avatar" :type="m.type" :time="m.sendTime"/>
+                    <chat-line v-else :content="m.content" :avatar-url="m.user.avatar" :type="m.type" :time="m.sendTime"/>
+                </div>
             </div>
         </div>
         <div class="send-box">
@@ -46,6 +50,7 @@
 import ChatLine from "@/views/chat/ChatLine";
 import ChatLineRight from "@/views/chat/ChatLineRight";
 import {VEmojiPicker} from 'v-emoji-picker'
+import {getRequest} from "@/api/api";
 export default {
     name: "ChatContent",
     components:{ChatLine,ChatLineRight,VEmojiPicker},
@@ -86,17 +91,27 @@ export default {
                     time: "2023-10-01",
                 },
             ],
+            msgList: [],
             text:'',
             showEmoji: false,
         }
     },
     mounted() {
+        this.loadData();
         document.addEventListener('click', this.emojiListener);
     },
     destroyed() {
         document.removeEventListener('click',this.emojiListener)
     },
     methods:{
+        loadData() {
+            getRequest("/czp-message/message-list",{u1:this.$store.state.CzpUser.id,u2:this.$route.query.id}).then(res=>{
+                console.log(res);
+                if (res.code === 200) {
+                    this.msgList = res.data;
+                }
+            })
+        },
         selectEmoji(emoji) {// 选择emoji后调用的函数
             let input = document.getElementById("input")
             let startPos = input.selectionStart

@@ -28,8 +28,7 @@ export default {
 <style scoped>
 .chat-line-box {
     z-index: 99;
-    font-family: "Ubuntu Light", "Ubuntu", "Ubuntu Mono", "Segoe Print", "Segoe UI", serif;
-    font-size: 1.0em;
+    font-size: 14px;
     display: flex;
     padding: 5px;
 }
@@ -40,6 +39,6 @@ export default {
     margin-left: 5px;
     margin-right: 35px;
     border-radius: 3px;
-    background: #49668d;
+    background: #ffffff;
 }
 </style>
