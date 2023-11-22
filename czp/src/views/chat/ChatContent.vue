@@ -26,12 +26,13 @@
                         v-model="text"
                         type="textarea"
                         :autosize="{ minRows: 2, maxRows: 2}"
+                        maxlength="500"
                         resize="none"
                         placeholder="请输入内容">
                     </el-input>
                 </div>
                 <div class="indicator" style="bottom: -30px;right: 100px">
-                    <span>0</span>/<span>500</span>
+                    <span>{{text.length}}</span>/<span>500</span>
                 </div>
             </div>
             <div class="row right">
@@ -241,6 +242,14 @@ export default {
                 border-radius: 4px;
                 word-break: break-word;
                 word-wrap: break-word;
+                /deep/ .el-textarea__inner{
+                    border: none;
+                    background-color: #f4f5f7;
+                    font-size: 14px;
+                }
+                /deep/ .el-textarea__inner:hover {
+                    border: none;
+                }
             }
             .indicator {
                 color: #c0c0c0;
