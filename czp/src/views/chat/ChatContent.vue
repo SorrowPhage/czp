@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="row right">
-                <button  class="btn-box send-btn" title="enter 发送 shift + enter 换行">发送</button>
+                <button  class="btn-box send-btn" title="enter 发送 shift + enter 换行" @click="send">发送</button>
             </div>
         </div>
     </div>
@@ -48,7 +48,10 @@
 import ChatLine from "@/views/chat/ChatLine";
 import ChatLineRight from "@/views/chat/ChatLineRight";
 import {VEmojiPicker} from 'v-emoji-picker'
-import {getRequest} from "@/api/api";
+import {getRequest,postRequest} from "@/api/api";
+import { sendWebsocket,closeWebsocket } from '@/utils/websocket.js'
+import user from "@/views/search/User";
+let socket;
 export default {
     name: "ChatContent",
     components:{ChatLine,ChatLineRight,VEmojiPicker},
@@ -64,18 +67,50 @@ export default {
         this.loadData();
         document.addEventListener('click', this.emojiListener);
     },
+    beforeDestroy() {
+        closeWebsocket();
+    },
     destroyed() {
-        document.removeEventListener('click',this.emojiListener)
+        document.removeEventListener('click', this.emojiListener);
     },
     methods:{
         loadData() {
-            getRequest("/czp-message/message-list",{u1:this.$store.state.CzpUser.id,u2:this.$route.query.id}).then(res=>{
+            getRequest("/czp-message/message-list", {
+                u1: this.$store.state.CzpUser.id,
+                u2: this.$route.query.id
+            }).then(res => {
                 console.log(res);
                 if (res.code === 200) {
                     this.msgList = res.data;
                 }
+            });
+            this.requestWs();
+        },
+        requestWs() {
+            closeWebsocket();
+            sendWebsocket(this.$store.state.CzpUser.id, {}, this.onmessage, this.onerror);
+        },
+        
+        onmessage(data) {
+            console.log(data)
+        },
+    
+        onerror() {
+        
+        },
+        
+        send() {
+            var param = {
+                fromId: this.$store.state.CzpUser.id,
+                toId: this.$route.query.id,
+                content: this.text,
+                type: "user",
+            };
+            postRequest("/czp-message/send",param).then(res=>{
+            
             })
         },
+        
         selectEmoji(emoji) {// 选择emoji后调用的函数
             let input = document.getElementById("input")
             let startPos = input.selectionStart
