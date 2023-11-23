@@ -1,5 +1,6 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sorrowphage.czp.entity.CzpMessage;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.ResultMessage;
@@ -66,8 +67,9 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
         //判断用户是否在线
         boolean online = socketServer.isOnline(message.getToId());
         if (online) {
-            //将消息进行推送
-            socketServer.appointSending(message.getToId(), message.getContent());
+            //将消息进行推送,
+            JSONObject o = (JSONObject) JSONObject.toJSON(message);
+            socketServer.appointSending(message.getToId(), o.toJSONString());
         }
 
         return null;
