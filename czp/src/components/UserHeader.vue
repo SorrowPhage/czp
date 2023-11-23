@@ -46,7 +46,7 @@
 import {mapState} from "vuex"
 import SideInformationBar from "@/components/SideInformationBar";
 import {sessionReplaceStore} from "@/utils/session_util"
-import {getRequest} from "@/api/api";
+import {closeWebsocket,sendWebsocket} from "@/utils/websocket";
 import CreateGroup from "@/views/group/CreateGroup";
 export default {
     name: "UserHeader",
@@ -65,7 +65,36 @@ export default {
     computed: {
         ...mapState("CzpUser", ["id", "avatar", "name"])
     },
+    mounted() {
+        document.addEventListener('click', this.showListUI);
+        // this.loadData();
+        this.requestWs();
+    },
+    destroyed() {
+        document.removeEventListener('click', this.showListUI);
+    },
+    beforeDestroy() {
+        closeWebsocket();
+    },
     methods: {
+        requestWs() {
+            closeWebsocket();
+            sendWebsocket(this.$store.state.CzpUser.id, {}, this.onmessage, this.onerror);
+        },
+    
+        onmessage(data) {
+            //通过data中的type来触发事件
+            data = JSON.parse(data)
+            if (data.type === "user") {
+                //聊天信息
+                this.$bus.$emit('chat', data);
+            }
+
+        },
+    
+        onerror() {
+        
+        },
         goSearch() {
             this.$router.push({
                 name: 'search',
@@ -139,13 +168,6 @@ export default {
             sessionStorage.setItem('store', JSON.stringify(this.$store.state))
         });
     },
-    mounted() {
-        document.addEventListener('click', this.showListUI);
-        // this.loadData();
-    },
-    destroyed() {
-        document.removeEventListener('click', this.showListUI);
-    }
     
 }
 </script>

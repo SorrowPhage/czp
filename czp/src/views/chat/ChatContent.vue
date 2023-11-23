@@ -49,9 +49,7 @@ import ChatLine from "@/views/chat/ChatLine";
 import ChatLineRight from "@/views/chat/ChatLineRight";
 import {VEmojiPicker} from 'v-emoji-picker'
 import {getRequest,postRequest} from "@/api/api";
-import { sendWebsocket,closeWebsocket } from '@/utils/websocket.js'
 import user from "@/views/search/User";
-let socket;
 export default {
     name: "ChatContent",
     components:{ChatLine,ChatLineRight,VEmojiPicker},
@@ -65,10 +63,11 @@ export default {
     },
     mounted() {
         this.loadData();
+        this.$bus.$on('chat', this.chat);
         document.addEventListener('click', this.emojiListener);
     },
     beforeDestroy() {
-        closeWebsocket();
+        this.$bus.$off('chat');
     },
     destroyed() {
         document.removeEventListener('click', this.emojiListener);
@@ -84,21 +83,10 @@ export default {
                     this.msgList = res.data;
                 }
             });
-            this.requestWs();
         },
-        requestWs() {
-            closeWebsocket();
-            sendWebsocket(this.$store.state.CzpUser.id, {}, this.onmessage, this.onerror);
+        chat(data) {
+            console.log(data);
         },
-        
-        onmessage(data) {
-            console.log(data)
-        },
-    
-        onerror() {
-        
-        },
-        
         send() {
             var param = {
                 fromId: this.$store.state.CzpUser.id,
