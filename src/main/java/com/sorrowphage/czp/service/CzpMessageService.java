@@ -17,4 +17,7 @@ public interface CzpMessageService extends IService<CzpMessage> {
     ResultMessage getChatList(String id);
 
     ResultMessage getMessageList(String u1, String u2);
+
+    ResultMessage sendMessage(CzpMessage message);
+
 }

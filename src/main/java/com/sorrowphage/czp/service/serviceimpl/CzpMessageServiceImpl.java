@@ -9,9 +9,11 @@ import com.sorrowphage.czp.mapper.CzpMessageMapper;
 import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.service.CzpMessageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sorrowphage.czp.socket.MsgChatWebSocketServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.chrono.IsoChronology;
 import java.util.List;
 
 /**
@@ -30,6 +32,8 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
 
     private final CzpUserMapper czpUserMapper;
 
+    private final MsgChatWebSocketServer socketServer;
+
 
     @Override
     public ResultMessage getChatList(String id) {
@@ -40,6 +44,7 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
     @Override
     public ResultMessage getMessageList(String u1, String u2) {
         //TODO 将用户查询的信息中的未读修改为已读
+
         List<MessageVO> dataList = czpMessageMapper.getMessageList(u1, u2);
 
         UserVo user1 = czpUserMapper.userInfo(u1);
@@ -54,5 +59,17 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
         }
 
         return ResultMessage.success(dataList);
+    }
+
+    @Override
+    public ResultMessage sendMessage(CzpMessage message) {
+        //判断用户是否在线
+        boolean online = socketServer.isOnline(message.getToId());
+        if (online) {
+            //将消息进行推送
+            socketServer.appointSending(message.getToId(), message.getContent());
+        }
+
+        return null;
     }
 }

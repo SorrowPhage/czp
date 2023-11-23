@@ -37,7 +37,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
         //获取token
         String token = request.getHeader("token");
-        //这样不是长久之计，前台想办法让，这些不传token
+        token = !StringUtils.hasText(token) ? request.getHeader("Sec-WebSocket-Protocol") : token;
+        //TODO 这样不是长久之计
         if (!StringUtils.hasText(token) || "/czpUser/login".equals(requestURI) || "/czpUser/sendcode".equals(requestURI) || "/czpUser/register".equals(requestURI)) {
             //放行
             filterChain.doFilter(request, response);
