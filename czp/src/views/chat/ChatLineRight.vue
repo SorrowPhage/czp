@@ -29,6 +29,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     padding: 5px;
+    align-items: center;
 }
 .chat-line-avatar-box {
     margin-right: 5px;
@@ -39,5 +40,9 @@ export default {
     margin-right: 5px;
     border-radius: 3px;
     background: #ffffff;
+    min-height: 16px;
+    padding: 0 8px 8px;
+    overflow: hidden;
+    position: relative;
 }
 </style>

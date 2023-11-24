@@ -23,6 +23,7 @@ import user from "@/views/search/User";
 import UserDeatil from "@/views/search/UserDeatil";
 import Chat from "@/views/chat/Chat";
 import ChatNav from "@/views/chat/ChatNav";
+import AuditResult from "@/views/chat/AuditResult";
 
 const routers = [
     {
@@ -198,6 +199,12 @@ const routers = [
                         component: Chat,
                         meta: {title: "消息", ver: true},
                     },
+                    {
+                        path: "ar",
+                        name: "ar",
+                        component: AuditResult,
+                        meta: {title: "消息", ver: true},
+                    }
                 ]
             }
         ]

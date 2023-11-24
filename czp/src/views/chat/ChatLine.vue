@@ -5,7 +5,6 @@
         </div>
         <el-popover
             placement="top-start"
-            
             width="200"
             trigger="click"
             :content="time">
@@ -31,6 +30,7 @@ export default {
     font-size: 14px;
     display: flex;
     padding: 5px;
+    align-items: center;
 }
 .chat-line-avatar-box {
     width: 30px;
@@ -40,5 +40,9 @@ export default {
     margin-right: 35px;
     border-radius: 3px;
     background: #ffffff;
+    min-height: 16px;
+    padding: 0 8px 8px;
+    overflow: hidden;
+    position: relative;
 }
 </style>

@@ -3,8 +3,8 @@
         <div class="title">
             <span style="font-size: 14px;">{{id}}</span>
         </div>
-        <div class="message-list">
-            <div class="message-list-content min_h_100">
+        <div ref="display" class="message-list">
+            <div  class="message-list-content min_h_100">
                 <div v-for="(m,index) in msgList" :key="index">
                     <chat-line-right v-if="m.fromId===$store.state.CzpUser.id" :content="m.content" :avatar-url="m.user.avatar" :type="m.type" :time="m.sendTime"/>
                     <chat-line v-else :content="m.content" :avatar-url="m.user.avatar" :type="m.type" :time="m.sendTime"/>
@@ -50,6 +50,7 @@ import ChatLineRight from "@/views/chat/ChatLineRight";
 import {VEmojiPicker} from 'v-emoji-picker'
 import {getRequest,postRequest} from "@/api/api";
 import user from "@/views/search/User";
+import {Message} from "element-ui";
 export default {
     name: "ChatContent",
     components:{ChatLine,ChatLineRight,VEmojiPicker},
@@ -60,6 +61,18 @@ export default {
             text:'',
             showEmoji: false,
         }
+    },
+    watch: {
+        msgList() {
+            this.$nextTick(() => {
+                this.$refs.display.scrollTop = this.$refs.display.scrollHeight;
+            });
+        },
+        '$route.query.id': {
+            handler() {
+                this.loadData();
+            },
+        },
     },
     mounted() {
         this.loadData();
@@ -78,27 +91,40 @@ export default {
                 u1: this.$store.state.CzpUser.id,
                 u2: this.$route.query.id
             }).then(res => {
-                console.log(res);
                 if (res.code === 200) {
                     this.msgList = res.data;
+                } else {
+                    Message.error(res.message);
+                    this.$router.push({
+                        name: "chat",
+                    })
                 }
             });
         },
         chat(data) {
-            console.log(data);
+            //需要判断fromId是否是当前用户，若不是则不将该消息推送
+            if (data.fromId === this.$route.query.id) {
+                this.msgList.push(data);
+            } else {
+                this.$notify({title:data.user.name,
+                    message:data.content
+                })
+            }
         },
         send() {
-            var param = {
+            const param = {
                 fromId: this.$store.state.CzpUser.id,
                 toId: this.$route.query.id,
                 content: this.text,
                 type: "user",
             };
-            postRequest("/czp-message/send",param).then(res=>{
-            
-            })
+            postRequest("/czp-message/send", param).then(res => {
+                if (res.code === 200) {
+                    this.msgList.push(res.data);
+                    this.text = '';
+                }
+            });
         },
-        
         selectEmoji(emoji) {// 选择emoji后调用的函数
             let input = document.getElementById("input")
             let startPos = input.selectionStart

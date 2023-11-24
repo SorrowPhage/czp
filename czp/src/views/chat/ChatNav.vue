@@ -14,6 +14,10 @@
                     <i class="el-icon-s-home"></i>
                     <span slot="title">消息</span>
                 </el-menu-item>
+                <el-menu-item index="/home/msg/ar">
+                    <i class="el-icon-s-home"></i>
+                    <span slot="title">申请</span>
+                </el-menu-item>
             </el-menu>
         </div>
         <div class="right_content">

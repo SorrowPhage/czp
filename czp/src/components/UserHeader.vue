@@ -88,6 +88,12 @@ export default {
             if (data.type === "user") {
                 //聊天信息
                 this.$bus.$emit('chat', data);
+            }else if (data.type === "audit") {
+                this.$notify({
+                    title: "审核结果",
+                    message: data.updateTime + "：管理员" + (data.status === "1" ? "同意" : "拒绝" + "您的申请"),
+                    duration: 0
+                });
             }
 
         },
