@@ -23,6 +23,7 @@ public class WebSocketConfig extends ServerEndpointConfig.Configurator {
 
     @Override
     public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
+        //websocket携带Sec-WebSocket-Protocol时的正确响应
         List<String> list = request.getHeaders().get("Sec-WebSocket-Protocol");
         response.getHeaders().put("Sec-WebSocket-Protocol", list);
         super.modifyHandshake(sec, request, response);

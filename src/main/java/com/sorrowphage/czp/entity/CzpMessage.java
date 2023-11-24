@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import com.sorrowphage.czp.entity.vo.UserVo;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author SorrowPhage
@@ -46,5 +48,6 @@ public class CzpMessage implements Serializable {
     @TableField("create_time")
     private String createTime;
 
-
+    @TableField(exist = false)
+    private UserVo user;
 }

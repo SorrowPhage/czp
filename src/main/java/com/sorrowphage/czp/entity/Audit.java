@@ -50,4 +50,6 @@ public class Audit implements Serializable {
     private String cause;
 
 
+    @TableField(exist = false)
+    private String type;
 }

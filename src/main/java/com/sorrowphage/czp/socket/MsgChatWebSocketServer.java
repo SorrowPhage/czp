@@ -51,7 +51,7 @@ public class MsgChatWebSocketServer {
         webSocketSet.put(userId, this);
         log.info(userId + "链接");
         log.info("当前人数:" + webSocketSet.size());
-        this.appointSending(userId, "hello");
+        // this.appointSending(userId, "hello");
     }
 
     /**
@@ -88,9 +88,21 @@ public class MsgChatWebSocketServer {
         }
     }
 
-    //判断用户是否在线
+    /**
+     * 判断用户是否在线
+     * @param userId 用户id
+     * @return ture在线，false不在线
+     */
     public boolean isOnline(String userId) {
         return !Objects.isNull(webSocketSet.get(userId));
+    }
+
+    /**
+     * 在线人数
+     * @return 数量
+     */
+    public Integer onlineNum() {
+        return webSocketSet.size();
     }
 
 

@@ -1,5 +1,6 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.entity.Audit;
@@ -9,6 +10,7 @@ import com.sorrowphage.czp.entity.vo.AuditVO;
 import com.sorrowphage.czp.mapper.AuditMapper;
 import com.sorrowphage.czp.mapper.UserGroupMapper;
 import com.sorrowphage.czp.service.AuditService;
+import com.sorrowphage.czp.socket.MsgChatWebSocketServer;
 import com.sorrowphage.czp.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,8 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
     private final UserGroupMapper userGroupMapper;
 
     private final AuditMapper auditMapper;
+
+    private final MsgChatWebSocketServer socketServer;
 
 
     /**
@@ -61,6 +65,7 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
     @Override
     public ResultMessage auditResult(Audit audit) {
         audit.setUpdateTime(DateUtil.getSystemDateTimeString());
+        audit.setType("audit");
         //若audit状态为1则，通过
         if ("1".equals(audit.getStatus())) {
             // this.saveOrUpdate(audit);
@@ -80,6 +85,12 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
             userGroup.setCreateTime(DateUtil.getSystemDateTimeString());
             userGroup.setUpdateTime(DateUtil.getSystemDateTimeString());
             userGroupMapper.insert(userGroup);
+
+            //通知申请用户
+            if (socketServer.isOnline(audit.getUserId())) {
+                JSONObject o = (JSONObject) JSONObject.toJSON(audit);
+                socketServer.appointSending(audit.getUserId(), o.toJSONString());
+            }
             return ResultMessage.success("操作成功");
         } else {
             //反之则失败
@@ -89,7 +100,11 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
             LambdaUpdateWrapper<Audit> wrapper = new LambdaUpdateWrapper<>();
             wrapper.eq(Audit::getId, audit.getId());
             this.remove(wrapper);
-
+            //通知申请用户
+            if (socketServer.isOnline(audit.getUserId())) {
+                JSONObject o = (JSONObject) JSONObject.toJSON(audit);
+                socketServer.appointSending(audit.getUserId(), o.toJSONString());
+            }
             return ResultMessage.success("操作成功");
         }
     }
