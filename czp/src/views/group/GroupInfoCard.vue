@@ -51,6 +51,9 @@ export default {
     /*background-color: #2c3e50;*/
     margin-top: 15px;
 }
+.group_info:hover {
+    cursor: pointer;
+}
 .name_text {
     font-size: 30px;
     font-family: "华文行楷";

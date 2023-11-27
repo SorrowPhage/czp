@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import ChatContent from "@/views/chat/ChatContent";
-import UserItem from "@/views/chat/UserItem";
+import ChatContent from "@/views/message/ChatContent";
+import UserItem from "@/views/message/UserItem";
 import {getRequest} from "@/api/api";
 export default {
     name: "Chat",

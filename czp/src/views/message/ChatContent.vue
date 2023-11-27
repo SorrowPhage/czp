@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import ChatLine from "@/views/chat/ChatLine";
-import ChatLineRight from "@/views/chat/ChatLineRight";
+import ChatLine from "@/views/message/ChatLine";
+import ChatLineRight from "@/views/message/ChatLineRight";
 import {VEmojiPicker} from 'v-emoji-picker'
 import {getRequest,postRequest} from "@/api/api";
 import user from "@/views/search/User";

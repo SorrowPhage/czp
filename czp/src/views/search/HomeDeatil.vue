@@ -1,10 +1,12 @@
 <template>
-    <div>haha</div>
+    <div>
+    
+    </div>
 </template>
 
 <script>
 export default {
-    name: "AuditResult"
+    name: "HomeDeatil"
 }
 </script>
 

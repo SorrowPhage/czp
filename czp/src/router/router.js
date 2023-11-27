@@ -21,9 +21,9 @@ import GroupTree from "@/views/group/GroupTree";
 import SearchNav from "@/views/search/SearchNav";
 import user from "@/views/search/User";
 import UserDeatil from "@/views/search/UserDeatil";
-import Chat from "@/views/chat/Chat";
-import ChatNav from "@/views/chat/ChatNav";
-import AuditResult from "@/views/chat/AuditResult";
+import Chat from "@/views/message/Chat";
+import ChatNav from "@/views/message/ChatNav";
+import AuditResult from "@/views/message/AuditResult";
 
 const routers = [
     {
