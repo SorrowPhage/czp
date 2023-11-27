@@ -45,4 +45,6 @@ public interface AuditService extends IService<Audit> {
      */
     ResultMessage auditHistoryList(String id);
 
+    ResultMessage auditResultFromHistory(String id);
+
 }

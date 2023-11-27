@@ -132,4 +132,10 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
         List<AuditVO> list = auditMapper.auditListHistory(id);
         return ResultMessage.success(list);
     }
+
+    @Override
+    public ResultMessage auditResultFromHistory(String id) {
+        List<AuditVO> list = auditMapper.auditResultFromHistory(id);
+        return ResultMessage.success(list);
+    }
 }

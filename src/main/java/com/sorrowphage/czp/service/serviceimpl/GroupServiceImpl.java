@@ -1,14 +1,11 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.entity.UserGroup;
-import com.sorrowphage.czp.entity.vo.GroupVO;
-import com.sorrowphage.czp.entity.vo.UserVo;
+import com.sorrowphage.czp.entity.vo.*;
 import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.mapper.GroupMapper;
 import com.sorrowphage.czp.mapper.UserGroupMapper;
@@ -240,5 +237,75 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return ResultMessage.success(data);
     }
 
+    @Override
+    public ResultMessage groupHomeData(String id) {
+        //查询出用户所在的族群（按照设计思路来说，一个人最多只会存在两个族群当中，并且有一个族群是另一个的父级族群，最多只需要将这两个的族群数据拼接成一个临时的族群树）
+        List<UserGroup> groups = groupMapper.selectUserHasGroup(id);
+        List<String> parents = groups.stream().map(UserGroup::getParentId).collect(Collectors.toList());
+        Optional<String> optional = groups.stream().map(UserGroup::getGroupId).filter(parents::contains).findFirst();
+        Optional<String> optional2 = groups.stream().map(UserGroup::getGroupId).filter(groupId -> !parents.contains(groupId)).findFirst();
+        String parentGroup = null;
+        String sonGroup = null;
+        if (optional.isPresent()) {
+            parentGroup = optional.get();
+        }
+        if (optional2.isPresent()) {
+            sonGroup = optional2.get();
+        }
+        List<String> createrList = groupMapper.groupCreaterList(parentGroup);
+        List<UserVo> list = groupMapper.groupUserList(parentGroup);
+        list.addAll(groupMapper.getUserListEliminateCreate(sonGroup));
+        List<UserVo> groupTree = this.createGroupTree(list, createrList);
+        GroupVO resultData = groupMapper.getGroupById(parentGroup);
+        resultData.setChildren(groupTree);
+        //转换
+        RelationGraphVO relationGraphVO = treeCoversionRelationGraphData(resultData);
+        relationGraphVO.setRootId(id);
+        return ResultMessage.success(relationGraphVO);
+    }
+
+    public RelationGraphVO treeCoversionRelationGraphData(GroupVO groupVO) {
+        List<RelationGraphLine> lines = new ArrayList<>();
+        List<RelationGraphNode> nodes = new ArrayList<>();
+        nodes.add(new RelationGraphNode(groupVO.getId(), groupVO.getGroupName()));
+        if (!Objects.isNull(groupVO.getChildren())) {
+            for (UserVo child : groupVO.getChildren()) {
+                if (!Objects.isNull(child.getChildren())) {
+                    lines.addAll(recursionRelationLine(child, child.getChildren()));
+                    nodes.addAll(recursionRelationNode(child.getChildren()));
+                }
+                RelationGraphLine relationGraphLine = new RelationGraphLine(groupVO.getId(), child.getId());
+                lines.add(relationGraphLine);
+                RelationGraphNode relationGraphNode = new RelationGraphNode(child.getId(), child.getName(),child);
+                nodes.add(relationGraphNode);
+            }
+        }
+        RelationGraphVO relationGraphVO = new RelationGraphVO(nodes,lines);
+        return relationGraphVO;
+    }
+
+    public List<RelationGraphLine> recursionRelationLine(UserVo userVo, List<UserVo> userVoList) {
+        List<RelationGraphLine> lines = new ArrayList<>();
+        for (UserVo child : userVoList) {
+            if (!Objects.isNull(child.getChildren())) {
+                lines.addAll(recursionRelationLine(child, child.getChildren()));
+            }
+            RelationGraphLine relationGraphLine = new RelationGraphLine(userVo.getId(), child.getId());
+            lines.add(relationGraphLine);
+        }
+        return lines;
+    }
+
+    public List<RelationGraphNode> recursionRelationNode(List<UserVo> userVoList) {
+        List<RelationGraphNode> nodes = new ArrayList<>();
+        for (UserVo child : userVoList) {
+            if (!Objects.isNull(child.getChildren())) {
+                nodes.addAll(recursionRelationNode(child.getChildren()));
+            }
+            RelationGraphNode relationGraphNode = new RelationGraphNode(child.getId(), child.getName(),child);
+            nodes.add(relationGraphNode);
+        }
+        return nodes;
+    }
 
 }

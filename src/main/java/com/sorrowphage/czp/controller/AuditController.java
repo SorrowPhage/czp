@@ -24,6 +24,7 @@ public class AuditController {
 
     /**
      * 申请加入族群
+     *
      * @param audit
      * @return
      */
@@ -34,6 +35,7 @@ public class AuditController {
 
     /**
      * 审核结果
+     *
      * @param audit
      * @return
      */
@@ -44,6 +46,7 @@ public class AuditController {
 
     /**
      * 未审核列表
+     *
      * @param id
      * @return
      */
@@ -54,11 +57,22 @@ public class AuditController {
 
     /**
      * 审核历史
+     *
      * @param id
      * @return
      */
     @GetMapping("/history")
     public ResultMessage auditHistoryList(@RequestParam("id") String id) {
         return auditService.auditHistoryList(id);
+    }
+
+    /**
+     * 查询用户申请结果 个人
+     * @param id
+     * @return
+     */
+    @GetMapping("/result-indi")
+    public ResultMessage auditResultFromHistory(@RequestParam("id") String id) {
+        return auditService.auditResultFromHistory(id);
     }
 }

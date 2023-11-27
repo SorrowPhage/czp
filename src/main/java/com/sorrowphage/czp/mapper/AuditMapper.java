@@ -35,4 +35,6 @@ public interface AuditMapper extends BaseMapper<Audit> {
      * @return
      */
     int insertToHistory(Audit audit);
+
+    List<AuditVO> auditResultFromHistory(String id);
 }

@@ -3,6 +3,7 @@ package com.sorrowphage.czp.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Group;
+import com.sorrowphage.czp.entity.UserGroup;
 import com.sorrowphage.czp.entity.vo.GroupVO;
 import com.sorrowphage.czp.entity.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -74,4 +75,6 @@ public interface GroupMapper extends BaseMapper<Group> {
     List<GroupVO> recommendGroup();
 
     List<UserVo> getClanUser(String id);
+
+    List<UserGroup> selectUserHasGroup(String id);
 }

@@ -148,6 +148,7 @@ public class GroupController {
 
     /**
      * 获取族群人数
+     *
      * @param id 族群id
      * @return
      */
@@ -158,6 +159,7 @@ public class GroupController {
 
     /**
      * 根据用户推荐族群
+     *
      * @param id 用户id
      * @return
      */
@@ -168,11 +170,22 @@ public class GroupController {
 
     /**
      * 获取clan用户信息
+     *
      * @param id 族群id
      * @return
      */
     @GetMapping("/clanu")
     public ResultMessage getClanUser(@RequestParam("id") String id) {
         return groupService.getClanUser(id);
+    }
+
+    /**
+     * 首页族群树需要的数据
+     * @param id 用户id
+     * @return
+     */
+    @GetMapping("/home")
+    public ResultMessage homeGroup(@RequestParam("id") String id) {
+        return groupService.groupHomeData(id);
     }
 }
