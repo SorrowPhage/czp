@@ -20,4 +20,11 @@
             left join czp_user pr on pr.id=a.parent_id
         where g.clan_elder=#{id}
     </select>
+    <select id="auditResultFromHistory" resultType="com.sorrowphage.czp.entity.vo.AuditVO">
+        SELECT a.*,u.name,u.avatar,g.group_name,pr.`name` as parentName,pr.avatar as parentAvatar FROM `audit_history` a
+              left join czp_group g on a.group_id=g.id
+              left join czp_user u on u.id=a.user_id
+              left join czp_user pr on pr.id=a.parent_id
+        where a.user_id=#{id} ORDER BY a.update_time desc
+    </select>
 </mapper>

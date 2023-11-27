@@ -67,4 +67,9 @@
             left join czp_user u on u.id = g.clan_elder
         where g.id=#{id}
     </select>
+    <select id="selectUserHasGroup" resultType="com.sorrowphage.czp.entity.UserGroup">
+        select ug.group_id,cg.parent_id from user_group  ug
+            left join czp_group cg on cg.id = ug.group_id
+        where ug.user_id=#{id}
+    </select>
 </mapper>
