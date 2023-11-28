@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import {hideLoadingAndNotify, showLoading} from "@/api/loading";
+import {hideLoadingAndNotify, showLoading,hideLoading} from "@/api/loading";
 import {getRequest} from "@/api/api";
 
 export default {
@@ -77,25 +77,26 @@ export default {
     methods:{
         loadData() {
             showLoading()
-            getRequest("/group/clan",{id: this.$store.state.CzpUser.id}).then(res=>{
-                hideLoadingAndNotify(res);
+            getRequest("/group/clan", {id: this.$store.state.CzpUser.id}).then(res => {
+                // hideLoadingAndNotify(res);
+                hideLoading()
                 if (res.code === 200) {
                     this.options = res.data;
                 }
-            }).catch( err=>{
+            }).catch(err => {
                     hideLoadingAndNotify(err)
                 }
             );
         },
         searchGroupList() {
             showLoading();
-            getRequest("/group/ul",{id: this.value}).then(res=>{
-                console.log(res)
-                hideLoadingAndNotify(res);
+            getRequest("/group/ul", {id: this.value}).then(res => {
+                // hideLoadingAndNotify(res);
+                hideLoading();
                 if (res.code === 200) {
                     this.dataList = res.data;
                 }
-            }).catch( err=>{
+            }).catch(err => {
                     hideLoadingAndNotify(err)
                 }
             );

@@ -34,7 +34,7 @@
 <script>
 import {getRequest} from "@/api/api";
 // import GroupCard from "@/views/group/GroupCard";
-import {showLoading,hideLoadingAndNotify} from "@/api/loading"
+import {showLoading,hideLoading,hideLoadingAndNotify} from "@/api/loading"
 import GroupInfoCard from "@/views/group/GroupInfoCard";
 export default {
     name: "GroupList",
@@ -53,11 +53,12 @@ export default {
             showLoading()
             getRequest("/group/list", {userId: this.$store.state.CzpUser.id}).then(res => {
                 console.log("GroupList", res);
-                hideLoadingAndNotify(res);
+                // hideLoadingAndNotify(res);
+                hideLoading();
                 if (res.code === 200) {
                     this.groupList = res.data;
                 }
-            }).catch( err=>{
+            }).catch(err => {
                     hideLoadingAndNotify(err)
                 }
             );

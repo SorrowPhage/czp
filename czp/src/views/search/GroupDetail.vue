@@ -20,7 +20,7 @@
                 </div>
                 <div class="user_body">
                     <div>
-                        
+                    
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
 <script>
 import {getRequest} from "@/api/api";
 export default {
-    name: "UserDeatil",
+    name: "GroupDetail",
     data() {
         return{
             user:{}
@@ -45,9 +45,10 @@ export default {
         },
     },
     mounted() {
-        this.loadData();
+        // this.loadData();
     },
     methods:{
+        //获取族群信息
         loadData() {
             getRequest("/czpUser/su",{id: this.$route.query.id}).then(res=>{
                 console.log(res);

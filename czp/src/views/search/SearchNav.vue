@@ -14,9 +14,9 @@
                                         <el-menu-item index="/home/search/user" :route="{name:'user',query:{q:$route.query.q}}">
                                             <span slot="title">User</span>
                                         </el-menu-item>
-                                        <!--                                        <el-menu-item index="/index.html/sl/rc" :route="{name:'rc',query:{q:$store.state.Search.searchContent}}">-->
-                                        <!--                                            <span slot="title">Repository</span>-->
-                                        <!--                                        </el-menu-item>-->
+                                        <el-menu-item index="/home/search/sg" :route="{name:'sg',query:{q:$route.query.q}}">
+                                            <span slot="title">Group</span>
+                                        </el-menu-item>
                                     </el-menu>
                                 </div>
                                 <div class="sp-search-list">

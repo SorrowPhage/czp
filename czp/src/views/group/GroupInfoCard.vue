@@ -1,5 +1,5 @@
 <template>
-    <div class="group_info">
+    <div class="group_info" @click="detail">
         <div>
             <span class="name_text">{{groupName}}</span>
             <span class="create_time">--{{createTime}}</span>
@@ -38,6 +38,14 @@ export default {
                 console.log("GroupInfoCard", res);
                 if (res.code === 200) {
                     this.num = res.data;
+                }
+            })
+        },
+        detail() {
+            this.$router.push({
+                name: "gd",
+                query:{
+                    id: this.id,
                 }
             })
         },

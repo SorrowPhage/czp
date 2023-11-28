@@ -44,7 +44,7 @@
 
 <script>
 import {getRequest} from "@/api/api";
-import {showLoading,hideLoadingAndNotify} from "@/api/loading"
+import {showLoading,hideLoadingAndNotify,hideLoading} from "@/api/loading"
 export default {
     name: "AuditHistory",
     data() {
@@ -60,15 +60,16 @@ export default {
         // TODO 可以加入分页查询
         loadData() {
             showLoading()
-            getRequest("/audit/history",{id: this.$store.state.CzpUser.id}).then(res=>{
+            getRequest("/audit/history", {id: this.$store.state.CzpUser.id}).then(res => {
                 console.log("AuditHistory", res);
-                hideLoadingAndNotify(res);
+                // hideLoadingAndNotify(res);
+                hideLoading();
                 if (res.code === 200) {
                     this.auditList = res.data;
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 hideLoadingAndNotify(err);
-            })
+            });
         },
     }
 }

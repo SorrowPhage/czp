@@ -6,7 +6,8 @@
                 <input v-model="search" class="sp-search-input" placeholder="Search" type="text" @keydown.enter="goSearch"/>
                 <i class="el-icon-search sp-search-icon" @click="goSearch"></i>
                 <div class="sp-nav" @click="goGroup">族群信息</div>
-                <div class="sp-nav" @click="audit" v-if="hasPerm('audit::apply')">族群操作</div>
+<!--                <div class="sp-nav" @click="audit" v-if="hasPerm('audit::apply')">族群操作</div>-->
+                <div class="sp-nav" @click="audit" >族群操作</div>
                 <div class="sp-nav" @click="message" >消息</div>
 <!--                <div class="sp-nav" @click="large">large</div>-->
             </div>
@@ -182,7 +183,7 @@ export default {
 .header {
     /*position: fixed;*/
     width: 100%;
-    /*min-width: 1026px;*/
+    min-width: 1026px;
     background-color: white;
     top: 0;
     height: 50px;

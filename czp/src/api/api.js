@@ -35,6 +35,15 @@ axios.interceptors.request.use((config) => {
 
 // http response 拦截器 添加一个响应拦截器
 axios.interceptors.response.use((response) => {
+    if (response.data.code === 401) {
+        router.push({
+            name: "login",
+        });
+    } else if (response.data.code===403) {
+        router.push({
+            name: "accessDenied",
+        });
+    }
     return response;
 }, (error) => {
     // 响应失败

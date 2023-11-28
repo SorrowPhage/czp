@@ -10,7 +10,7 @@
 <!--                <div class="p">-->
 <!--                    -->
 <!--                </div>-->
-                <audit-card v-for="a in auditList" :group-name="a.groupName" :update-time="a.updateTime" :create-time="a.createTime"
+                <audit-card v-for="a in auditList" :key="a.id" :group-name="a.groupName" :update-time="a.updateTime" :create-time="a.createTime"
                     :operate-id="a.operateId" :status="a.status"
                 />
             </div>

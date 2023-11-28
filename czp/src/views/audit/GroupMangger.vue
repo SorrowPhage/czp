@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {hideLoadingAndNotify, showLoading} from "@/api/loading";
+import {hideLoadingAndNotify, showLoading,hideLoading} from "@/api/loading";
 import {getRequest} from "@/api/api";
 import GroupInfoUpdate from "@/views/group/GroupInfoUpdate";
 export default {
@@ -36,12 +36,13 @@ export default {
     methods:{
         loadData() {
             showLoading()
-            getRequest("/group/clan",{id: this.$store.state.CzpUser.id}).then(res=>{
-                hideLoadingAndNotify(res);
+            getRequest("/group/clan", {id: this.$store.state.CzpUser.id}).then(res => {
+                // hideLoadingAndNotify(res);
+                hideLoading();
                 if (res.code === 200) {
                     this.mangeList = res.data;
                 }
-            }).catch( err=>{
+            }).catch(err => {
                     hideLoadingAndNotify(err)
                 }
             );

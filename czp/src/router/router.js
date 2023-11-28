@@ -21,6 +21,8 @@ import GroupTree from "@/views/group/GroupTree";
 import SearchNav from "@/views/search/SearchNav";
 import user from "@/views/search/User";
 import UserDeatil from "@/views/search/UserDeatil";
+import group from "@/views/search/Group";
+import GroupDetail from "@/views/search/GroupDetail";
 import Chat from "@/views/message/Chat";
 import ChatNav from "@/views/message/ChatNav";
 import AuditResult from "@/views/message/AuditResult";
@@ -176,6 +178,12 @@ const routers = [
                         name: 'user',
                         component: user,
                         meta: {title: "搜索", ver: true},
+                    },
+                    {
+                        path: "sg",
+                        name: "sg",
+                        component: group,
+                        meta: {title: "搜索", ver: true},
                     }
                 ]
             },
@@ -185,7 +193,12 @@ const routers = [
                 component: UserDeatil,
                 meta: {title: "用户", ver: true},
             },
-
+            {
+                path: "gd",
+                name: "gd",
+                component: GroupDetail,
+                meta: {title: "族群", ver: true},
+            },
             {
                 path: 'msg',
                 name: "msg",

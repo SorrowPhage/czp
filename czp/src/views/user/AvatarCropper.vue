@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <span slot="footer" class="dialog-footer">
+            <div slot="footer" class="dialog-footer">
                  <div class="select-avatar-box">
                      <input ref="upload_input_cropper"
                             accept="image/*"
@@ -63,7 +63,7 @@
                       <el-button @click="dialogVisible = false">取 消</el-button>
                       <el-button type="primary" @click="uploadImg('base64')">确 定</el-button>
                  </div>
-            </span>
+            </div>
         </el-dialog>
     </div>
 </template>
@@ -99,7 +99,7 @@ export default {
                 mode: "auto 200px", //图片默认渲染方式
                 info: false, //裁剪框的大小信息
                 canScale: true, //图片是否允许滚轮缩放
-                fixed: false, //是否开启截图框宽高固定比例
+                fixed: true, //是否开启截图框宽高固定比例
                 centerBox: true, //截图框是否被限制在图片里面
                 high: true, //是否按照设备的dpr 输出等比例图片
             },
@@ -200,17 +200,6 @@ export default {
     cursor: pointer;
 }
 
-.replace {
-    width: 100px;
-    margin-left: 30%;
-    text-align: center;
-    margin-top: 5px;
-}
-
-.replace:hover {
-    cursor: pointer;
-}
-
 .hiddenInput {
     position: absolute;
     top: 0;
@@ -253,21 +242,5 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.el-dialog__header {
-    background: #f6f8fa;
-    border-bottom: solid darkgray 1px;
-    border-radius: 5px 5px 0 0 ;
-}
-.el-dialog {
-    border-radius: 5px;
-}
-.el-dialog__body{
-    overflow: auto;
-}
-.el-dialog__footer{
-    background: #f6f8fa;
-    border-top: solid darkgray 1px;
-    border-radius: 0 0 5px 5px;
 }
 </style>
