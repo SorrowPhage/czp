@@ -181,11 +181,44 @@ public class GroupController {
 
     /**
      * 首页族群树需要的数据
+     *
      * @param id 用户id
      * @return
      */
     @GetMapping("/home")
     public ResultMessage homeGroup(@RequestParam("id") String id) {
         return groupService.groupHomeData(id);
+    }
+
+    /**
+     * 查询出用户所在的所以族群
+     *
+     * @param id 用户id
+     * @return
+     */
+    @GetMapping("/userGroups")
+    public ResultMessage getUserGroups(@RequestParam("id") String id) {
+        return groupService.userGroups(id);
+    }
+
+    /**
+     * 根据族群id获取RelationGraph数据
+     *
+     * @param id 族群id
+     * @return
+     */
+    @GetMapping("/groupRG")
+    public ResultMessage getGroupRG(@RequestParam("id") String id) {
+        return groupService.groupRG(id);
+    }
+
+    /**
+     * 模糊查询族群
+     * @param q
+     * @return
+     */
+    @GetMapping("/obscure-search")
+    public ResultMessage obscureSearchGroup(@RequestParam("q") String q,@RequestParam("pageIndex")String pageIndex,@RequestParam("pageSize")String pageSize) {
+        return groupService.obscureSearchGroup(q,pageIndex,pageSize);
     }
 }

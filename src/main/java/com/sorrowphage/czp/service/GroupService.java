@@ -47,4 +47,10 @@ public interface GroupService extends IService<Group> {
     ResultMessage getClanUser(String id);
 
     ResultMessage groupHomeData(String id);
+
+    ResultMessage userGroups(String id);
+
+    ResultMessage groupRG(String id);
+
+    ResultMessage obscureSearchGroup(String q,String pageIndex,String pageSize);
 }

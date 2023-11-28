@@ -1,7 +1,10 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.entity.UserGroup;
@@ -35,6 +38,11 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
     private final CzpUserMapper czpUserMapper;
 
+    /**
+     * 新建族群
+     * @param group 族群数据
+     * @return 创建结果
+     */
     @Override
     public ResultMessage createGroup(Group group) {
         //判断该用户是否已创建过族群，若创建过族群则，不能新建族群
@@ -74,8 +82,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     /**
      * 根据族群id查询用户列表,需要判断用户是否已在该族群，若用户已在，则不查询
      *
-     * @param id
-     * @return
+     * @param id 族群id
+     * @param userId 用户id
+     * @return 族群树结构数据
      */
     @Override
     public ResultMessage getUserList(String id, String userId) {
@@ -147,7 +156,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     /**
      * 获取族群树结构数据
      * @param id 族群id
-     * @return
+     * @return 族群树
      */
     @Override
     public ResultMessage groupTree(String id) {
@@ -166,8 +175,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
     /**
      * 递归查询所有的子级数据
-     * @param id
-     * @return
+     * @param id 族群id
+     * @return 族群树（包含所以子级族群）
      */
     @Override
     public ResultMessage groupTreeHasSon(String id) {
@@ -237,6 +246,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return ResultMessage.success(data);
     }
 
+
+    /**
+     * 这个方法，是将用户所在的两个具有父子关系的族群数据拼接到一起返回
+     * @param id 用户id
+     * @return RelationGraph数据
+     */
     @Override
     public ResultMessage groupHomeData(String id) {
         //查询出用户所在的族群（按照设计思路来说，一个人最多只会存在两个族群当中，并且有一个族群是另一个的父级族群，最多只需要将这两个的族群数据拼接成一个临时的族群树）
@@ -264,6 +279,11 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return ResultMessage.success(relationGraphVO);
     }
 
+    /**
+     * 将族群树转换成RelationGraph数据
+     * @param groupVO 族群树数据
+     * @return  RelationGraphVO
+     */
     public RelationGraphVO treeCoversionRelationGraphData(GroupVO groupVO) {
         List<RelationGraphLine> lines = new ArrayList<>();
         List<RelationGraphNode> nodes = new ArrayList<>();
@@ -280,10 +300,15 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
                 nodes.add(relationGraphNode);
             }
         }
-        RelationGraphVO relationGraphVO = new RelationGraphVO(nodes,lines);
-        return relationGraphVO;
+        return new RelationGraphVO(nodes,lines);
     }
 
+    /**
+     * 拼接Line数据
+     * @param userVo 当前用户
+     * @param userVoList 当前用户的子级数据
+     * @return List<RelationGraphLine>
+     */
     public List<RelationGraphLine> recursionRelationLine(UserVo userVo, List<UserVo> userVoList) {
         List<RelationGraphLine> lines = new ArrayList<>();
         for (UserVo child : userVoList) {
@@ -296,6 +321,11 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return lines;
     }
 
+    /**
+     * 拼接node数据
+     * @param userVoList 用户数据
+     * @return List<RelationGraphNode>
+     */
     public List<RelationGraphNode> recursionRelationNode(List<UserVo> userVoList) {
         List<RelationGraphNode> nodes = new ArrayList<>();
         for (UserVo child : userVoList) {
@@ -306,6 +336,47 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
             nodes.add(relationGraphNode);
         }
         return nodes;
+    }
+
+
+    /**
+     * 返回用户所拥有的族群数据
+     * @param id 用户id
+     * @return  List<Group>
+     */
+    @Override
+    public ResultMessage userGroups(String id) {
+        List<Group> groups = groupMapper.selectUserGroup(id);
+        return ResultMessage.success(groups);
+    }
+
+    /**
+     * 将族群树数据转换成RelationGraph数据返回（
+     * @param id 族群id
+     * @return RelationGraphVO
+     */
+    @Override
+    public ResultMessage groupRG(String id) {
+        //获取用户列表
+        List<UserVo> list = groupMapper.groupUserList(id);
+        //获取族群创建者
+        List<String> creaters = groupMapper.groupCreaterList(id);
+        //封装为树型结构
+        List<UserVo> groupTree = this.createGroupTree(list, creaters);
+        //当创始人不止一个时,树型结构的根节点也不止一个,需要在封装一个根源,这里将源头封装为族群不是用户
+        GroupVO resultData = groupMapper.getGroupById(id);
+        resultData.setChildren(groupTree);
+        //转换
+        RelationGraphVO relationGraphVO = treeCoversionRelationGraphData(resultData);
+        relationGraphVO.setRootId(id);
+        return ResultMessage.success(relationGraphVO);
+    }
+
+    @Override
+    public ResultMessage obscureSearchGroup(String q,String pageIndex,String pageSize) {
+        List<GroupVO> list = groupMapper.searchGroupList(q);
+        PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
+        return ResultMessage.success(new PageInfo<>(list));
     }
 
 }

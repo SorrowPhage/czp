@@ -42,6 +42,12 @@ public interface GroupMapper extends BaseMapper<Group> {
 
     List<CzpUser> getUserList(String id);
 
+
+    /**
+     * 获取用户列表
+     * @param id 族群id
+     * @return
+     */
     List<UserVo> groupUserList(String id);
 
     List<String> groupCreaterList(String id);
@@ -76,5 +82,14 @@ public interface GroupMapper extends BaseMapper<Group> {
 
     List<UserVo> getClanUser(String id);
 
+
     List<UserGroup> selectUserHasGroup(String id);
+
+    /**
+     * 和上面的方法差不多，返回的值不同
+     * @param id
+     * @return
+     */
+    List<Group> selectUserGroup(String id);
+
 }

@@ -72,4 +72,9 @@
             left join czp_group cg on cg.id = ug.group_id
         where ug.user_id=#{id}
     </select>
+    <select id="selectUserGroup" resultType="com.sorrowphage.czp.entity.Group">
+        select cg.* from user_group  ug
+            left join czp_group cg on cg.id = ug.group_id
+        where ug.user_id=#{id}
+    </select>
 </mapper>

@@ -163,7 +163,9 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
     public ResultMessage userInfo(String id) {
         UserVo userVo = czpUserMapper.userInfo(id);
         List<String> list = czpMenuMapper.menuListByUserId(id);
-        userVo.setPermissions(list);
+        if (!Objects.isNull(list) && list.size() > 0) {
+            userVo.setPermissions(list);
+        }
         return ResultMessage.success(userVo);
     }
 
