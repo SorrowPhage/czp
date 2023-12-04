@@ -89,7 +89,7 @@ export default {
     display: flex;
 }
 .user_body {
-    width: 80%;
+    /*width: 80%;*/
     background-color: white;
     margin: 20px auto 0;
     flex: 1;
