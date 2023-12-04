@@ -24,4 +24,6 @@ public interface CzpUserMapper extends BaseMapper<CzpUser> {
      * @return
      */
     UserVo userInfo(String id);
+
+    CzpUser selectUserInfo(String id);
 }

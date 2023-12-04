@@ -92,4 +92,6 @@ public interface GroupMapper extends BaseMapper<Group> {
      */
     List<Group> selectUserGroup(String id);
 
+    GroupVO readGroupInfo(String id);
+
 }

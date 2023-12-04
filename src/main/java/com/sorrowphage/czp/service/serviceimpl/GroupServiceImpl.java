@@ -1,6 +1,5 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
@@ -377,6 +376,14 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         List<GroupVO> list = groupMapper.searchGroupList(q);
         PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
         return ResultMessage.success(new PageInfo<>(list));
+    }
+
+    @Override
+    public ResultMessage readGroupInfo(String id) {
+        GroupVO group = groupMapper.readGroupInfo(id);
+        group.setClanElderUser(czpUserMapper.selectUserInfo(group.getClanElder()));
+        group.setNum(groupMapper.groupUserNums(id));
+        return ResultMessage.success(group);
     }
 
 }

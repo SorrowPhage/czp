@@ -53,4 +53,6 @@ public interface GroupService extends IService<Group> {
     ResultMessage groupRG(String id);
 
     ResultMessage obscureSearchGroup(String q,String pageIndex,String pageSize);
+
+    ResultMessage readGroupInfo(String id);
 }

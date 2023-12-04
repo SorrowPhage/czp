@@ -214,11 +214,22 @@ public class GroupController {
 
     /**
      * 模糊查询族群
+     *
      * @param q
      * @return
      */
     @GetMapping("/obscure-search")
-    public ResultMessage obscureSearchGroup(@RequestParam("q") String q,@RequestParam("pageIndex")String pageIndex,@RequestParam("pageSize")String pageSize) {
-        return groupService.obscureSearchGroup(q,pageIndex,pageSize);
+    public ResultMessage obscureSearchGroup(@RequestParam("q") String q, @RequestParam("pageIndex") String pageIndex, @RequestParam("pageSize") String pageSize) {
+        return groupService.obscureSearchGroup(q, pageIndex, pageSize);
+    }
+
+    /**
+     * 根据id获取族群信息
+     * @param id 族群id
+     * @return
+     */
+    @GetMapping("/groupInfo")
+    public ResultMessage readGroupInfo(@RequestParam("id") String id) {
+        return groupService.readGroupInfo(id);
     }
 }
