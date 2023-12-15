@@ -1,5 +1,5 @@
 <template>
-    <div style="overflow: hidden;margin-top: 15px;height: 100%;">
+    <div style="overflow: hidden;height: 100%;">
         <div class="BaseDragResize" style="height: 100%;width: 100%;">
             <vue-draggable-resizable  class="BaseDragResize-drag" w="auto" h="auto" :x="0" :y="0" :resizable="false" :key="groupId" parentLimitation
                                       @resizing="onResize"

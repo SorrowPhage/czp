@@ -30,6 +30,7 @@
 
 <script>
 import {postRequest} from "@/api/api";
+import {hideLoading,showLoading} from "@/api/loading";
 export default {
     name: "UserLogin",
     data() {
@@ -44,7 +45,9 @@ export default {
     },
     methods:{
         login() {
+            showLoading();
             postRequest("/czpUser/login",this.user).then(res=>{
+                hideLoading();
                 if (res.flag === true) {
                     this.$message({
                         message: res.message,

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <GD_DeatilList v-for="u in userList" :key="u.id" :id="u.id" :name="u.name" :avatar="u.avatar"/>
+        <GD_DeatilList v-for="u in userList" :key="u.id" :id="u.id" :name="u.name" :avatar="u.avatar" :birthday="u.birthday"
+            :generationRank="u.generationRank" :family-rank="u.familyRank" :generation="u.generation" :sex="u.sex"
+        />
     </div>
 </template>
 

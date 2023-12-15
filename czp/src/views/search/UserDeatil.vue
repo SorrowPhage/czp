@@ -20,7 +20,16 @@
                 </div>
                 <div class="user_body">
                     <div>
-                        
+                        <div>
+                            <el-descriptions title="用户信息">
+                                <el-descriptions-item label="账户名">{{user.id}}</el-descriptions-item>
+                                <el-descriptions-item label="性别">{{user.sex}}</el-descriptions-item>
+                                <el-descriptions-item label="生日">{{user.birthday}}</el-descriptions-item>
+                                <el-descriptions-item label="家中排行">{{user.familyRank}}</el-descriptions-item>
+                                <el-descriptions-item label="辈分">{{user.generation}}</el-descriptions-item>
+                                <el-descriptions-item label="世代排行">{{user.generationRank}}</el-descriptions-item>
+                            </el-descriptions>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,9 +98,9 @@ export default {
     display: flex;
 }
 .user_body {
-    /*width: 80%;*/
-    background-color: white;
-    margin: 20px auto 0;
-    flex: 1;
+    width: calc(100vh - 260px);
+    min-width: 980px;
+    margin: 30px auto 0;
+    background: white;
 }
 </style>
