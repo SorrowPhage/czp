@@ -5,4 +5,7 @@
     <select id="userInfo" resultType="com.sorrowphage.czp.entity.vo.UserVo">
         select * from czp_user u where u.id = #{id}
     </select>
+    <select id="selectUserInfo" resultType="com.sorrowphage.czp.entity.CzpUser">
+        select * from czp_user u where u.id = #{id}
+    </select>
 </mapper>

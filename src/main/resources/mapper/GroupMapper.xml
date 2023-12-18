@@ -77,4 +77,9 @@
             left join czp_group cg on cg.id = ug.group_id
         where ug.user_id=#{id}
     </select>
+    <select id="readGroupInfo" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
+        select cg.*,pg.group_name as parent_name from czp_group cg
+            left join czp_group pg on pg.id=cg.parent_id
+        where cg.id=#{id}
+    </select>
 </mapper>
