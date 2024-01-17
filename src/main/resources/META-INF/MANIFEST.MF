@@ -1,0 +1,41 @@
+Manifest-Version: 1.0
+Main-Class: com.sorrowphage.czp.CzpApplication
+Class-Path: spring-oxm-5.3.7.jar spring-jcl-5.3.7.jar tomcat-embed-el-9.
+ 0.46.jar annotations-13.0.jar lettuce-core-6.1.2.RELEASE.jar spring-sec
+ urity-core-5.5.0.jar log4j-api-2.14.1.jar mybatis-spring-boot-autoconfi
+ gure-2.2.2.jar spring-boot-2.5.0.jar kotlin-stdlib-1.5.0.jar netty-comm
+ on-4.1.65.Final.jar reactive-streams-1.0.3.jar HikariCP-4.0.3.jar mybat
+ is-plus-3.4.3.jar spring-data-redis-2.5.1.jar spring-webmvc-5.3.7.jar j
+ ackson-datatype-jsr310-2.12.3.jar logback-classic-1.2.3.jar spring-boot
+ -starter-data-redis-2.5.0.jar tomcat-embed-websocket-9.0.46.jar logback
+ -core-1.2.3.jar snakeyaml-1.28.jar mybatis-plus-boot-starter-3.4.3.jar 
+ jsqlparser-2.0.jar jul-to-slf4j-1.7.30.jar netty-handler-4.1.65.Final.j
+ ar mysql-connector-java-8.0.17.jar jackson-core-2.12.3.jar pagehelper-s
+ pring-boot-autoconfigure-1.2.11.jar jackson-annotations-2.12.3.jar nett
+ y-resolver-4.1.65.Final.jar mybatis-plus-core-3.4.3.jar spring-data-jdb
+ c-2.2.1.jar fastjson-1.2.33.jar log4j-to-slf4j-2.14.1.jar jackson-modul
+ e-parameter-names-2.12.3.jar jackson-databind-2.12.3.jar spring-boot-st
+ arter-2.5.0.jar spring-boot-starter-mail-2.6.7.jar spring-boot-starter-
+ security-2.5.0.jar jakarta.annotation-api-1.3.5.jar freemarker-2.3.28.j
+ ar spring-boot-starter-json-2.5.0.jar jakarta.mail-1.6.7.jar spring-boo
+ t-starter-web-2.5.0.jar spring-boot-starter-websocket-2.5.0.jar spring-
+ context-support-5.3.7.jar kotlin-stdlib-jdk7-1.5.0.jar spring-context-5
+ .3.7.jar pagehelper-spring-boot-starter-1.2.11.jar mybatis-spring-2.0.7
+ .jar reactor-core-3.4.6.jar spring-security-web-5.5.0.jar spring-boot-s
+ tarter-data-jdbc-2.5.0.jar mybatis-3.5.9.jar spring-core-5.3.7.jar spri
+ ng-expression-5.3.7.jar spring-websocket-5.3.7.jar druid-spring-boot-st
+ arter-1.2.8.jar velocity-engine-core-2.3.jar mybatis-plus-extension-3.4
+ .3.jar netty-buffer-4.1.65.Final.jar tomcat-embed-core-9.0.46.jar mybat
+ is-spring-boot-starter-2.2.2.jar spring-boot-starter-logging-2.5.0.jar 
+ jackson-datatype-jdk8-2.12.3.jar kotlin-stdlib-jdk8-1.5.0.jar lombok-1.
+ 18.20.jar hutool-all-5.8.16.jar pagehelper-5.1.9.jar spring-tx-5.3.7.ja
+ r spring-data-relational-2.2.1.jar kotlin-stdlib-common-1.5.0.jar slf4j
+ -api-1.7.30.jar netty-transport-4.1.65.Final.jar druid-1.2.8.jar spring
+ -security-config-5.5.0.jar jjwt-0.9.0.jar spring-jdbc-5.3.7.jar mybatis
+ -plus-annotation-3.4.3.jar spring-beans-5.3.7.jar spring-boot-autoconfi
+ gure-2.5.0.jar spring-messaging-5.3.7.jar spring-aop-5.3.7.jar spring-b
+ oot-starter-tomcat-2.5.0.jar spring-boot-starter-jdbc-2.5.0.jar spring-
+ web-5.3.7.jar spring-data-keyvalue-2.5.1.jar commons-lang3-3.12.0.jar s
+ pring-data-commons-2.5.1.jar jakarta.activation-1.2.2.jar netty-codec-4
+ .1.65.Final.jar mybatis-plus-generator-3.5.1.jar
+

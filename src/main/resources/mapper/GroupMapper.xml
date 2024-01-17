@@ -82,4 +82,15 @@
             left join czp_group pg on pg.id=cg.parent_id
         where cg.id=#{id}
     </select>
+    <select id="czpGroupInfo" resultType="com.sorrowphage.czp.entity.vo.CzpGroupVO">
+        select cg.*,g.num,cu.name,cu.avatar,pg.group_name as parentName from czp_group cg
+        left join (select ug.group_id,count(ug.group_id) as num from user_group ug group by ug.group_id) as g  on g.group_id=cg.id
+        left join (select * from czp_user) cu on cu.id=cg.clan_elder
+        left join (select * from czp_group) pg on pg.parent_id=cg.id
+        <where>
+            <if test=" id != null and id != '' ">
+                cg.id=#{id}
+            </if>
+        </where>
+    </select>
 </mapper>

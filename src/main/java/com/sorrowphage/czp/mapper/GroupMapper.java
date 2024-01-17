@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.UserGroup;
+import com.sorrowphage.czp.entity.vo.CzpGroupVO;
 import com.sorrowphage.czp.entity.vo.GroupVO;
 import com.sorrowphage.czp.entity.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -93,5 +95,13 @@ public interface GroupMapper extends BaseMapper<Group> {
     List<Group> selectUserGroup(String id);
 
     GroupVO readGroupInfo(String id);
+
+
+    /**
+     * 查询族群信息--详细信息版
+     * @param id 族群id
+     * @return CzpGroupVo
+     */
+    CzpGroupVO czpGroupInfo(@Param("id") String id);
 
 }

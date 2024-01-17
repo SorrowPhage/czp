@@ -1,6 +1,9 @@
 package com.sorrowphage.czp;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.sorrowphage.czp.entity.UserGroup;
 import com.sorrowphage.czp.mapper.UserGroupMapper;
+import com.sorrowphage.czp.utils.CollectionUtils;
 import com.sorrowphage.czp.utils.RedisCache;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,19 +11,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 @SpringBootTest
 class CzpApplicationTests {
 
-    @Autowired
-    private RedisCache redisCache;
 
     @Autowired
     UserGroupMapper userGroupMapper;
 
-    @Value("${file.avatar.base}")
-    private  String bathPath;
 
     @Test
     void contextLoads() {
@@ -31,6 +32,12 @@ class CzpApplicationTests {
         // System.out.println(s);
 
         // userGroupMapper.isExist("p1","")
+        // System.out.println(userGroupMapper.selectCount());
+        // userGroupMapper.selectList()
+        // LambdaUpdateWrapper<UserGroup> wrapper = new LambdaUpdateWrapper<>();
+        // List<UserGroup> groupList = userGroupMapper.selectList(wrapper);
+        Function<UserGroup, List<?>> userGroupListFunction = CollectionUtils.combinationKey(UserGroup::getGroupId, UserGroup::getParentId);
+        System.out.println(userGroupListFunction);
     }
 
 }

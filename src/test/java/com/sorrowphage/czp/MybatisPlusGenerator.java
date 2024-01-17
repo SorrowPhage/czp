@@ -16,12 +16,12 @@ import java.util.List;
 public class MybatisPlusGenerator {
     public static void main(String[] args) {
         List<String> tables = new ArrayList<>();
-        tables.add("user_group");
+        tables.add("czp_user_chat_list");
         FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/czp?serverTimezone=UTC","root","123456")
                 .globalConfig(builder -> {
                     builder.author("SorrowPhage")              //作者
                             .outputDir(System.getProperty("user.dir")+"\\src\\main\\java")    //输出路径(写到java目录)
-                            .enableSwagger()           //开启swagger
+                            // .enableSwagger()           //开启swagger
                             .commentDate("yyyy-MM-dd");
 //                            .fileOverride();            //开启覆盖之前生成的文件
 
