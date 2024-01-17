@@ -2,6 +2,9 @@
     <el-container>
         <el-main>
             <div class="gd_body">
+<!--                <div style="width: 200px;height: calc(100vh - 200px);">-->
+<!--                    -->
+<!--                </div>-->
                 <div class="user_body">
                     <el-tabs v-model="activeName" style="height: calc(100vh - 200px);">
                         <el-tab-pane label="详细信息" name="first">

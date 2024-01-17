@@ -100,72 +100,78 @@ const routers = [
                     }
                 ]
             },
+            // {
+            //     path: 'group',
+            //     name: 'group',
+            //     component: GroupNav,
+            //     redirect: "/home/group/list",
+            //     meta: {title: "家族", ver: true},
+            //     children: [
+            //
+            //     ]
+            // },
+            //group
             {
-                path: 'group',
-                name: 'group',
-                component: GroupNav,
-                redirect: "/home/group/list",
-                meta: {title: "家族", ver: true},
-                children: [
-                    {
-                        path: "create",
-                        name: "create",
-                        component: CreateGroup,
-                        meta: {title: "create", ver: true}
-                    },
-                    {
-                        path: "list",
-                        name: "list",
-                        component: GroupList,
-                        meta: {title: "list", ver: true}
-                    },
-                    {
-                        path: 'fam',
-                        name: 'fam',
-                        component: FamilyInfo,
-                        meta: {title: "修改资料", ver: true}
-                    },
-                    {
-                        path: "gt",
-                        name: "gt",
-                        component: GroupTree,
-                        meta: {ver: true}
-                    }
-                ]
+                path: "/home/group/create",
+                name: "create",
+                component: CreateGroup,
+                meta: {title: "create", ver: true}
             },
             {
-                path: "audit",
-                name: "audit",
-                component: AuditNav,
-                meta: {title: "申请", ver: true},
-                redirect: "/home/audit/judge",
-                children: [
-                    {
-                        path: "judge",
-                        name: "judge",
-                        component: AuditList,
-                        meta: {title: "申请", ver: true}
-                    },
-                    {
-                        path: "ah",
-                        name: "ah",
-                        component: AuditHistory,
-                        meta: {title: "历史", ver: true}
-                    },
-                    {
-                        path: "gb",
-                        name: "gb",
-                        component: GroupMangger,
-                        meta: {title: "gb", ver: true}
-                    },
-                    {
-                        path: "gcl",
-                        name: "gcl",
-                        component: GroupCreaterList,
-                        meta: {ver: true}
-                    },
-                ]
+                path: "/home/group/list",
+                name: "list",
+                component: GroupList,
+                meta: {title: "list", ver: true}
             },
+            {
+                path: '/home/group/fam',
+                name: 'fam',
+                component: FamilyInfo,
+                meta: {title: "修改资料", ver: true}
+            },
+            {
+                path: "/home/group/gt",
+                name: "gt",
+                component: GroupTree,
+                meta: {ver: true}
+            },
+            //=======================
+            // {
+            //     path: "audit",
+            //     name: "audit",
+            //     component: AuditNav,
+            //     meta: {title: "申请", ver: true},
+            //     redirect: "/home/audit/judge",
+            //     children: [
+            //
+            //     ]
+            // },
+            //audit
+            {
+                path: "/home/audit/judge",
+                name: "judge",
+                component: AuditList,
+                meta: {title: "申请", ver: true}
+            },
+            {
+                path: "/home/audit/ah",
+                name: "ah",
+                component: AuditHistory,
+                meta: {title: "历史", ver: true}
+            },
+            {
+                path: "/home/audit/gb",
+                name: "gb",
+                component: GroupMangger,
+                meta: {title: "gb", ver: true}
+            },
+            {
+                path: "/home/audit/gcl",
+                name: "gcl",
+                component: GroupCreaterList,
+                meta: {ver: true}
+            },
+            //=======================
             {
                 name: "search",
                 path: "search",

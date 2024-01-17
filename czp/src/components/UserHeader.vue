@@ -5,12 +5,33 @@
                 <SideInformationBar/>
                 <input v-model="search" class="sp-search-input" placeholder="Search" type="text" @keydown.enter="goSearch"/>
                 <i class="el-icon-search sp-search-icon" @click="goSearch"></i>
-                <div class="sp-nav" @click="goGroup">族群信息</div>
-<!--                <div class="sp-nav" @click="audit" v-if="hasPerm('audit::apply')">族群操作</div>-->
-                <div class="sp-nav" @click="audit" >族群操作</div>
-                <div class="sp-nav" @click="message" >消息</div>
-<!--                <div class="sp-nav" @click="large">large</div>-->
+<!--                <div class="sp-nav" @click="goGroup">族群信息</div>-->
+<!--                <div class="sp-nav" @click="audit" >族群操作</div>-->
+<!--                <div class="sp-nav" @click="message" >消息</div>-->
             </div>
+        </div>
+        <div class="nav-box sp-nav sp-menu">
+            <el-menu class="el-menu-demo" mode="horizontal"
+                     :router="true"
+                     :default-active="$route.path"
+                     :unique-opened="true"
+            >
+                <el-submenu index="1">
+                    <template slot="title">族群信息</template>
+                    <el-menu-item index="/home/group/create">选项1</el-menu-item>
+                    <el-menu-item index="/home/group/list">选项2</el-menu-item>
+                    <el-menu-item index="/home/group/fam">选项3</el-menu-item>
+                    <el-menu-item index="/home/group/gt">选项3</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">族群信息</template>
+                    <el-menu-item index="/home/audit/judge">选项1</el-menu-item>
+                    <el-menu-item index="/home/audit/ah">选项2</el-menu-item>
+                    <el-menu-item index="/home/audit/gb">选项3</el-menu-item>
+                    <el-menu-item index="/home/audit/gcl">选项3</el-menu-item>
+                </el-submenu>
+    
+            </el-menu>
         </div>
         <div  class="menu-right">
             <ul class="notification-menu">
@@ -27,7 +48,6 @@
                         <li class="sp-li-space" @click="logout">
                             <i class="el-icon-right"></i> 退出
                         </li>
-    
                     </ul>
                 </li>
             </ul>
@@ -82,7 +102,6 @@ export default {
             closeWebsocket();
             sendWebsocket(this.$store.state.CzpUser.id, {}, this.onmessage, this.onerror);
         },
-    
         onmessage(data) {
             //通过data中的type来触发事件
             data = JSON.parse(data)
@@ -98,7 +117,6 @@ export default {
             }
 
         },
-    
         onerror() {
         
         },
@@ -179,7 +197,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.sp-menu{
+    /deep/ .el-menu--horizontal>.el-submenu .el-submenu__title{
+        height: 50px;
+    }
+}
 .header {
     /*position: fixed;*/
     width: 100%;
@@ -187,11 +210,13 @@ export default {
     background-color: white;
     top: 0;
     height: 50px;
+    /*height: 60px;*/
     z-index: 2000;
     border-bottom: 1px solid #eef5fc;
 }
-.nav-box{
+.nav-box {
     height: 50px;
+    /*height: 60px;*/
     margin-top: 0;
     float: left;
 }
@@ -223,6 +248,7 @@ export default {
     margin-right: 10px;
     margin-top: 0;
     height: 50px;
+    /*height: 60px;*/
 }
 
 /*会影响导航栏*/
@@ -433,4 +459,5 @@ li {
     white-space: pre-wrap;
     overflow: auto;
 }
+
 </style>
