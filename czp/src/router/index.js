@@ -28,6 +28,7 @@ router.beforeEach((to, from, next) => {
         // } else {
         //     next();
         // }
+        //TODO 这个逻辑应该写到请求头里面
         getRequest("/czpUser/token/userinfo", {}).then(res => {
             if (res.code === 200) {
                 store.commit("CzpUser/userInfo", res.data);

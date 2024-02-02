@@ -95,14 +95,7 @@ export default {
 /deep/ .el-tabs__content {
     height: 100%;
 }
-.gd_body {
-    width: calc(100vh - 260px);
-    height: calc(100vh - 100px);
-    min-width: 980px;
-    display: flex;
-    margin: 0 auto;
-    background: white;
-}
+
 .user_top {
     //width: 150px;
     //background-color: white;

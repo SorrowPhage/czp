@@ -18,19 +18,20 @@
             >
                 <el-submenu index="1">
                     <template slot="title">族群信息</template>
+                    <el-menu-item index="/home/ethnic">详情</el-menu-item>
                     <el-menu-item index="/home/group/create">选项1</el-menu-item>
                     <el-menu-item index="/home/group/list">选项2</el-menu-item>
-                    <el-menu-item index="/home/group/fam">选项3</el-menu-item>
-                    <el-menu-item index="/home/group/gt">选项3</el-menu-item>
+                    <el-menu-item index="/home/group/fam">加入族谱</el-menu-item>
+                    <el-menu-item index="/home/group/gt">族谱树</el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
-                    <template slot="title">族群信息</template>
+                    <template slot="title">操作</template>
                     <el-menu-item index="/home/audit/judge">选项1</el-menu-item>
                     <el-menu-item index="/home/audit/ah">选项2</el-menu-item>
                     <el-menu-item index="/home/audit/gb">选项3</el-menu-item>
                     <el-menu-item index="/home/audit/gcl">选项3</el-menu-item>
                 </el-submenu>
-    
+                <el-menu-item index="/home/msg">消息</el-menu-item>
             </el-menu>
         </div>
         <div  class="menu-right">
@@ -202,17 +203,22 @@ export default {
     /deep/ .el-menu--horizontal>.el-submenu .el-submenu__title{
         height: 50px;
     }
+    /deep/ .el-menu--horizontal>.el-menu-item{
+        height: 50px;
+    }
 }
 .header {
     /*position: fixed;*/
     width: 100%;
     min-width: 1026px;
     background-color: white;
+    //background-color: #1c2538;
     top: 0;
     height: 50px;
     /*height: 60px;*/
     z-index: 2000;
     border-bottom: 1px solid #eef5fc;
+    //border-bottom: 1px solid #1c2538;
 }
 .nav-box {
     height: 50px;

@@ -4,6 +4,7 @@ import ElementUI from 'element-ui';
 import router from './router';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store'
+import '@/assets/css/index.css'
 // 将自动注册所有组件为全局组件
 import dataV from '@jiaminghi/data-view'
 Vue.use(dataV)

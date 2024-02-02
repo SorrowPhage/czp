@@ -128,11 +128,8 @@ export default {
 .body_home /deep/ .rel-map {
     background-image: linear-gradient(
             125deg,
-            #2c3e50,
-            #27ae60,
-            #2980b9,
-            //#eb4d4b,
-            #2c3e50
+            #255877,
+            #287263
     );
     background-size: 400%;
     animation: bganimation 15s infinite;
