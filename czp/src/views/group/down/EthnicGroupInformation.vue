@@ -5,9 +5,7 @@
             xxx
         </div>
         <div class="panel">
-            asd
-            <group-card v-for="g in getGroupList"
-                        :key="g.id"
+            <group-card
             />
         </div>
     </div>
