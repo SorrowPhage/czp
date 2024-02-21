@@ -97,3 +97,12 @@ export function postRequest(url, params) {
             })
     });
 }
+
+
+/**
+ * 窗口高度
+ * @returns {number}
+ */
+export function windowHeight() {
+    return window.screen.availHeight;
+}

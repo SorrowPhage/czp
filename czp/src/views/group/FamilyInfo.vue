@@ -17,7 +17,7 @@
                 />
             </div>
         </div>
-        <div v-if="active===1" style="height: 100%;width: 100%;overflow: hidden">
+        <div v-if="active===1" style="height: calc(100ch - 50px);width: 100%;overflow: hidden">
             <div class="BaseDragResize" style="height: 100%;width: 100%;">
                 <vue-draggable-resizable :key="groupId"
                                          :resizable="false"

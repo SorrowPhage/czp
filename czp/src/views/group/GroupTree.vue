@@ -1,8 +1,8 @@
 <template>
-    <div style="width: 100%;height:100%;display: flex;flex-direction: column">
+    <div style="width: 100%;height:calc(100vh - 50px);display: flex;flex-direction: column">
         <div class="op_lan">
             家族:
-            <el-select v-model="value" placeholder="请选择" size="mini">
+            <el-select v-model="value" placeholder="请选择" size="mini" filterable>
                 <el-option
                     v-for="item in options"
                     :key="item.id"
@@ -11,6 +11,7 @@
                 </el-option>
             </el-select>
             <el-button type="primary" plain @click="laodGroupTreeHasSonGroupData" style="float: right;" size="mini">包含子级族群</el-button>
+            <el-button type="primary" plain @click="laodGroupTreeHasOldGroupData" style="float: right;margin-right: 15px" size="mini">父级族群</el-button>
             <el-button type="primary" plain @click="loadGroupTreeData" style="float: right;margin-right: 15px" size="mini">搜索</el-button>
             
         </div>
@@ -81,6 +82,15 @@ export default {
                 // hideLoading();
                 }
             );
+        },
+        laodGroupTreeHasOldGroupData() {
+            showLoading();
+            getRequest("/group/hasoldtree",{id:this.value}).then(res=>{
+                hideLoading();
+                if (res.code === 200) {
+                    this.treeData = res.data;
+                }
+            })
         },
         laodGroupTreeHasSonGroupData() {
             showLoading();

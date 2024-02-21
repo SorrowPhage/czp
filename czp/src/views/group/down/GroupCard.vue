@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width: 100%">
         <div class="gc-left">asd</div>
         <div class="gc-right">asd</div>
     </div>
