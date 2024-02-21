@@ -38,6 +38,8 @@ public interface GroupService extends IService<Group> {
 
     ResultMessage groupTreeHasSon(String id);
 
+    ResultMessage groupTreeHasOld(String id);
+
     ResultMessage userInGroups(String id);
 
     ResultMessage groupUserNums(String id);
@@ -55,4 +57,6 @@ public interface GroupService extends IService<Group> {
     ResultMessage obscureSearchGroup(String q,String pageIndex,String pageSize);
 
     ResultMessage readGroupInfo(String id);
+
+    ResultMessage groupListPage(String userId);
 }

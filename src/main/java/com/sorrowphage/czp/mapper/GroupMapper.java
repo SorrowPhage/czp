@@ -26,6 +26,11 @@ public interface GroupMapper extends BaseMapper<Group> {
 
     void insertDataToUserGroup(Map<String, String> param);
 
+    /**
+     *获取用户族群信息列表
+     * @param userId 用户id
+     * @return 族群信息列表
+     */
     List<GroupVO> selectGroupList(String userId);
 
     /**

@@ -46,6 +46,13 @@ public class GroupController {
         return groupService.groupList(userId);
     }
 
+    @GetMapping("/listpage")
+    public ResultMessage groupListPage(@RequestParam("userId") String userId) {
+        return groupService.groupListPage(userId);
+    }
+
+
+
     /**
      * 获取id族群的所有创建者的信息
      *
@@ -133,6 +140,16 @@ public class GroupController {
     @GetMapping("/hassontree")
     public ResultMessage groupTreeHasSon(@RequestParam("id") String id) {
         return groupService.groupTreeHasSon(id);
+    }
+
+    /**
+     * 查询id族群的族群树结构(包含父级族群)
+     * @param id
+     * @return
+     */
+    @GetMapping("/hasoldtree")
+    public ResultMessage groupTreeHasOld(@RequestParam("id") String id) {
+        return groupService.groupTreeHasOld(id);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
@@ -60,9 +61,17 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         }
     }
 
+    /**
+     * 获取用户族群信息列表
+     * @param userId
+     * @return
+     */
     @Override
     public ResultMessage groupList(String userId) {
         List<GroupVO> list = groupMapper.selectGroupList(userId);
+        if (list.size() == 0) {
+            return ResultMessage.failure("用户没有加入族群");
+        }
         return ResultMessage.success("请求成功", list);
     }
 
@@ -194,6 +203,21 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return ResultMessage.success(resultData);
     }
 
+    @Override
+    public ResultMessage groupTreeHasOld(String id) {
+        List<String> createrList = groupMapper.groupCreaterList(id);
+        List<UserVo> list = groupMapper.groupUserList(id);
+        //根据子级族群获取到父级族群的信息
+        QueryWrapper<Group> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Group::getId, id).select(Group::getParentId);
+        List<Group> oldGroup = groupMapper.selectList(wrapper);
+        //根据族群的创建者来获取父级的信息
+        //递归找出父级的信息
+        list.addAll(subgroupListOld(oldGroup.get(0).getParentId(),createrList));
+        //组装成一个族群
+        return null;
+    }
+
     /**
      * 递归查询包含子级节点的用户树，但是数据库设计的时候，子级族群的创建者在当前族群和子级族群都有数据，
      * 查询时，应该直接剔除掉族群的创建者用户：使用这种方法最高级族群的创建者也会被剔除，所以最高级族群不参与递归
@@ -218,6 +242,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
             return null;
         }
         return resultList;
+    }
+
+    //获取父级族群的数据
+    public List<UserVo> subgroupListOld(String oldGroup, List<String> createrList) {
+
+        return null;
     }
 
     @Override
@@ -384,6 +414,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         group.setClanElderUser(czpUserMapper.selectUserInfo(group.getClanElder()));
         group.setNum(groupMapper.groupUserNums(id));
         return ResultMessage.success(group);
+    }
+
+    @Override
+    public ResultMessage groupListPage(String userId) {
+        // groupMapper.getGroupById()
+        return null;
     }
 
 }
