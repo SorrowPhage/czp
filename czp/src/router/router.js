@@ -1,6 +1,5 @@
 import UserLogin from "@/views/login/UserLogin";
 import AccessDenied from "@/views/AccessDenied";
-import CzpHome from "@/views/large/CzpHome";
 import Register from "@/views/login/Register";
 import RetrievePassword from "@/views/login/RetrievePassword";
 import UserHome from "@/views/user/UserHome";
