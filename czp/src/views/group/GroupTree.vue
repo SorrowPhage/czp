@@ -13,7 +13,6 @@
             <el-button type="primary" plain @click="laodGroupTreeHasSonGroupData" style="float: right;" size="mini">包含子级族群</el-button>
             <el-button type="primary" plain @click="laodGroupTreeHasOldGroupData" style="float: right;margin-right: 15px" size="mini">父级族群</el-button>
             <el-button type="primary" plain @click="loadGroupTreeData" style="float: right;margin-right: 15px" size="mini">搜索</el-button>
-            
         </div>
         <div style="overflow: hidden;flex: 1;margin-top: 15px">
             <div class="BaseDragResize" style="height: 100%;width: 100%;">

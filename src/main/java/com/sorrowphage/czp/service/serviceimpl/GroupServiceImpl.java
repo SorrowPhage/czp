@@ -8,6 +8,8 @@ import com.github.pagehelper.PageInfo;
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.entity.UserGroup;
+import com.sorrowphage.czp.entity.dto.GraphDTO;
+import com.sorrowphage.czp.entity.dto.GroupDTO;
 import com.sorrowphage.czp.entity.vo.*;
 import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.mapper.GroupMapper;
@@ -16,6 +18,7 @@ import com.sorrowphage.czp.service.GroupService;
 import com.sorrowphage.czp.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -411,15 +414,28 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Override
     public ResultMessage readGroupInfo(String id) {
         GroupVO group = groupMapper.readGroupInfo(id);
-        group.setClanElderUser(czpUserMapper.selectUserInfo(group.getClanElder()));
-        group.setNum(groupMapper.groupUserNums(id));
         return ResultMessage.success(group);
     }
 
     @Override
-    public ResultMessage groupListPage(String userId) {
-        // groupMapper.getGroupById()
-        return null;
+    public ResultMessage groupListPage(GroupDTO groupDTO) {
+        PageHelper.startPage(groupDTO.getPageNum(), groupDTO.getPageSize());
+        List<GroupVO> dataList = groupMapper.selectGroupListByName(groupDTO.getGroupName());
+        return ResultMessage.success(new PageInfo<>(dataList));
     }
+
+
+    @Override
+    public ResultMessage groupGraphData(GraphDTO graphDTO) {
+        GraphVO graphVO = new GraphVO();
+        List<AGePieCharts> ageList = czpUserMapper.selectAgePieChatrsList(graphDTO);
+        List<BirthYear> birthYearList = czpUserMapper.selectBirthAndDeathYearChartsList(graphDTO);
+        List<AGePieCharts> maleToFemale = czpUserMapper.selectMaleFemale(graphDTO);
+        graphVO.setAgePieChartsList(ageList);
+        graphVO.setBirthAndDeathYearList(birthYearList);
+        graphVO.setMaleToFemaleList(maleToFemale);
+        return ResultMessage.success(graphVO);
+    }
+
 
 }

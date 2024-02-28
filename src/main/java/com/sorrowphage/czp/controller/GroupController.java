@@ -3,6 +3,8 @@ package com.sorrowphage.czp.controller;
 
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.ResultMessage;
+import com.sorrowphage.czp.entity.dto.GraphDTO;
+import com.sorrowphage.czp.entity.dto.GroupDTO;
 import com.sorrowphage.czp.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,54 @@ import java.util.Map;
 public class GroupController {
 
     private final GroupService groupService;
+
+
+    /**
+     * 获取所有族群信息，可以提供族群名称进行检索   需要保留
+     * @param groupDTO 查询dto
+     * @return 分页数
+     */
+    @PostMapping("/listpage")
+    public ResultMessage groupListPage(@RequestBody GroupDTO groupDTO) {
+        return groupService.groupListPage(groupDTO);
+    }
+
+    /**
+     * 根据id获取族群信息  需要保留
+     * @param id 族群id
+     * @return
+     */
+    @GetMapping("/groupInfo")
+    public ResultMessage readGroupInfo(@RequestParam("id") String id) {
+        return groupService.readGroupInfo(id);
+    }
+
+    /**
+     * 获取图形数据   需要保留
+     *
+     * @param graphDTO
+     * @return
+     */
+    @PostMapping("/gdata")
+    public ResultMessage groupGraphPage(@RequestBody GraphDTO graphDTO) {
+        return groupService.groupGraphData(graphDTO);
+    }
+
+
+    /**
+     * 获取id族群的所有用户信息需要将创建者标出  需要保留
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/ul")
+    public ResultMessage groupUserList(@RequestParam("id") String id) {
+        return groupService.groupUserList(id);
+    }
+
+
+
+
 
     /**
      * 创建族群
@@ -45,12 +95,6 @@ public class GroupController {
     public ResultMessage groupList(@RequestParam("userId") String userId) {
         return groupService.groupList(userId);
     }
-
-    @GetMapping("/listpage")
-    public ResultMessage groupListPage(@RequestParam("userId") String userId) {
-        return groupService.groupListPage(userId);
-    }
-
 
 
     /**
@@ -108,16 +152,7 @@ public class GroupController {
         return groupService.updateGroupInfo(group);
     }
 
-    /**
-     * 获取id族群的所有用户信息需要将创建者标出
-     *
-     * @param id
-     * @return
-     */
-    @GetMapping("/ul")
-    public ResultMessage groupUserList(@RequestParam("id") String id) {
-        return groupService.groupUserList(id);
-    }
+
 
 
     /**
@@ -240,13 +275,4 @@ public class GroupController {
         return groupService.obscureSearchGroup(q, pageIndex, pageSize);
     }
 
-    /**
-     * 根据id获取族群信息
-     * @param id 族群id
-     * @return
-     */
-    @GetMapping("/groupInfo")
-    public ResultMessage readGroupInfo(@RequestParam("id") String id) {
-        return groupService.readGroupInfo(id);
-    }
 }

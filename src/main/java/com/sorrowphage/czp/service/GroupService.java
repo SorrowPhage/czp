@@ -3,6 +3,8 @@ package com.sorrowphage.czp.service;
 import com.sorrowphage.czp.entity.Group;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sorrowphage.czp.entity.ResultMessage;
+import com.sorrowphage.czp.entity.dto.GraphDTO;
+import com.sorrowphage.czp.entity.dto.GroupDTO;
 
 import java.util.Map;
 
@@ -56,7 +58,11 @@ public interface GroupService extends IService<Group> {
 
     ResultMessage obscureSearchGroup(String q,String pageIndex,String pageSize);
 
+    //需要
     ResultMessage readGroupInfo(String id);
 
-    ResultMessage groupListPage(String userId);
+    //需要
+    ResultMessage groupListPage(GroupDTO groupDTO);
+
+    ResultMessage groupGraphData(GraphDTO graphDTO);
 }

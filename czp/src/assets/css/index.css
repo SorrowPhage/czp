@@ -3,10 +3,14 @@
     /*width: calc(100vh);*/
     /*height: calc(100vh - 50px);*/
     min-width: 980px;
-    display: flex;
+    /*display: flex;*/
     margin: 0 auto;
     /*background: white;*/
     /*background: #2b3346;*/
+}
+
+.head-line{
+    padding: 5px; line-height: 50px; float: left;
 }
 .sp-btn{
     display: inline-block;

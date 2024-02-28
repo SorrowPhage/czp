@@ -11,10 +11,10 @@
                 <el-col :span="8">
                     <el-row>
                         <el-col :span="20">
-                            <el-input placeholder="族群名称" style="right: 10px"></el-input>
+                            <el-input v-model="searchParam.groupName" placeholder="族群名称" style="right: 10px"></el-input>
                         </el-col>
                         <el-col :span="4">
-                            <el-button type="primary">搜索</el-button>
+                            <el-button type="primary" @click="getGroupListPage">搜索</el-button>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -23,21 +23,18 @@
         <div class="panel" >
             <el-row>
                 <el-col :span="24" class="el-main-content">
-                    <el-table :data="tableData" style="width: 100%;" :height="tableHeight"
-                              @selection-change="dataSelectionChange">
-                        <el-table-column type="selection" width="55"></el-table-column>
-                        <el-table-column prop="type" label="业务类型"></el-table-column>
-                        <el-table-column fixed="right" label="操作" width="100">
+                    <el-table :data="groupList" style="width: 100%;" :height="tableHeight">
+                        <el-table-column prop="groupName" label="名称"></el-table-column>
+                        <el-table-column prop="des" label="描述"></el-table-column>
+                        <el-table-column prop="area" label="地区"></el-table-column>
+                        <el-table-column prop="parentName" label="父级族群" :formatter="nullValueFormat"></el-table-column>
+                        <el-table-column prop="livingPeopleTotal" label="现存人数"></el-table-column>
+                        <el-table-column prop="peopleTotal" label="总数目"></el-table-column>
+                        <el-table-column
+                            label="操作"
+                            width="100">
                             <template slot-scope="scope">
-<!--                                <el-popconfirm @confirm="isDelete(scope.row)"-->
-                                <el-popconfirm @confirm="isDelete(scope.row)"
-                                               confirm-button-text='确定'
-                                               cancel-button-text='取消'
-                                               icon="el-icon-info"
-                                               icon-color="red"
-                                               title="确定删除该条数据？">
-                                    <el-button slot="reference" type="text" size="small">删除</el-button>
-                                </el-popconfirm>
+                                <el-button @click="selectGroupDetails(scope.row)" type="text" size="small">详情</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -52,18 +49,17 @@
                                    :page-size="pagination.pageSize"
                                    :current-page.sync="searchParam.pageNum"
                                    >
-<!--                                   @current-change="loadData"-->
-<!--                                   @size-change="(val)=>{this.searchParam.pageSize = val;this.loadData();}">-->
                     </el-pagination>
                 </el-col>
             </el-row>
         </div>
     </div>
+
 </template>
 
 <script>
 import {hideLoading, hideLoadingAndNotify, showLoading} from "@/api/loading";
-import {getRequest,windowHeight} from "@/api/api";
+import {getRequest,postRequest,windowHeight} from "@/api/api";
 export default {
     name: "EthnicGroupInformation",
     data() {
@@ -72,10 +68,12 @@ export default {
             tableHeight: (windowHeight() - 320),
             pagination: {pages: 0, total: 0, pageSize: 10},
             searchParam: {
-                pageFlag: 1,
+                groupName: '',
                 pageNum: 1,
                 pageSize:10,
             },
+            showGroupInfo: false,
+            groupInfo: null,
         };
     },
     mounted() {
@@ -83,32 +81,34 @@ export default {
         this.getGroupListPage();
     },
     methods:{
-        //获取用户所拥有的族群信息
-        getGroupList() {
-            showLoading()
-            getRequest("/group/list", {userId: this.$store.state.CzpUser.id}).then(res => {
-                hideLoading();
-                if (res.code === 200) {
-                    this.groupList = res.data;
-                }
-            }).catch(err => {
-                    hideLoadingAndNotify(err)
-                }
-            );
-        },
+        //获取族群信息列表
         getGroupListPage() {
             showLoading()
-            getRequest("/group/listpage", {userId: this.$store.state.CzpUser.id}).then(res => {
+            postRequest("/group/listpage", this.searchParam).then(res => {
                 hideLoading();
                 if (res.code === 200) {
-                    this.groupList = res.data;
+                    this.groupList = res.data.list;
+                    this.pagination.pages = res.data.pages;
+                    this.pagination.pageSize = res.data.pageSize;
+                    this.pagination.total = res.data.total;
                 }
             }).catch(err => {
                     hideLoadingAndNotify(err)
                 }
             );
         },
-        
+        nullValueFormat(row) {
+            return row.parentName == null ? "-" : row.parentName;
+        },
+        selectGroupDetails(row){
+            //跳转到详情页面
+            this.$router.push({
+                name: 'groupinfo',
+                query:{
+                    gid: row.id,
+                }
+            })
+        }
     }
 }
 </script>

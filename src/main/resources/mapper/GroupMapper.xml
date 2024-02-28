@@ -10,10 +10,17 @@
 
     </insert>
     <select id="selectGroupList" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
-        select g.*,pg.group_name as parent_name from user_group ug
-            left join czp_group g on g.id=ug.group_id
-            left join czp_group pg on pg.id=g.parent_id
-        where ug.user_id=#{userId}
+        SELECT
+            g.*,
+            pg.group_name AS parent_name,
+            n.people_num num
+        FROM
+            user_group ug
+                LEFT JOIN czp_group g ON g.id = ug.group_id
+                LEFT JOIN czp_group pg ON pg.id = g.parent_id
+                JOIN ( SELECT group_id, count(*) AS people_num FROM user_group GROUP BY group_id ) n ON ug.group_id = n.group_id
+        WHERE
+            ug.user_id = #{userId}
     </select>
     <select id="createList" resultType="com.sorrowphage.czp.entity.vo.UserVo">
         select u.* from czp_user u
@@ -25,7 +32,6 @@
         from czp_group g
                  left join czp_group pg on pg.id=g.parent_id
         where g.id=#{id} or g.group_name like concat("%",#{id},"%")
-
     </select>
     <select id="getUserList" resultType="com.sorrowphage.czp.entity.CzpUser">
         select u.* from user_group g
@@ -90,6 +96,20 @@
         <where>
             <if test=" id != null and id != '' ">
                 cg.id=#{id}
+            </if>
+        </where>
+    </select>
+    <select id="selectGroupListByName" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
+        SELECT DISTINCT
+            g.*,
+            pg.group_name AS parent_name
+        FROM
+            user_group ug
+            LEFT JOIN czp_group g ON g.id = ug.group_id
+            LEFT JOIN czp_group pg ON pg.id = g.parent_id
+        <where>
+            <if test="groupName != null and groupName != '' ">
+                g.group_name like concat("%",#{groupName},"%")
             </if>
         </where>
     </select>

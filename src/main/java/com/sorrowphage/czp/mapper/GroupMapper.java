@@ -109,4 +109,6 @@ public interface GroupMapper extends BaseMapper<Group> {
      */
     CzpGroupVO czpGroupInfo(@Param("id") String id);
 
+    List<GroupVO> selectGroupListByName(String groupName);
+
 }

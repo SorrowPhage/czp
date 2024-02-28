@@ -26,7 +26,9 @@ import GroupDetail from "@/views/search/GroupDetail";
 import Chat from "@/views/message/Chat";
 import ChatNav from "@/views/message/ChatNav";
 import AuditResult from "@/views/message/AuditResult";
+//
 import EthnicGroupInformation from "@/views/group/down/EthnicGroupInformation";
+import GroupInfo from "@/views/group/down/GroupInfo";
 const routers = [
     {
         path: '/',
@@ -140,6 +142,12 @@ const routers = [
               name: "ethnic",
               component: EthnicGroupInformation,
               meta: {title: "EthnicGroupInfo",ver: true}
+            },
+            {
+                path: "/home/groupinfo",
+                name: "groupinfo",
+                component: GroupInfo,
+                meta: {title:"族群信息", ver: true}
             },
             //=======================
             // {

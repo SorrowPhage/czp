@@ -8,4 +8,60 @@
     <select id="selectUserInfo" resultType="com.sorrowphage.czp.entity.CzpUser">
         select * from czp_user u where u.id = #{id}
     </select>
+    <select id="selectAgePieChatrsList" resultType="com.sorrowphage.czp.entity.vo.AGePieCharts">
+        SELECT
+        CASE
+        WHEN FLOOR((YEAR(NOW()) - YEAR(u.birthday)) / 10) * 10 BETWEEN 0 AND 18 THEN '0-18岁'
+        WHEN FLOOR((YEAR(NOW()) - YEAR(u.birthday)) / 10) * 10 BETWEEN 19 AND 30 THEN '19-30岁'
+        WHEN FLOOR((YEAR(NOW()) - YEAR(u.birthday)) / 10) * 10 BETWEEN 31 AND 60 THEN '31-60岁'
+        ELSE '60岁以上'
+        END AS birth_decade,
+        COUNT(*) AS num
+        FROM
+        czp_user u
+        LEFT JOIN user_group g ON g.user_id = u.id
+        WHERE
+        STATUS = '1'
+        <if test="id !=null and id!= '' ">
+            AND g.group_id = #{id}
+        </if>
+        GROUP BY
+        birth_decade
+        ORDER BY
+        birth_decade;
+    </select>
+    <select id="selectBirthAndDeathYearChartsList" resultType="com.sorrowphage.czp.entity.vo.BirthYear">
+        SELECT year,
+        SUM(CASE WHEN event_type = 'birth' THEN num ELSE 0 END) AS num_birth,
+        SUM(CASE WHEN event_type = 'death' THEN num ELSE 0 END) AS num_death
+        FROM (
+        SELECT YEAR(u.birthday) AS year, COUNT(*) AS num, 'birth' AS event_type
+        FROM czp_user u
+        LEFT JOIN user_group g ON g.user_id = u.id
+        WHERE 1=1
+        AND g.group_id = #{id}
+        GROUP BY YEAR(u.birthday)
+        UNION ALL
+        SELECT YEAR(u.death_time) AS year, COUNT(*) AS num, 'death' AS event_type
+        FROM czp_user u
+        LEFT JOIN user_group g ON g.user_id = u.id
+        WHERE 1=1
+        AND u.death_time IS NOT NULL AND u.death_time != ''
+        AND  g.group_id = #{id}
+        GROUP BY YEAR(u.death_time)
+        ) AS combined_data
+        GROUP BY year
+        ORDER BY year;
+    </select>
+    <select id="selectMaleFemale" resultType="com.sorrowphage.czp.entity.vo.AGePieCharts">
+        select sex as birthDecade,count(*) as num from czp_user u
+             left join user_group g on g.user_id=u.id
+        <where>
+            <if test="id !=null and id!= '' ">
+                AND g.group_id = #{id}
+            </if>
+        </where>
+        group by sex
+    </select>
+
 </mapper>

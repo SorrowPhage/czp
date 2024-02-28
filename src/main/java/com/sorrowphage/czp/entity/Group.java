@@ -41,8 +41,16 @@ public class Group implements Serializable {
     @TableField("create_time")
     private String createTime;
 
+    //管理员
     @TableField("clan_elder")
     private String clanElder;
+
+    //总人数
+    @TableField("people_total")
+    private Integer peopleTotal;
+    //现存人数
+    @TableField("living_people_total")
+    private Integer livingPeopleTotal;
 
     @TableField(exist = false)
     private String createUser;

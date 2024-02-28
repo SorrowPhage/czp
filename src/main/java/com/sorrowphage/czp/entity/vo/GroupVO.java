@@ -27,16 +27,14 @@ public class GroupVO {
     //族群管理员id
     private String clanElder;
     private CzpUser clanElderUser;
-    //
     private String createUser;
-
-    //父级族群名称
-    private String parentName;
     //用户
     private List<UserVo> children = new ArrayList<>();
-
     //族群人数
-    private Integer num;
+    private Integer peopleTotal;
+    private Integer livingPeopleTotal;
+    //父级族群名称
+    private String parentName;
 
 
 }
