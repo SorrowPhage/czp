@@ -37,12 +37,6 @@ const routers = [
         meta: {title: "Czp Data", ver: true}
     },
     {
-        path: '/czpHome',
-        name: 'czpHome',
-        component: CzpHome,
-        meta: {title: "Czp Data"}
-    },
-    {
 
         path: '/login',
         name: 'login',
