@@ -1,5 +1,6 @@
 <template>
-    <div style="width: 100%;height:calc(100vh - 50px);display: flex;flex-direction: column">
+<!--    <div style="width: 100%;height:calc(100vh - 50px);display: flex;flex-direction: column">-->
+    <div class="gd_body">
         <div class="op_lan">
             家族:
             <el-select v-model="value" placeholder="请选择" size="mini" filterable>
@@ -14,7 +15,7 @@
             <el-button type="primary" plain @click="laodGroupTreeHasOldGroupData" style="float: right;margin-right: 15px" size="mini">父级族群</el-button>
             <el-button type="primary" plain @click="loadGroupTreeData" style="float: right;margin-right: 15px" size="mini">搜索</el-button>
         </div>
-        <div style="overflow: hidden;flex: 1;margin-top: 15px">
+        <div style="height: calc(100vh - 48px);overflow: hidden;flex: 1;margin-top: 15px">
             <div class="BaseDragResize" style="height: 100%;width: 100%;">
                 <vue-draggable-resizable  class="BaseDragResize-drag" w="auto" h="auto" :x="0" :y="0" :resizable="false" :key="groupId" parentLimitation
                      @resizing="onResize"
@@ -57,7 +58,6 @@ export default {
             //这个接口能查出所有的族群信息
             getRequest("/group/possess", {id: this.$store.state.CzpUser.id}).then(res => {
                 // hideLoadingAndNotify(res);
-                console.log(res)
                 hideLoading()
                 if (res.code === 200) {
                     this.options = res.data;
@@ -70,7 +70,6 @@ export default {
         loadGroupTreeData() {
             showLoading();
             getRequest("/group/tree", {id: this.value}).then(res => {
-                console.log("GroupTree", res)
                 // hideLoadingAndNotify(res);
                 hideLoading()
                 if (res.code === 200) {
@@ -160,7 +159,7 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    border: 1px solid #2c3e50;
+    //border: 1px solid #2c3e50;
     box-sizing: border-box;
     background-color: white;
     

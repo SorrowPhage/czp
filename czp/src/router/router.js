@@ -122,7 +122,7 @@ const routers = [
                 path: '/home/group/fam',
                 name: 'fam',
                 component: FamilyInfo,
-                meta: {title: "修改资料", ver: true}
+                meta: {title: "czp", ver: true}
             },
             {
                 path: "/home/group/gt",

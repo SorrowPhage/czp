@@ -58,7 +58,6 @@ export default {
             count: 10,
             showContent: true,
             chatList: [],
-            
         }
     },
     watch: {
@@ -68,6 +67,12 @@ export default {
                 this.show();
             },
         },
+        'chatList.length': function() {
+            let exist = this.chatList.some(item => item.id === this.$route.query.id);
+            if (!exist && this.showContent === false) {
+                this.getUser();
+            }
+        }
     },
     mounted() {
         this.loadData()
@@ -81,9 +86,15 @@ export default {
     methods: {
         loadData() {
             getRequest("/czp-message/chat-list",{id:this.$store.state.CzpUser.id}).then(res=>{
-                console.log(res);
                 if (res.code === 200) {
                     this.chatList = res.data;
+                }
+            })
+        },
+        getUser() {
+            getRequest("/czpUser/su",{id: this.$route.query.id}).then(res=>{
+                if (res.code === 200) {
+                    this.chatList.unshift(res.data);
                 }
             })
         },

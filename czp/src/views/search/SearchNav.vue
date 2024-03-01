@@ -1,30 +1,32 @@
 <template>
-    <div class="main">
-        <div class="wrapper">
-            <div class="row">
-                <div class="col">
-                    <section class="panel">
-                        <div class="pane-body">
-                            <div class="sp-search-box">
-                                <div class="sp-search-opt">
-                                    <el-menu
-                                        :default-active="$route.path"
-                                        class="el-menu-vertical-demo"
-                                        :router="true">
-                                        <el-menu-item index="/home/search/user" :route="{name:'user',query:{q:$route.query.q}}">
-                                            <span slot="title">User</span>
-                                        </el-menu-item>
-                                        <el-menu-item index="/home/search/sg" :route="{name:'sg',query:{q:$route.query.q}}">
-                                            <span slot="title">Group</span>
-                                        </el-menu-item>
-                                    </el-menu>
-                                </div>
-                                <div class="sp-search-list">
-                                    <router-view></router-view>
+    <div class="gd_body">
+        <div class="main" >
+            <div class="wrapper">
+                <div class="row">
+                    <div class="col">
+                        <section class="panel">
+                            <div class="pane-body">
+                                <div class="sp-search-box">
+                                    <div class="sp-search-opt">
+                                        <el-menu
+                                            :default-active="$route.path"
+                                            class="el-menu-vertical-demo"
+                                            :router="true">
+                                            <el-menu-item index="/home/search/user" :route="{name:'user',query:{q:$route.query.q}}">
+                                                <span slot="title">User</span>
+                                            </el-menu-item>
+                                            <el-menu-item index="/home/search/sg" :route="{name:'sg',query:{q:$route.query.q}}">
+                                                <span slot="title">Group</span>
+                                            </el-menu-item>
+                                        </el-menu>
+                                    </div>
+                                    <div class="sp-search-list">
+                                        <router-view></router-view>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>

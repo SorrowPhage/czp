@@ -26,14 +26,19 @@
 <script>
 export default {
     name: "UserItem",
-    props: ['id',"avatar","name","des"],
+    props: ['id', "avatar", "name", "des"],
     data() {
-        return{
+        return {
             showDiv: false,
+            staticAvatarUrl:  require('@/assets/img/czp.jpg') // 静态图片的URL
         }
     },
-    
-}
+    computed:{
+        avatarUrl: function() {
+            return this.avatar ? this.avatar : this.staticAvatarUrl;
+        }
+    }
+};
 </script>
 
 <style scoped lang="less">

@@ -18,18 +18,18 @@
             >
                 <el-submenu index="1">
                     <template slot="title">族群信息</template>
-                    <el-menu-item index="/home/ethnic">详情</el-menu-item>
-                    <el-menu-item index="/home/group/create">选项1</el-menu-item>
-                    <el-menu-item index="/home/group/list">选项2</el-menu-item>
+                    <el-menu-item index="/home/ethnic">家族详情</el-menu-item>
+<!--                    <el-menu-item index="/home/group/create">选项1</el-menu-item>-->
+<!--                    <el-menu-item index="/home/group/list">选项2</el-menu-item>-->
                     <el-menu-item index="/home/group/fam">加入族谱</el-menu-item>
                     <el-menu-item index="/home/group/gt">族谱树</el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">操作</template>
-                    <el-menu-item index="/home/audit/judge">选项1</el-menu-item>
-                    <el-menu-item index="/home/audit/ah">选项2</el-menu-item>
-                    <el-menu-item index="/home/audit/gb">选项3</el-menu-item>
-                    <el-menu-item index="/home/audit/gcl">选项3</el-menu-item>
+                    <el-menu-item index="/home/audit/judge">审核</el-menu-item>
+                    <el-menu-item index="/home/audit/ah">审核历史</el-menu-item>
+<!--                    <el-menu-item index="/home/audit/gb">选项3</el-menu-item>-->
+<!--                    <el-menu-item index="/home/audit/gcl">选项3</el-menu-item>-->
                 </el-submenu>
                 <el-menu-item index="/home/msg">消息</el-menu-item>
             </el-menu>

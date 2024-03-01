@@ -35,7 +35,6 @@ export default {
     methods:{
         loadData() {
             getRequest("/group/nums",{id:this.id}).then(res=>{
-                console.log("GroupInfoCard", res);
                 if (res.code === 200) {
                     this.num = res.data;
                 }
@@ -43,9 +42,9 @@ export default {
         },
         detail() {
             this.$router.push({
-                name: "gd",
-                query:{
-                    id: this.id,
+                name: 'groupinfo',
+                query: {
+                    gid: this.id,
                 }
             })
         },

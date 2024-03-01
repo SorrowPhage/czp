@@ -72,6 +72,12 @@ public class GroupController {
 
 
 
+    @PostMapping("/delete")
+    public ResultMessage deleteGroup(@RequestBody Group group) {
+        return groupService.deleteGroup(group);
+    }
+
+
 
 
     /**

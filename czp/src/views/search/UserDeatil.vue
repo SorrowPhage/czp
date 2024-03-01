@@ -59,7 +59,6 @@ export default {
     methods:{
         loadData() {
             getRequest("/czpUser/su",{id: this.$route.query.id}).then(res=>{
-                console.log(res);
                 if (res.code === 200) {
                     this.user = res.data;
                 }

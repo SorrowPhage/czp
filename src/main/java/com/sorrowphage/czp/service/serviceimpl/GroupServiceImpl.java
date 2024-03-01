@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sorrowphage.czp.entity.Audit;
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.entity.UserGroup;
 import com.sorrowphage.czp.entity.dto.GraphDTO;
 import com.sorrowphage.czp.entity.dto.GroupDTO;
 import com.sorrowphage.czp.entity.vo.*;
+import com.sorrowphage.czp.mapper.AuditMapper;
 import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.mapper.GroupMapper;
 import com.sorrowphage.czp.mapper.UserGroupMapper;
@@ -41,6 +43,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
     private final CzpUserMapper czpUserMapper;
 
+    private final AuditMapper auditMapper;
+
+
     /**
      * 新建族群
      * @param group 族群数据
@@ -56,6 +61,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         //     return ResultMessage.failure("创建失败，超过最大管理数量");
         // }
         //新建族群
+        group.setLivingPeopleTotal(0);
+        group.setPeopleTotal(0);
         boolean save = this.save(group);
         if (save) {
             return ResultMessage.success("创建成功");
@@ -435,6 +442,24 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         graphVO.setBirthAndDeathYearList(birthYearList);
         graphVO.setMaleToFemaleList(maleToFemale);
         return ResultMessage.success(graphVO);
+    }
+
+    @Override
+    public ResultMessage deleteGroup(Group group) {
+        //删除族群，删除加入族群的用户，删除申请记录
+        QueryWrapper<Group> groupQueryWrapper = new QueryWrapper<>();
+        groupQueryWrapper.lambda().eq(Group::getId, group.getId());
+        groupMapper.delete(groupQueryWrapper);
+
+        QueryWrapper<UserGroup> userGroupQueryWrapper = new QueryWrapper<>();
+        userGroupQueryWrapper.lambda().eq(UserGroup::getGroupId, group.getId());
+        userGroupMapper.delete(userGroupQueryWrapper);
+
+        QueryWrapper<Audit> auditQueryWrapper = new QueryWrapper<>();
+        auditQueryWrapper.lambda().eq(Audit::getGroupId, group.getId());
+        auditMapper.delete(auditQueryWrapper);
+
+        return ResultMessage.success("删除成功");
     }
 
 

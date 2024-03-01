@@ -12,15 +12,15 @@
                         </div>
                         <div :class="{bcg_color_male:treeData.sex==='男',bcg_color_female:treeData.sex==='女'}"
                              class="name">
-                            <span v-if="treeData.generationRank">
-                                {{ treeData.generationRank }}:
-                            </span>
+<!--                            <span v-if="treeData.generationRank">-->
+<!--                                {{ treeData.generationRank }}:-->
+<!--                            </span>-->
                             <span>
                                 {{ treeData.name }}
                             </span>
-                            <span v-if="treeData.familyRank">
-                                ({{ treeData.familyRank }})
-                            </span>
+<!--                            <span v-if="treeData.familyRank">-->
+<!--                                ({{ treeData.familyRank }})-->
+<!--                            </span>-->
                         </div>
                     </div>
                     <div v-if="treeData.groupName" class="person">

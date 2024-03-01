@@ -2,7 +2,9 @@ package com.sorrowphage.czp.controller;
 
 
 import com.sorrowphage.czp.entity.Audit;
+import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.ResultMessage;
+import com.sorrowphage.czp.entity.vo.CzpGroupVO;
 import com.sorrowphage.czp.service.AuditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +70,7 @@ public class AuditController {
 
     /**
      * 查询用户申请结果 个人
+     *
      * @param id
      * @return
      */
@@ -75,4 +78,6 @@ public class AuditController {
     public ResultMessage auditResultFromHistory(@RequestParam("id") String id) {
         return auditService.auditResultFromHistory(id);
     }
+
+
 }

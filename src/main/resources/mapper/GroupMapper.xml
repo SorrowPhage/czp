@@ -100,13 +100,8 @@
         </where>
     </select>
     <select id="selectGroupListByName" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
-        SELECT DISTINCT
-            g.*,
-            pg.group_name AS parent_name
-        FROM
-            user_group ug
-            LEFT JOIN czp_group g ON g.id = ug.group_id
-            LEFT JOIN czp_group pg ON pg.id = g.parent_id
+        select g.*,pg.group_name AS parent_name from czp_group g
+        left join czp_group pg on pg.id = g.parent_id
         <where>
             <if test="groupName != null and groupName != '' ">
                 g.group_name like concat("%",#{groupName},"%")

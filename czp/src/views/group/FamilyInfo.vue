@@ -1,5 +1,10 @@
 <template>
-    <div style="height: 100%;background-color: white">
+    <div class="gd_body">
+        <div class="top_box">
+            <div class="title">
+                <span>加入族群--按照地区分支进行操作</span>
+            </div>
+        </div>
         <div v-if="active===0" class="step_1">
             <div class="step_1_search">
                 <div style="width: 250px;">
@@ -17,7 +22,7 @@
                 />
             </div>
         </div>
-        <div v-if="active===1" style="height: calc(100ch - 50px);width: 100%;overflow: hidden">
+        <div v-if="active===1" style="height: calc(100vh - 100px);width: 100%;overflow: hidden">
             <div class="BaseDragResize" style="height: 100%;width: 100%;">
                 <vue-draggable-resizable :key="groupId"
                                          :resizable="false"
@@ -214,6 +219,32 @@ export default {
         &.vdr {
             border: none;
         }
+    }
+}
+.top_box {
+    padding: 10px 0 0;
+    height: 52px;
+    width: 100%;
+    .title{
+        height: 42px;
+        background-color: #fff;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(121,146,185,0.54);
+        box-shadow: 0 2px 4px 0 rgba(121,146,185,0.54);
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0 16px;
+        font-size: 15px;
+        color: #666;
+        border-radius: 4px;
     }
 }
 </style>

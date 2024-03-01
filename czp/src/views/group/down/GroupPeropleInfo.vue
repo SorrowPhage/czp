@@ -10,7 +10,7 @@
                 width="100">
                 <template slot-scope="scope">
 <!--                    <el-button @click="selectGroupDetails(scope.row)" type="text" size="small">详情</el-button>-->
-                    <el-button  type="text" size="small">详情</el-button>
+                    <el-button  type="text" size="small" @click="chat(scope.row.id)">聊天</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -47,6 +47,14 @@ export default {
         },
         nullValueFormat(row) {
             return row.status === '1' ? "存活" : "已逝";
+        },
+        chat(id) {
+            this.$router.push({
+                name:"chat",
+                query:{
+                    id: id,
+                }
+            })
         },
     }
 }

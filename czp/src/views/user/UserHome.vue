@@ -1,119 +1,102 @@
 <template>
-    <div style="height:calc(100vh - 50px);">
-        <div class="body_home">
-            <div class="g_toolbar">
-                <el-select v-model="value" placeholder="请选择" size="mini" :popper-append-to-body="false">
-                    <el-option
-                        v-for="item in options"
-                        :key="item.id"
-                        :label="item.groupName"
-                        :value="item.id">
-                    </el-option>
-                </el-select>
-            </div>
-            <RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick" >
-                <template #node="{node}">
-                    <slot>
-                        <div v-if="node.data!==null">
-                            <div style="height:80px;line-height: 80px;border-radius: 32px;">
-                                <img :src="node.data.avatar" style="border-radius: 50%;width: 100%" alt=""/>
-                            </div>
-                            <div style="font-size: 16px;position: absolute;width: 160px;height:25px;line-height: 25px;margin-top:5px;margin-left:-48px;text-align: center;"
-                                 :class="{bcg_color_male:node.data.sex==='男',bcg_color_female:node.data.sex==='女'}"
-                            >
-                                {{ node.text }}
-                            </div>
-                        </div>
-                        <div v-else>
-                            <div style="height:80px;line-height: 80px;border-radius: 32px;" >
-<!--                                <img src="http://localhost:8088/czp/avatar/4617eed715b44530b86e2a84aa0c0ed3file.png" style="border-radius: 50%;width: 100%" alt=""/>-->
-                            </div>
-                            <div style="font-size: 16px;position: absolute;width: 160px;height:25px;line-height: 25px;margin-top:5px;margin-left:-48px;text-align: center;">
-                                {{ node.text }}
-                            </div>
-                        </div>
-                    </slot>
-                </template>
-            </RelationGraph>>
+<!--    <div style="height:calc(100vh - 50px);">-->
+    <div class="gd_body">
+        <div class="watercolor-font">
+<!--                        <p>平地干戈闹如蛙，洪军赶散各生涯。</p>-->
+            <p>
+                <span style="--i: 1;">平</span>
+                <span style="--i: 2;">地</span>
+                <span style="--i: 3;">干</span>
+                <span style="--i: 4;">戈</span>
+                <span style="--i: 5;">闹</span>
+                <span style="--i: 6;">如</span>
+                <span style="--i: 7;">蛙</span>
+                <span style="--i: 8;">，</span>
+                <span style="--i: 9;">洪</span>
+                <span style="--i: 10;">军</span>
+                <span style="--i: 11;">赶</span>
+                <span style="--i: 12;">散</span>
+                <span style="--i: 13;">各</span>
+                <span style="--i: 14;">生</span>
+                <span style="--i: 15;">涯</span>
+                <span style="--i: 16;">。</span>
+            </p>
+            <!--            <p>五马太子如雷吼，永浙渠南江县巴。</p>-->
+            <p>
+                <span style="--i: 17;">五</span>
+                <span style="--i: 18;">马</span>
+                <span style="--i: 19;">太</span>
+                <span style="--i: 20;">子</span>
+                <span style="--i: 21;">如</span>
+                <span style="--i: 22;">雷</span>
+                <span style="--i: 23;">吼</span>
+                <span style="--i: 24;">，</span>
+                <span style="--i: 25;">永</span>
+                <span style="--i: 26;">浙</span>
+                <span style="--i: 27;">渠</span>
+                <span style="--i: 28;">南</span>
+                <span style="--i: 29;">江</span>
+                <span style="--i: 30;">县</span>
+                <span style="--i: 31;">巴</span>
+                <span style="--i: 32;">。</span>
+            </p>
+            <!--            <p>有人记得诗八句，子子孙孙不得差。</p>-->
+            <p>
+                <span style="--i: 33;">有</span>
+                <span style="--i: 34;">人</span>
+                <span style="--i: 35;">记</span>
+                <span style="--i: 36;">得</span>
+                <span style="--i: 37;">诗</span>
+                <span style="--i: 38;">八</span>
+                <span style="--i: 39;">句</span>
+                <span style="--i: 40;">，</span>
+                <span style="--i: 41;">子</span>
+                <span style="--i: 42;">子</span>
+                <span style="--i: 43;">孙</span>
+                <span style="--i: 44;">孙</span>
+                <span style="--i: 45;">不</span>
+                <span style="--i: 46;">得</span>
+                <span style="--i: 47;">差</span>
+                <span style="--i: 48;">。</span>
+            </p>
+            <!--            <p>倘有一子不认祖，世世代代丧黄沙。</p>-->
+            <p>
+                <span style="--i: 49;">倘</span>
+                <span style="--i: 50;">有</span>
+                <span style="--i: 51;">一</span>
+                <span style="--i: 52;">子</span>
+                <span style="--i: 53;">不</span>
+                <span style="--i: 54;">认</span>
+                <span style="--i: 55;">祖</span>
+                <span style="--i: 56;">，</span>
+                <span style="--i: 57;">世</span>
+                <span style="--i: 58;">世</span>
+                <span style="--i: 59;">代</span>
+                <span style="--i: 60;">代</span>
+                <span style="--i: 61;">丧</span>
+                <span style="--i: 62;">黄</span>
+                <span style="--i: 63;">沙</span>
+                <span style="--i: 64;">。</span>
+            </p>
         </div>
     </div>
 </template>
 
 <script>
-import {getRequest} from "@/api/api";
-import RelationGraph from 'relation-graph'
+
 export default {
     name: "UserHome",
-    components:{RelationGraph},
+
     data() {
         return{
-            options: [],
-            value: '',
-            treeData: {},
-            graphOptions: {
-                allowSwitchLineShape: true,
-                allowSwitchJunctionPoint: true,
-                defaultJunctionPoint: 'border',
-                defaultNodeColor: 'rgba(238, 178, 94, 1)',
-                defaultNodeBorderColor: "#90EE90",
-                defaultNodeShape: 0,
-                defaultNodeBorderWidth: 5,
-                'layouts': [
-                    {
-                        'label': '自动布局',
-                        'layoutName': 'force',
-                        'layoutClassName': 'seeks-layout-force',
-                    }
-                ],
-            }
-        }
-    },
-    watch:{
-        value:{
-            handler() {
-                this.showGraph();
-            },
+
         }
     },
     mounted() {
-        this.loadData();
-        // this.showGraph();
+ 
     },
     methods:{
-        loadData() {
-            getRequest("/group/userGroups",{id:this.$store.state.CzpUser.id}).then(res=>{
-                console.log(res);
-                if (res.code === 200) {
-                    this.options = res.data;
-                    this.value = this.options[0].id;
-                }
-            })
-        },
-        showGraph() {
-            // getRequest("/group/home",{id:this.$store.state.CzpUser.id}).then(res=>{
-            //     console.log(res);
-            //     if (res.code === 200) {
-            //         this.$refs.graphRef.setJsonData(res.data, (graphInstance) => {
-            //
-            //         });
-            //     }
-            // })
-            getRequest("/group/groupRG",{id:this.value}).then(res=>{
-                console.log(res);
-                if (res.code === 200) {
-                    res.data.rootId = this.$store.state.CzpUser.id;
-                    this.$refs.graphRef.setJsonData(res.data, (graphInstance) => {
-                
-                    });
-                }
-            })
-        },
-        onNodeClick(nodeObject, $event) {
-            console.log('onNodeClick:', nodeObject)
-        },
-        onLineClick(lineObject, $event) {
-            console.log('onLineClick:', lineObject)
-        }
+    
     }
 }
 </script>
@@ -241,5 +224,67 @@ body > .el-container {
     vertical-align: -3px;
     fill: currentColor;
     overflow: hidden;
+}
+//.watercolor-font {
+//    font-family: 'YourWatercolorFont', cursive;
+//    font-size: 24px;
+//    color: black;
+//    text-align: center;
+//    margin-top: 50px;
+//    opacity: 0;
+//    animation: fadeIn 2s forwards;
+//}
+//
+//@keyframes fadeIn {
+//    from {
+//        opacity: 0;
+//    }
+//    to {
+//        opacity: 1;
+//    }
+//}
+//
+//.watercolor-font p {
+//    animation: fadeIn 2s forwards;
+//    opacity: 0;
+//}
+//
+//.watercolor-font p:nth-child(1) {
+//    animation-delay: 2s;
+//}
+//
+//.watercolor-font p:nth-child(2) {
+//    animation-delay: 4s;
+//}
+//
+//.watercolor-font p:nth-child(3) {
+//    animation-delay: 6s;
+//}
+//
+//.watercolor-font p:nth-child(4) {
+//    animation-delay: 8s;
+//}
+.watercolor-font {
+    font-family: 'YourWatercolorFont', cursive;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.watercolor-font span {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: calc(0.1s * var(--i));
+    display: inline-block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 </style>

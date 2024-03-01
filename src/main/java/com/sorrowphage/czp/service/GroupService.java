@@ -65,4 +65,6 @@ public interface GroupService extends IService<Group> {
     ResultMessage groupListPage(GroupDTO groupDTO);
 
     ResultMessage groupGraphData(GraphDTO graphDTO);
+
+    ResultMessage deleteGroup(Group group);
 }

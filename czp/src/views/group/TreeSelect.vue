@@ -6,20 +6,20 @@
                 <div :class="{node: true}" >
                     <div v-if="treeData.name" class="person" @click="$emit('click-node', treeData)">
                         <div class="avat" style="border: none">
-                            <img :src="treeData.avatar" :title="treeData.name"
+                            <img :src="avatarUrl" :title="treeData.name"
                                  style="border-radius: 2em;border-width: 2px;"/>
                         </div>
                         <div :class="{bcg_color_male:treeData.sex==='男',bcg_color_female:treeData.sex==='女'}"
                              class="name">
-                            <span v-if="treeData.generationRank">
-                                {{ treeData.generationRank }}:
-                            </span>
+<!--                            <span v-if="treeData.generationRank">-->
+<!--                                {{ treeData.generationRank }}:-->
+<!--                            </span>-->
                             <span>
                                 {{ treeData.name }}
                             </span>
-                            <span v-if="treeData.familyRank">
-                                ({{ treeData.familyRank }})
-                            </span>
+<!--                            <span v-if="treeData.familyRank">-->
+<!--                                ({{ treeData.familyRank }})-->
+<!--                            </span>-->
                         </div>
                         <el-button  @click="apply(treeData)">加入</el-button>
                     </div>
@@ -47,6 +47,12 @@ export default {
     data() {
         return {
             treeData: {},
+            staticAvatarUrl:  require('@/assets/img/czp.jpg') // 静态图片的URL
+        }
+    },
+    computed:{
+        avatarUrl: function() {
+            return this.treeData.avatar ? this.treeData.avatar : this.staticAvatarUrl;
         }
     },
     watch: {

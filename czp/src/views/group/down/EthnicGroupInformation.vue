@@ -7,7 +7,9 @@
         </div>
         <div style="width: 100%">
             <el-row>
-                <el-col :span="16"><el-button type="primary">新建</el-button></el-col>
+                <el-col :span="16">
+                    <el-button type="primary" @click="createRootGroup">创建根级族群</el-button>
+                </el-col>
                 <el-col :span="8">
                     <el-row>
                         <el-col :span="20">
@@ -32,9 +34,11 @@
                         <el-table-column prop="peopleTotal" label="总数目"></el-table-column>
                         <el-table-column
                             label="操作"
-                            width="100">
+                            width="200">
                             <template slot-scope="scope">
                                 <el-button @click="selectGroupDetails(scope.row)" type="text" size="small">详情</el-button>
+                                <el-button @click="createNewGroup(scope.row);" type="text" size="small">创建子级族群</el-button>
+                                <el-button @click="deleteGroup(scope.row)" type="text" size="small" v-if="hasPerm('admin:root')">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -53,13 +57,45 @@
                 </el-col>
             </el-row>
         </div>
+        <el-dialog
+            title="创建族群"
+            :visible.sync="showCreate"
+            width="30%"
+        >
+            <el-form :model="form" label-width="120px">
+                <el-form-item label="族群名称" prop="name">
+                    <el-input v-model="form.groupName"></el-input>
+                </el-form-item>
+                <el-form-item v-show="showparent" label="父级族群" prop="parentName">
+                    <el-input v-model="form.parentName"></el-input>
+                </el-form-item>
+                <el-form-item label="地理位置" prop="area">
+                    <el-input v-model="form.area"></el-input>
+                </el-form-item>
+                <el-form-item label="创建时间" prop="createTime">
+                    <el-date-picker
+                        v-model="form.createTime"
+                        type="year"
+                        placeholder="选择日期时间">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="族群描述" prop="des">
+                    <el-input type="textarea" v-model="form.des"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+      <el-button @click="showCreate = false">取消</el-button>
+      <el-button type="primary" @click="handleSubmit">创建</el-button>
+    </span>
+        </el-dialog>
     </div>
 
 </template>
 
 <script>
 import {hideLoading, hideLoadingAndNotify, showLoading} from "@/api/loading";
-import {getRequest,postRequest,windowHeight} from "@/api/api";
+import {postRequest,windowHeight} from "@/api/api";
+
 export default {
     name: "EthnicGroupInformation",
     data() {
@@ -72,12 +108,22 @@ export default {
                 pageNum: 1,
                 pageSize:10,
             },
+            showCreate: false,
             showGroupInfo: false,
             groupInfo: null,
+            showparent: false,
+            form: {
+                groupName: '',
+                area: '',
+                createTime: '',
+                clanElder: '',
+                des: '',
+                parentName: '',
+                parentId: '',
+            },
         };
     },
     mounted() {
-        // this.getGroupList();
         this.getGroupListPage();
     },
     methods:{
@@ -100,15 +146,61 @@ export default {
         nullValueFormat(row) {
             return row.parentName == null ? "-" : row.parentName;
         },
-        selectGroupDetails(row){
+        selectGroupDetails(row) {
             //跳转到详情页面
             this.$router.push({
                 name: 'groupinfo',
-                query:{
+                query: {
                     gid: row.id,
                 }
             })
-        }
+        },
+        createNewGroup(row) {
+            this.form.parentName = row.groupName;
+            this.form.parentId = row.id;
+            this.form.clanElder = this.$store.state.CzpUser.id;
+            this.showparent = true;
+            this.showCreate = true;
+        },
+        createRootGroup() {
+            this.form.parentName = '';
+            this.form.parentId = '';
+            this.form.clanElder = this.$store.state.CzpUser.id;
+            this.showparent = false;
+            this.showCreate = true;
+        },
+        handleSubmit() {
+            showLoading();
+            postRequest("/group/create", this.form).then(res => {
+                hideLoading();
+                if (res.code === 200) {
+                    this.$message({
+                        message: "创建成功",
+                        type: "success",
+                    });
+                    this.getGroupListPage();
+                } else {
+                    this.$message({
+                        message: res.message,
+                        type: "warning",
+                    });
+                }
+            });
+            this.showCreate = false;
+        },
+        deleteGroup(row) {
+            showLoading();
+            postRequest("/group/delete", row).then(res => {
+                hideLoading();
+                if (res.code === 200) {
+                    this.$message({
+                        message: res.message,
+                        type: "success",
+                    });
+                    this.getGroupListPage();
+                }
+            });
+        },
     }
 }
 </script>

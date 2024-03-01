@@ -20,4 +20,6 @@ public class AuditVO extends Audit {
 
     private String parentAvatar;
 
+    private String auditUser;
+
 }
