@@ -71,14 +71,15 @@ public class CzpUserServiceImpl extends ServiceImpl<CzpUserMapper, CzpUser> impl
 
     /**
      * 登录接口
+     *
      * @param user 登录用户信息（id，password）
      * @return token
      */
     @Override
     public ResultMessage login(CzpUser user) {
+        log.info("登录中");
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getId(), user.getPassword());
         Authentication authenticate;
-
         try {
             authenticate = authenticationManager.authenticate(authenticationToken);
         } catch (BadCredentialsException e) {

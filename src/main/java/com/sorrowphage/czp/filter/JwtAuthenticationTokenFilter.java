@@ -7,6 +7,7 @@ import com.sorrowphage.czp.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -32,14 +35,24 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final RedisCache redisCache;
 
+    @Value("${system.session.exception}")
+    private String sessionException;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
         //获取token
         String token = request.getHeader("token");
         token = !StringUtils.hasText(token) ? request.getHeader("Sec-WebSocket-Protocol") : token;
-        //TODO 这样不是长久之计
-        if (!StringUtils.hasText(token) || "/czpUser/login".equals(requestURI) || "/czpUser/sendcode".equals(requestURI) || "/czpUser/register".equals(requestURI)) {
+
+        List<String> exceptionList = Arrays.asList(sessionException.split(","));
+        boolean flag = false;
+        if (exceptionList.size() > 0) {
+            for (int i = 0; !flag && i < exceptionList.size(); i++) {
+                flag = requestURI.contains(exceptionList.get(i));
+            }
+        }
+        if (flag) {
             //放行
             filterChain.doFilter(request, response);
             return;

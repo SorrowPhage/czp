@@ -109,6 +109,7 @@ export default {
     width: 50%;
     /*background-color: #227cf9;*/
     display: flex;
+    height: calc(100vh - 150px);
 }
 .sp-search-opt{
     width: 20%;

@@ -61,8 +61,6 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         //     return ResultMessage.failure("创建失败，超过最大管理数量");
         // }
         //新建族群
-        group.setLivingPeopleTotal(0);
-        group.setPeopleTotal(0);
         boolean save = this.save(group);
         if (save) {
             return ResultMessage.success("创建成功");
@@ -460,6 +458,18 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         auditMapper.delete(auditQueryWrapper);
 
         return ResultMessage.success("删除成功");
+    }
+
+    @Override
+    public ResultMessage groupLargeGraphData(GraphDTO graphDTO) {
+        LargeGraphVO largeGraphVO = new LargeGraphVO();
+        List<GroupPeopleNumer> groupPeopleNumers = groupMapper.selectAllGroup();
+        Integer groupNum = groupMapper.selectGroupNum();
+        Integer groupPeopleNum = groupMapper.selectGroupPeopleNum();
+        largeGraphVO.setGroupPeopleNumerList(groupPeopleNumers);
+        largeGraphVO.setGroupNum(groupNum);
+        largeGraphVO.setGroupPeopleNum(groupPeopleNum);
+        return ResultMessage.success(largeGraphVO);
     }
 
 

@@ -118,7 +118,6 @@ export default {
     methods: {
         loadData() {
             getRequest("/czpUser/userinfo", {id: this.$store.state.CzpUser.id}).then(res => {
-                console.log("UserHeader", res);
                 this.userInfo = res.data;
             })
         },

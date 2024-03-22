@@ -9,11 +9,9 @@ import PersnoalNav from "@/views/user/PersnoalNav";
 import FamilyInfo from "@/views/group/FamilyInfo";
 import PasswordChange from "@/views/user/PasswordChange";
 import CreateGroup from "@/views/group/CreateGroup";
-import GroupNav from "@/views/group/GroupNav";
 import GroupList from "@/views/group/GroupList";
 import AuditList from "@/views/audit/AuditList";
 import GroupMangger from "@/views/audit/GroupMangger";
-import AuditNav from "@/views/audit/AuditNav";
 import AuditHistory from "@/views/audit/AuditHistory";
 import GroupCreaterList from "@/views/audit/GroupCreaterList";
 import GroupTree from "@/views/group/GroupTree";
@@ -25,9 +23,10 @@ import GroupDetail from "@/views/search/GroupDetail";
 import Chat from "@/views/message/Chat";
 import ChatNav from "@/views/message/ChatNav";
 import AuditResult from "@/views/message/AuditResult";
-//
 import EthnicGroupInformation from "@/views/group/down/EthnicGroupInformation";
 import GroupInfo from "@/views/group/down/GroupInfo";
+import AllGroupInfo from "@/views/group/deatil/AllGroupInfo";
+
 const routers = [
     {
         path: '/',
@@ -142,6 +141,12 @@ const routers = [
                 component: GroupInfo,
                 meta: {title:"族群信息", ver: true}
             },
+            {
+                path: 'agi',
+                name: "agi",
+                component: AllGroupInfo,
+                meta: {title: "CZP", ver: true}
+            },
             //=======================
             // {
             //     path: "audit",
@@ -232,7 +237,7 @@ const routers = [
                         meta: {title: "消息", ver: true},
                     }
                 ]
-            }
+            },
         ]
     }
 ];

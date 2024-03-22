@@ -58,6 +58,16 @@ public class GroupController {
         return groupService.groupGraphData(graphDTO);
     }
 
+    /**
+     * 大屏图形数据   需要保留
+     * @param graphDTO
+     * @return
+     */
+    @PostMapping("/large/gdata")
+    public ResultMessage groupLargeGraphPage(@RequestBody GraphDTO graphDTO) {
+        return groupService.groupLargeGraphData(graphDTO);
+    }
+
 
     /**
      * 获取id族群的所有用户信息需要将创建者标出  需要保留

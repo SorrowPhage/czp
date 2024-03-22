@@ -1,6 +1,10 @@
 server:
   port: 4090
 
+
+system:
+  session:
+    exception: czpUser/login,czpUser/sendcode,czpUser/register
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/czp?characterEncoding=utf-8&serverTimezone=UTC
@@ -40,6 +44,8 @@ file:
   avatar:
     base: E:\\ProgrammingSoftware\\apache-tomcat-10.0.12\\webapps\\czp\\avatar\\
     serve: http://localhost:8088/czp/avatar/
+#    base: /home/lighthouse/soft/tomcat-8.5.99/webapps/czp/avatar
+#    serve: http://118.25.172.141:8088/czp/avatar/
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml

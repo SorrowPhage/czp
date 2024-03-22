@@ -83,13 +83,26 @@
             left join czp_group cg on cg.id = ug.group_id
         where ug.user_id=#{id}
     </select>
+
+
     <select id="readGroupInfo" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
-        select cg.*,pg.group_name as parent_name from czp_group cg
+        select cg.*,pg.group_name as parent_name,
+            COUNT(ug.user_id) AS people_total,
+            SUM(CASE WHEN cu.status = 1 THEN 1 ELSE 0 END) AS livingPeopleTotal
+        from czp_group cg
+        LEFT JOIN user_group ug ON ug.group_id = cg.id
+        LEFT JOIN czp_user cu ON ug.user_id = cu.id
             left join czp_group pg on pg.id=cg.parent_id
         where cg.id=#{id}
     </select>
+
     <select id="czpGroupInfo" resultType="com.sorrowphage.czp.entity.vo.CzpGroupVO">
-        select cg.*,g.num,cu.name,cu.avatar,pg.group_name as parentName from czp_group cg
+        select cg.*,g.num,cu.name,cu.avatar,pg.group_name as parentName,
+               COUNT(ug.user_id) AS people_total,
+               SUM(CASE WHEN cu.status = 1 THEN 1 ELSE 0 END) AS livingPeopleTotal
+        from czp_group cg
+        LEFT JOIN user_group ug ON ug.group_id = cg.id
+        LEFT JOIN czp_user cu ON ug.user_id = cu.id
         left join (select ug.group_id,count(ug.group_id) as num from user_group ug group by ug.group_id) as g  on g.group_id=cg.id
         left join (select * from czp_user) cu on cu.id=cg.clan_elder
         left join (select * from czp_group) pg on pg.parent_id=cg.id
@@ -100,12 +113,34 @@
         </where>
     </select>
     <select id="selectGroupListByName" resultType="com.sorrowphage.czp.entity.vo.GroupVO">
-        select g.*,pg.group_name AS parent_name from czp_group g
-        left join czp_group pg on pg.id = g.parent_id
+        select cg.*,pg.group_name AS parent_name,
+            COUNT(ug.user_id) AS people_total,
+            SUM(CASE WHEN cu.status = 1 THEN 1 ELSE 0 END) AS livingPeopleTotal
+        from czp_group cg
+        LEFT JOIN user_group ug ON ug.group_id = cg.id
+        LEFT JOIN czp_user cu ON ug.user_id = cu.id
+        left join czp_group pg on pg.id = cg.parent_id
         <where>
             <if test="groupName != null and groupName != '' ">
-                g.group_name like concat("%",#{groupName},"%")
+                cg.group_name like concat("%",#{groupName},"%")
             </if>
         </where>
+        GROUP BY cg.id
     </select>
+    <select id="selectAllGroup" resultType="com.sorrowphage.czp.entity.vo.GroupPeopleNumer">
+        SELECT cg.id,cg.group_name,
+               COUNT(ug.user_id) AS peopleTotal,
+               SUM(CASE WHEN cu.status = 1 THEN 1 ELSE 0 END) AS livingPeopleTotal
+        FROM czp_group cg
+                 LEFT JOIN user_group ug ON ug.group_id = cg.id
+                 LEFT JOIN czp_user cu ON ug.user_id = cu.id
+        GROUP BY cg.id
+    </select>
+    <select id="selectGroupNum" resultType="java.lang.Integer">
+        select count(*) from czp_group
+    </select>
+    <select id="selectGroupPeopleNum" resultType="java.lang.Integer">
+        select count(DISTINCT user_id) from user_group
+    </select>
+
 </mapper>

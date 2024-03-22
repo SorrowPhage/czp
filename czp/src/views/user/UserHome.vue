@@ -3,81 +3,81 @@
     <div class="gd_body">
         <div class="watercolor-font">
 <!--                        <p>平地干戈闹如蛙，洪军赶散各生涯。</p>-->
-            <p>
-                <span style="--i: 1;">平</span>
-                <span style="--i: 2;">地</span>
-                <span style="--i: 3;">干</span>
-                <span style="--i: 4;">戈</span>
-                <span style="--i: 5;">闹</span>
-                <span style="--i: 6;">如</span>
-                <span style="--i: 7;">蛙</span>
-                <span style="--i: 8;">，</span>
-                <span style="--i: 9;">洪</span>
-                <span style="--i: 10;">军</span>
-                <span style="--i: 11;">赶</span>
-                <span style="--i: 12;">散</span>
-                <span style="--i: 13;">各</span>
-                <span style="--i: 14;">生</span>
-                <span style="--i: 15;">涯</span>
-                <span style="--i: 16;">。</span>
-            </p>
+<!--            <p>-->
+<!--                <span style="&#45;&#45;i: 1;">平</span>-->
+<!--                <span style="&#45;&#45;i: 2;">地</span>-->
+<!--                <span style="&#45;&#45;i: 3;">干</span>-->
+<!--                <span style="&#45;&#45;i: 4;">戈</span>-->
+<!--                <span style="&#45;&#45;i: 5;">闹</span>-->
+<!--                <span style="&#45;&#45;i: 6;">如</span>-->
+<!--                <span style="&#45;&#45;i: 7;">蛙</span>-->
+<!--                <span style="&#45;&#45;i: 8;">，</span>-->
+<!--                <span style="&#45;&#45;i: 9;">洪</span>-->
+<!--                <span style="&#45;&#45;i: 10;">军</span>-->
+<!--                <span style="&#45;&#45;i: 11;">赶</span>-->
+<!--                <span style="&#45;&#45;i: 12;">散</span>-->
+<!--                <span style="&#45;&#45;i: 13;">各</span>-->
+<!--                <span style="&#45;&#45;i: 14;">生</span>-->
+<!--                <span style="&#45;&#45;i: 15;">涯</span>-->
+<!--                <span style="&#45;&#45;i: 16;">。</span>-->
+<!--            </p>-->
             <!--            <p>五马太子如雷吼，永浙渠南江县巴。</p>-->
-            <p>
-                <span style="--i: 17;">五</span>
-                <span style="--i: 18;">马</span>
-                <span style="--i: 19;">太</span>
-                <span style="--i: 20;">子</span>
-                <span style="--i: 21;">如</span>
-                <span style="--i: 22;">雷</span>
-                <span style="--i: 23;">吼</span>
-                <span style="--i: 24;">，</span>
-                <span style="--i: 25;">永</span>
-                <span style="--i: 26;">浙</span>
-                <span style="--i: 27;">渠</span>
-                <span style="--i: 28;">南</span>
-                <span style="--i: 29;">江</span>
-                <span style="--i: 30;">县</span>
-                <span style="--i: 31;">巴</span>
-                <span style="--i: 32;">。</span>
-            </p>
+<!--            <p>-->
+<!--                <span style="&#45;&#45;i: 17;">五</span>-->
+<!--                <span style="&#45;&#45;i: 18;">马</span>-->
+<!--                <span style="&#45;&#45;i: 19;">太</span>-->
+<!--                <span style="&#45;&#45;i: 20;">子</span>-->
+<!--                <span style="&#45;&#45;i: 21;">如</span>-->
+<!--                <span style="&#45;&#45;i: 22;">雷</span>-->
+<!--                <span style="&#45;&#45;i: 23;">吼</span>-->
+<!--                <span style="&#45;&#45;i: 24;">，</span>-->
+<!--                <span style="&#45;&#45;i: 25;">永</span>-->
+<!--                <span style="&#45;&#45;i: 26;">浙</span>-->
+<!--                <span style="&#45;&#45;i: 27;">渠</span>-->
+<!--                <span style="&#45;&#45;i: 28;">南</span>-->
+<!--                <span style="&#45;&#45;i: 29;">江</span>-->
+<!--                <span style="&#45;&#45;i: 30;">县</span>-->
+<!--                <span style="&#45;&#45;i: 31;">巴</span>-->
+<!--                <span style="&#45;&#45;i: 32;">。</span>-->
+<!--            </p>-->
             <!--            <p>有人记得诗八句，子子孙孙不得差。</p>-->
-            <p>
-                <span style="--i: 33;">有</span>
-                <span style="--i: 34;">人</span>
-                <span style="--i: 35;">记</span>
-                <span style="--i: 36;">得</span>
-                <span style="--i: 37;">诗</span>
-                <span style="--i: 38;">八</span>
-                <span style="--i: 39;">句</span>
-                <span style="--i: 40;">，</span>
-                <span style="--i: 41;">子</span>
-                <span style="--i: 42;">子</span>
-                <span style="--i: 43;">孙</span>
-                <span style="--i: 44;">孙</span>
-                <span style="--i: 45;">不</span>
-                <span style="--i: 46;">得</span>
-                <span style="--i: 47;">差</span>
-                <span style="--i: 48;">。</span>
-            </p>
+<!--            <p>-->
+<!--                <span style="&#45;&#45;i: 33;">有</span>-->
+<!--                <span style="&#45;&#45;i: 34;">人</span>-->
+<!--                <span style="&#45;&#45;i: 35;">记</span>-->
+<!--                <span style="&#45;&#45;i: 36;">得</span>-->
+<!--                <span style="&#45;&#45;i: 37;">诗</span>-->
+<!--                <span style="&#45;&#45;i: 38;">八</span>-->
+<!--                <span style="&#45;&#45;i: 39;">句</span>-->
+<!--                <span style="&#45;&#45;i: 40;">，</span>-->
+<!--                <span style="&#45;&#45;i: 41;">子</span>-->
+<!--                <span style="&#45;&#45;i: 42;">子</span>-->
+<!--                <span style="&#45;&#45;i: 43;">孙</span>-->
+<!--                <span style="&#45;&#45;i: 44;">孙</span>-->
+<!--                <span style="&#45;&#45;i: 45;">不</span>-->
+<!--                <span style="&#45;&#45;i: 46;">得</span>-->
+<!--                <span style="&#45;&#45;i: 47;">差</span>-->
+<!--                <span style="&#45;&#45;i: 48;">。</span>-->
+<!--            </p>-->
             <!--            <p>倘有一子不认祖，世世代代丧黄沙。</p>-->
-            <p>
-                <span style="--i: 49;">倘</span>
-                <span style="--i: 50;">有</span>
-                <span style="--i: 51;">一</span>
-                <span style="--i: 52;">子</span>
-                <span style="--i: 53;">不</span>
-                <span style="--i: 54;">认</span>
-                <span style="--i: 55;">祖</span>
-                <span style="--i: 56;">，</span>
-                <span style="--i: 57;">世</span>
-                <span style="--i: 58;">世</span>
-                <span style="--i: 59;">代</span>
-                <span style="--i: 60;">代</span>
-                <span style="--i: 61;">丧</span>
-                <span style="--i: 62;">黄</span>
-                <span style="--i: 63;">沙</span>
-                <span style="--i: 64;">。</span>
-            </p>
+<!--            <p>-->
+<!--                <span style="&#45;&#45;i: 49;">倘</span>-->
+<!--                <span style="&#45;&#45;i: 50;">有</span>-->
+<!--                <span style="&#45;&#45;i: 51;">一</span>-->
+<!--                <span style="&#45;&#45;i: 52;">子</span>-->
+<!--                <span style="&#45;&#45;i: 53;">不</span>-->
+<!--                <span style="&#45;&#45;i: 54;">认</span>-->
+<!--                <span style="&#45;&#45;i: 55;">祖</span>-->
+<!--                <span style="&#45;&#45;i: 56;">，</span>-->
+<!--                <span style="&#45;&#45;i: 57;">世</span>-->
+<!--                <span style="&#45;&#45;i: 58;">世</span>-->
+<!--                <span style="&#45;&#45;i: 59;">代</span>-->
+<!--                <span style="&#45;&#45;i: 60;">代</span>-->
+<!--                <span style="&#45;&#45;i: 61;">丧</span>-->
+<!--                <span style="&#45;&#45;i: 62;">黄</span>-->
+<!--                <span style="&#45;&#45;i: 63;">沙</span>-->
+<!--                <span style="&#45;&#45;i: 64;">。</span>-->
+<!--            </p>-->
         </div>
     </div>
 </template>

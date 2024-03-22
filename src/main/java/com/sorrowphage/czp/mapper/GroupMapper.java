@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.Group;
 import com.sorrowphage.czp.entity.UserGroup;
-import com.sorrowphage.czp.entity.vo.CzpGroupVO;
-import com.sorrowphage.czp.entity.vo.GroupVO;
-import com.sorrowphage.czp.entity.vo.UserVo;
+import com.sorrowphage.czp.entity.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -110,5 +108,23 @@ public interface GroupMapper extends BaseMapper<Group> {
     CzpGroupVO czpGroupInfo(@Param("id") String id);
 
     List<GroupVO> selectGroupListByName(String groupName);
+
+    /**
+     * 统计各个族群的存活人数与总人数
+     * @return
+     */
+    List<GroupPeopleNumer> selectAllGroup();
+
+    /**
+     * 统计族群数量
+     * @return
+     */
+    Integer selectGroupNum();
+
+    /**
+     * 统计族群总人数
+     * @return
+     */
+    Integer selectGroupPeopleNum();
 
 }

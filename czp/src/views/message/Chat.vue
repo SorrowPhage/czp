@@ -39,6 +39,7 @@
 import ChatContent from "@/views/message/ChatContent";
 import UserItem from "@/views/message/UserItem";
 import {getRequest} from "@/api/api";
+import {closeWebsocket, sendWebsocket} from "@/utils/websocket";
 export default {
     name: "Chat",
     components:{UserItem,ChatContent},
@@ -76,6 +77,7 @@ export default {
     },
     mounted() {
         this.loadData()
+        this.requestWs();
         if (this.$route.query.id !== undefined) {
             this.showContent = false;
         } else {
@@ -83,7 +85,25 @@ export default {
             //加载数据
         }
     },
+    beforeDestroy() {
+        closeWebsocket();
+    },
     methods: {
+        requestWs() {
+            closeWebsocket();
+            sendWebsocket(this.$store.state.CzpUser.id, {}, this.onmessage, this.onerror);
+        },
+        onmessage(data) {
+            //通过data中的type来触发事件
+            data = JSON.parse(data)
+            if (data.type === "user") {
+                //聊天信息
+                this.$bus.$emit('chat', data);
+            }
+        },
+        onerror() {
+        
+        },
         loadData() {
             getRequest("/czp-message/chat-list",{id:this.$store.state.CzpUser.id}).then(res=>{
                 if (res.code === 200) {

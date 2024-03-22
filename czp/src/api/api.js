@@ -6,6 +6,8 @@ import router from "@/router";
 
 axios.defaults.timeout = 10000 // 超时时间
 
+// axios.defaults.baseURL = 'http://118.25.172.141:4090';
+// axios.defaults.baseURL = 'http://118.25.172.141:4090';
 axios.defaults.baseURL = 'http://localhost:4090';
 
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
