@@ -11,6 +11,13 @@
 .gd_window{
     height: calc(100vh - 165px);
 }
+.gd_body_main {
+    width: 100%;
+    margin: 0 auto;
+}
+.gd_main{
+    height: calc(100vh - 50px);
+}
 .head-line{
     padding: 5px; line-height: 50px; float: left;
 }

@@ -21,11 +21,9 @@
         where m.to_id in (#{fromId},#{toId}) and m.from_id in (#{fromId},#{toId})
     </select>
     <select id="getChatListFromMessage" resultType="com.sorrowphage.czp.entity.CzpUser">
-        select u.* from czp_user u
-        where u.id in
-              (select DISTINCT m.to_id as id from czp_message m where m.from_id=#{id} and m.type="user" union
-               select DISTINCT m.from_id as id from czp_message m where m.to_id=#{id} and m.type="user")
-        order by u.id
+        SELECT cu.* FROM `chat_list` cl
+            left join czp_user cu on cu.id=cl.other_id
+        where cl.own_id=#{id}
     </select>
     <select id="getGangHsienMessageList" resultType="com.sorrowphage.czp.entity.vo.MessageVO">
         select m.* ,u.avatar,u.`name`  from czp_message m

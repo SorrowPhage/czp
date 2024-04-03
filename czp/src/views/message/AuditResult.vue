@@ -49,7 +49,6 @@ export default {
     methods: {
         loadData() {
             getRequest("/audit/result-indi",{id:this.$store.state.CzpUser.id}).then(res=>{
-                console.log(res);
                 if (res.code === 200) {
                     this.auditList = res.data;
                 }

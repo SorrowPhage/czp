@@ -1,5 +1,6 @@
 package com.sorrowphage.czp.service;
 
+import com.sorrowphage.czp.entity.ChatList;
 import com.sorrowphage.czp.entity.CzpMessage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sorrowphage.czp.entity.ResultMessage;
@@ -23,4 +24,6 @@ public interface CzpMessageService extends IService<CzpMessage> {
     ResultMessage getGangHsienMessageList(String toId);
 
     ResultMessage sendGangHsienMessage(CzpMessage message);
+
+    ResultMessage closeChat(ChatList chatList);
 }

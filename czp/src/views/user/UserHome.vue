@@ -1,104 +1,44 @@
 <template>
-<!--    <div style="height:calc(100vh - 50px);">-->
-    <div class="gd_body">
-        <div class="watercolor-font">
-<!--                        <p>平地干戈闹如蛙，洪军赶散各生涯。</p>-->
-<!--            <p>-->
-<!--                <span style="&#45;&#45;i: 1;">平</span>-->
-<!--                <span style="&#45;&#45;i: 2;">地</span>-->
-<!--                <span style="&#45;&#45;i: 3;">干</span>-->
-<!--                <span style="&#45;&#45;i: 4;">戈</span>-->
-<!--                <span style="&#45;&#45;i: 5;">闹</span>-->
-<!--                <span style="&#45;&#45;i: 6;">如</span>-->
-<!--                <span style="&#45;&#45;i: 7;">蛙</span>-->
-<!--                <span style="&#45;&#45;i: 8;">，</span>-->
-<!--                <span style="&#45;&#45;i: 9;">洪</span>-->
-<!--                <span style="&#45;&#45;i: 10;">军</span>-->
-<!--                <span style="&#45;&#45;i: 11;">赶</span>-->
-<!--                <span style="&#45;&#45;i: 12;">散</span>-->
-<!--                <span style="&#45;&#45;i: 13;">各</span>-->
-<!--                <span style="&#45;&#45;i: 14;">生</span>-->
-<!--                <span style="&#45;&#45;i: 15;">涯</span>-->
-<!--                <span style="&#45;&#45;i: 16;">。</span>-->
-<!--            </p>-->
-            <!--            <p>五马太子如雷吼，永浙渠南江县巴。</p>-->
-<!--            <p>-->
-<!--                <span style="&#45;&#45;i: 17;">五</span>-->
-<!--                <span style="&#45;&#45;i: 18;">马</span>-->
-<!--                <span style="&#45;&#45;i: 19;">太</span>-->
-<!--                <span style="&#45;&#45;i: 20;">子</span>-->
-<!--                <span style="&#45;&#45;i: 21;">如</span>-->
-<!--                <span style="&#45;&#45;i: 22;">雷</span>-->
-<!--                <span style="&#45;&#45;i: 23;">吼</span>-->
-<!--                <span style="&#45;&#45;i: 24;">，</span>-->
-<!--                <span style="&#45;&#45;i: 25;">永</span>-->
-<!--                <span style="&#45;&#45;i: 26;">浙</span>-->
-<!--                <span style="&#45;&#45;i: 27;">渠</span>-->
-<!--                <span style="&#45;&#45;i: 28;">南</span>-->
-<!--                <span style="&#45;&#45;i: 29;">江</span>-->
-<!--                <span style="&#45;&#45;i: 30;">县</span>-->
-<!--                <span style="&#45;&#45;i: 31;">巴</span>-->
-<!--                <span style="&#45;&#45;i: 32;">。</span>-->
-<!--            </p>-->
-            <!--            <p>有人记得诗八句，子子孙孙不得差。</p>-->
-<!--            <p>-->
-<!--                <span style="&#45;&#45;i: 33;">有</span>-->
-<!--                <span style="&#45;&#45;i: 34;">人</span>-->
-<!--                <span style="&#45;&#45;i: 35;">记</span>-->
-<!--                <span style="&#45;&#45;i: 36;">得</span>-->
-<!--                <span style="&#45;&#45;i: 37;">诗</span>-->
-<!--                <span style="&#45;&#45;i: 38;">八</span>-->
-<!--                <span style="&#45;&#45;i: 39;">句</span>-->
-<!--                <span style="&#45;&#45;i: 40;">，</span>-->
-<!--                <span style="&#45;&#45;i: 41;">子</span>-->
-<!--                <span style="&#45;&#45;i: 42;">子</span>-->
-<!--                <span style="&#45;&#45;i: 43;">孙</span>-->
-<!--                <span style="&#45;&#45;i: 44;">孙</span>-->
-<!--                <span style="&#45;&#45;i: 45;">不</span>-->
-<!--                <span style="&#45;&#45;i: 46;">得</span>-->
-<!--                <span style="&#45;&#45;i: 47;">差</span>-->
-<!--                <span style="&#45;&#45;i: 48;">。</span>-->
-<!--            </p>-->
-            <!--            <p>倘有一子不认祖，世世代代丧黄沙。</p>-->
-<!--            <p>-->
-<!--                <span style="&#45;&#45;i: 49;">倘</span>-->
-<!--                <span style="&#45;&#45;i: 50;">有</span>-->
-<!--                <span style="&#45;&#45;i: 51;">一</span>-->
-<!--                <span style="&#45;&#45;i: 52;">子</span>-->
-<!--                <span style="&#45;&#45;i: 53;">不</span>-->
-<!--                <span style="&#45;&#45;i: 54;">认</span>-->
-<!--                <span style="&#45;&#45;i: 55;">祖</span>-->
-<!--                <span style="&#45;&#45;i: 56;">，</span>-->
-<!--                <span style="&#45;&#45;i: 57;">世</span>-->
-<!--                <span style="&#45;&#45;i: 58;">世</span>-->
-<!--                <span style="&#45;&#45;i: 59;">代</span>-->
-<!--                <span style="&#45;&#45;i: 60;">代</span>-->
-<!--                <span style="&#45;&#45;i: 61;">丧</span>-->
-<!--                <span style="&#45;&#45;i: 62;">黄</span>-->
-<!--                <span style="&#45;&#45;i: 63;">沙</span>-->
-<!--                <span style="&#45;&#45;i: 64;">。</span>-->
-<!--            </p>-->
+    <div class="gd_body_main gd_main" style="display: flex">
+        <div style="width: 25%">
+            诗八句
+        </div>
+        <div style="width: 50%;overflow-y: auto">
+            一些族群事件，或者管理员可以发布和置顶一些事件
+        </div>
+        <div style="width: 25%">
+            <ChatList v-for="u in chatList" class="infinite-list-item"
+                      :key="u.id"  :id="u.id" :avatar="u.avatar" :name="u.name" :des="u.des"
+            />
         </div>
     </div>
 </template>
 
 <script>
+import ChatList from "@/views/user/ChatList";
+import {getRequest} from "@/api/api";
 
 export default {
     name: "UserHome",
-
+    components: {ChatList},
     data() {
-        return{
-
+        return {
+            chatList: [],
         }
     },
     mounted() {
- 
+        this.loadData()
     },
-    methods:{
-    
+    methods: {
+        loadData() {
+            getRequest("/czp-message/chat-list",{id:this.$store.state.CzpUser.id}).then(res=>{
+                if (res.code === 200) {
+                    this.chatList = res.data;
+                }
+            })
+        },
     }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -285,6 +225,136 @@ body > .el-container {
     }
     to {
         opacity: 1;
+    }
+}
+.list_item{
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    padding: 19px 24px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    .avatar{
+        display: block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url(//static.hdslb.com/images/member/noface.gif);
+        margin-right: 8px;
+        position: relative;
+    }
+    .name_box{
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        .name{
+            color: #333;
+            font-size: 14px;
+            min-height: 16px;
+            line-height: 1;
+            overflow: hidden;
+            width: 155px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .last_word{
+            color: #999;
+            padding: 8px 0;
+            margin-bottom: -6px;
+            overflow: hidden;
+            width: 155px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    
+    &:hover .close_box{
+        display: block;  // 设置父元素hover时子元素的样式 【实现要点！！！！！】
+    }
+    
+    .close_box {
+        display: none;
+        .close {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            width: 24px;
+            color: #999;
+            .css-1dtzbno {
+                fill: currentcolor;
+                width: 1em;
+                height: 1em;
+            }
+        }
+    }
+    
+    
+    .close {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 24px;
+        color: #999;
+        .css-1dtzbno {
+            fill: currentcolor;
+            width: 1em;
+            height: 1em;
+        }
+    }
+    
+}
+.list_item:hover{
+    background-color: #e4e5e6;
+}
+.showuser{
+    background-color: #e4e5e6;
+}
+.changeShow-enter-active {
+    animation: changeShow 300ms;
+}
+.changeShow-leave-active {
+    animation: changeShow 300ms reverse;
+}
+@keyframes changeShow {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0px);
     }
 }
 </style>

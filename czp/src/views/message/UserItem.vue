@@ -1,8 +1,5 @@
 <template>
-    <div class="list_item"  @mouseenter="showDiv=true" @mouseleave="showDiv=false">
-<!--        <div class="avatar">-->
-<!--        -->
-<!--        </div>-->
+    <div class="list_item"  @mouseenter="showDiv=true" @mouseleave="showDiv=false" @click="chat(id)">
         <el-avatar :src="avatar" style="margin-right: 8px;"/>
         <div class="name_box">
             <div class="name">
@@ -14,16 +11,15 @@
         </div>
         <transition  name="changeShow" appear>
             <div class="close" v-show="showDiv">
-                <svg data-v-18a3b98b="" viewBox="0 0 40 40" class="css-1dtzbno"><path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path></svg>
+                <svg data-v-18a3b98b="" viewBox="0 0 40 40" class="css-1dtzbno" @click.stop="closeC()"><path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path></svg>
             </div>
         </transition>
-<!--        <div class="close_box">-->
-
-<!--        </div>-->
     </div>
 </template>
 
 <script>
+import {postRequest} from "@/api/api";
+
 export default {
     name: "UserItem",
     props: ['id', "avatar", "name", "des"],
@@ -33,10 +29,27 @@ export default {
             staticAvatarUrl:  require('@/assets/img/czp.jpg') // 静态图片的URL
         }
     },
-    computed:{
-        avatarUrl: function() {
+    computed: {
+        avatarUrl: function () {
             return this.avatar ? this.avatar : this.staticAvatarUrl;
         }
+    },
+    methods:{
+        chat() {
+            this.$router.push({
+                name: "chat",
+                query:{
+                    id: this.id,
+                }
+            })
+        },
+        closeC() {
+            postRequest("/czp-message/close-chat",{ownId: this.$store.state.CzpUser.id,otherId:this.id}).then(res=>{
+                if (res.code === 200) {
+                    this.$bus.$emit('closeChat', this.id);
+                }
+            })
+        },
     }
 };
 </script>

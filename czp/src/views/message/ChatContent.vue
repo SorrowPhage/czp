@@ -25,6 +25,7 @@
                 <div class="core-style" style="height: 60px">
                     <el-input
                         id="input"
+                        @keyup.enter.native="send"
                         v-model="text"
                         type="textarea"
                         :autosize="{ minRows: 2, maxRows: 2}"

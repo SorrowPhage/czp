@@ -1,6 +1,7 @@
 package com.sorrowphage.czp.controller;
 
 
+import com.sorrowphage.czp.entity.ChatList;
 import com.sorrowphage.czp.entity.CzpMessage;
 import com.sorrowphage.czp.entity.ResultMessage;
 import com.sorrowphage.czp.service.CzpMessageService;
@@ -48,6 +49,7 @@ public class CzpMessageController {
 
     /**
      * 获取群聊信息
+     *
      * @param toId
      * @return
      */
@@ -59,6 +61,7 @@ public class CzpMessageController {
 
     /**
      * 发送消息
+     *
      * @param message
      * @return
      */
@@ -69,11 +72,17 @@ public class CzpMessageController {
 
     /**
      * 发送消息
+     *
      * @param message
      * @return
      */
     @PostMapping("/gh-send")
     public ResultMessage sendGangHsienMessage(@RequestBody CzpMessage message) {
         return czpMessageService.sendGangHsienMessage(message);
+    }
+
+    @PostMapping("/close-chat")
+    public ResultMessage closeChat(@RequestBody ChatList chatList) {
+        return czpMessageService.closeChat(chatList);
     }
 }

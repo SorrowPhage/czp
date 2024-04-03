@@ -15,7 +15,7 @@
                         <div class="list_container ps--active-y">
                                 <div class="list">
                                     <UserItem v-for="u in chatList" class="infinite-list-item"  :style="u.id === $route.query.id ? ' background-color: #e4e5e6;' : 'color:#ffffff;'"
-                                          :key="u.id"  :id="u.id" :avatar="u.avatar" :name="u.name" :des="u.des" @click.native="chat(u.id)"
+                                          :key="u.id"  :id="u.id" :avatar="u.avatar" :name="u.name" :des="u.des"
                                     />
                                 </div>
                         </div>
@@ -58,22 +58,43 @@ export default {
             tabIndex: 2,
             count: 10,
             showContent: true,
-            chatList: [],
+            chatList: [
+                {
+                    "id": "c-2-2",
+                    "name": "C-2-2",
+                    "sex": "男",
+                    "birthday": "1980-12-21",
+                    "avatar": null,
+                    "password": "",
+                    "status": "1",
+                    "email": "470565129@qq.com",
+                    "generation": "Cew",
+                    "generationRank": "2",
+                    "familyRank": "2",
+                    "deathTime": "2004-12-01",
+                    "phone": null,
+                    "des": null,
+                    "verCode": null,
+                    "token": null
+                }
+            ],
         }
     },
     watch: {
         '$route.query.id': {
+            immediate:true,
             handler() {
-                // this.loadData();
                 this.show();
+                this.loadChatList();
             },
         },
-        'chatList.length': function() {
-            let exist = this.chatList.some(item => item.id === this.$route.query.id);
-            if (!exist && this.showContent === false) {
-                this.getUser();
-            }
-        }
+        // 在进来的时候判断一下列表中是否有query.id是可以达到目的的，但是动画有点别扭
+        // 'chatList.length': function() {
+        //     let exist = this.chatList.some(item => item.id === this.$route.query.id);
+        //     if (!exist && this.showContent === false) {
+        //         this.getUser();
+        //     }
+        // }
     },
     mounted() {
         this.loadData()
@@ -84,9 +105,11 @@ export default {
             this.showContent = true;
             //加载数据
         }
+        this.$bus.$on('closeChat', this.closeChat);
     },
     beforeDestroy() {
         closeWebsocket();
+        this.$bus.$off('closeChat');
     },
     methods: {
         requestWs() {
@@ -101,7 +124,7 @@ export default {
                 this.$bus.$emit('chat', data);
             }
         },
-        onerror() {
+        onerror(id) {
         
         },
         loadData() {
@@ -111,12 +134,23 @@ export default {
                 }
             })
         },
+        loadChatList() {
+            let exist = this.chatList.some(item => item.id === this.$route.query.id);
+            if (!exist && this.showContent === false) {
+                this.getUser();
+            }
+        },
         getUser() {
             getRequest("/czpUser/su",{id: this.$route.query.id}).then(res=>{
                 if (res.code === 200) {
                     this.chatList.unshift(res.data);
                 }
             })
+        },
+        closeChat(id){
+            this.chatList = this.chatList.filter((item) => {
+                return item.id != id
+            });
         },
         show() {
             if (this.$route.query.id !== undefined) {
@@ -131,14 +165,6 @@ export default {
                 this.count += 2
                 this.loading = false
             }, 2000)
-        },
-        chat(id) {
-            this.$router.push({
-                name: "chat",
-                query:{
-                    id: id,
-                }
-            })
         },
     }
 };

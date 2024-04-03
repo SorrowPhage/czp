@@ -1,27 +1,23 @@
 package com.sorrowphage.czp.service.serviceimpl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.sorrowphage.czp.entity.CzpMessage;
-import com.sorrowphage.czp.entity.CzpUser;
-import com.sorrowphage.czp.entity.CzpUserChatList;
-import com.sorrowphage.czp.entity.ResultMessage;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sorrowphage.czp.entity.*;
 import com.sorrowphage.czp.entity.vo.MessageVO;
 import com.sorrowphage.czp.entity.vo.UserVo;
+import com.sorrowphage.czp.mapper.ChatListMapper;
 import com.sorrowphage.czp.mapper.CzpMessageMapper;
-import com.sorrowphage.czp.mapper.CzpUserChatListMapper;
 import com.sorrowphage.czp.mapper.CzpUserMapper;
 import com.sorrowphage.czp.service.CzpMessageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sorrowphage.czp.socket.MsgChatWebSocketServer;
 import com.sorrowphage.czp.utils.DateUtil;
-import com.sorrowphage.czp.utils.FastJsonRedisSerializer;
+import freemarker.template.utility.CollectionUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.time.chrono.IsoChronology;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * <p>
@@ -42,9 +38,10 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
 
     private final CzpUserMapper czpUserMapper;
 
-    private final CzpUserChatListMapper czpUserChatListMapper;
 
     private final MsgChatWebSocketServer socketServer;
+
+    private final ChatListMapper chatListMapper;
 
 
     /**
@@ -85,17 +82,23 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
     @Override
     public ResultMessage sendMessage(CzpMessage message) {
         String currentTime = DateUtil.getSystemDateTimeString();
-        //TODO 聊天列表
-        List<CzpUserChatList> list = czpUserChatListMapper.selectBetweenTheTwoUserList(message.getFromId(), message.getToId());
-        if (CollectionUtils.isEmpty(list)) {
-            //创建两个人之间的聊天关系，
-            CzpUserChatList czpUserChatList = new CzpUserChatList(message.getFromId(), message.getId(), 1, currentTime, currentTime);
-            // czpUserChatListMapper.save(czpUserChatList);
+        //判断两人之间是否有消息列表没有就加入
+        List<ChatList> chatLists = chatListMapper.selectChatRelationship(message.getFromId(), message.getToId());
+        if (CollectionUtil.isEmpty(chatLists)) {
+            ChatList chatList = new ChatList();
+            chatList.setOwnId(message.getFromId());
+            chatList.setOtherId(message.getToId());
+            chatListMapper.insert(chatList);
         }
-
+        List<ChatList> chatLists2 = chatListMapper.selectChatRelationship(message.getToId(), message.getFromId());
+        if (CollectionUtil.isEmpty(chatLists2)) {
+            ChatList chatList = new ChatList();
+            chatList.setOwnId(message.getToId());
+            chatList.setOtherId(message.getFromId());
+            chatListMapper.insert(chatList);
+        }
         message.setSendTime(currentTime);
         message.setCreateTime(currentTime);
-        // message.setUser(czpUserMapper.userInfo(message.getFromId()));
         UserVo userVo = czpUserMapper.userInfo(message.getFromId());
         message.setAvatar(userVo.getAvatar());
         message.setName(userVo.getName());
@@ -139,5 +142,16 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
         JSONObject o = (JSONObject) JSONObject.toJSON(message);
         socketServer.GroupSending(o.toJSONString());
         return ResultMessage.success(message);
+    }
+
+    @Override
+    public ResultMessage closeChat(ChatList chatList) {
+        QueryWrapper<ChatList> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(ChatList::getOwnId, chatList.getOwnId()).eq(ChatList::getOtherId, chatList.getOtherId());
+        int delete = chatListMapper.delete(wrapper);
+        if (delete > 0) {
+            return ResultMessage.success("删除成功");
+        }
+        return ResultMessage.failure("没有数据");
     }
 }
