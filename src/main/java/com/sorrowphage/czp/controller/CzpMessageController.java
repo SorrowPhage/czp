@@ -46,6 +46,16 @@ public class CzpMessageController {
         return czpMessageService.getMessageList(u1, u2);
     }
 
+    /**
+     * 获取群聊信息
+     * @param toId
+     * @return
+     */
+    @GetMapping("/gh-list")
+    public ResultMessage getGangHsienMessageList(@RequestParam("toId") String toId) {
+        return czpMessageService.getGangHsienMessageList(toId);
+    }
+
 
     /**
      * 发送消息
@@ -55,5 +65,15 @@ public class CzpMessageController {
     @PostMapping("/send")
     public ResultMessage sendMessage(@RequestBody CzpMessage message) {
         return czpMessageService.sendMessage(message);
+    }
+
+    /**
+     * 发送消息
+     * @param message
+     * @return
+     */
+    @PostMapping("/gh-send")
+    public ResultMessage sendGangHsienMessage(@RequestBody CzpMessage message) {
+        return czpMessageService.sendGangHsienMessage(message);
     }
 }

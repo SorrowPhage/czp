@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sorrowphage.czp.entity.CzpUser;
 import com.sorrowphage.czp.entity.vo.MessageVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface CzpMessageMapper extends BaseMapper<CzpMessage> {
      * @param u2
      * @return
      */
-    List<MessageVO> getMessageList(String u1, String u2);
+    List<MessageVO> getMessageList(@Param("fromId") String u1,@Param("toId") String u2);
 
     /**
      * 修改消息状态为已读
@@ -51,4 +52,5 @@ public interface CzpMessageMapper extends BaseMapper<CzpMessage> {
     int updateMessageStatusToRead(String u1, String u2);
 
 
+    List<MessageVO> getGangHsienMessageList(@Param(("toId")) String toId);
 }

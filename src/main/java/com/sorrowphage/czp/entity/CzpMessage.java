@@ -50,4 +50,8 @@ public class CzpMessage implements Serializable {
 
     @TableField(exist = false)
     private UserVo user;
+    @TableField(exist = false)
+    private String avatar;
+    @TableField(exist = false)
+    private String name;
 }

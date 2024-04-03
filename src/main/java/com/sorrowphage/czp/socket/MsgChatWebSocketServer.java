@@ -117,5 +117,14 @@ public class MsgChatWebSocketServer {
         error.printStackTrace();
     }
 
+    public void GroupSending(String message) {
+        for (String name : webSocketSet.keySet()) {
+            try {
+                webSocketSet.get(name).session.getBasicRemote().sendText(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

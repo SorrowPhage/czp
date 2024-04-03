@@ -8,7 +8,9 @@
     /*background: white;*/
     /*background: #2b3346;*/
 }
-
+.gd_window{
+    height: calc(100vh - 165px);
+}
 .head-line{
     padding: 5px; line-height: 50px; float: left;
 }

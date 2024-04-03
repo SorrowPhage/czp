@@ -20,4 +20,7 @@ public interface CzpMessageService extends IService<CzpMessage> {
 
     ResultMessage sendMessage(CzpMessage message);
 
+    ResultMessage getGangHsienMessageList(String toId);
+
+    ResultMessage sendGangHsienMessage(CzpMessage message);
 }

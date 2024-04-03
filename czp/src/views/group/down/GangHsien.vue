@@ -1,8 +1,8 @@
 <template>
-    <div class="dialog">
-        <div class="title">
-            <span style="font-size: 14px;">{{id}}</span>
-        </div>
+    <div class="gd_body gh_window">
+<!--        <div class="title">-->
+<!--            <span style="font-size: 14px;">{{$route.query.gid}}</span>-->
+<!--        </div>-->
         <div ref="display" class="message-list">
             <div  class="message-list-content min_h_100">
                 <div v-for="(m,index) in msgList" :key="index">
@@ -45,18 +45,17 @@
 </template>
 
 <script>
+import {getRequest, postRequest, windowHeight} from "@/api/api";
 import ChatLine from "@/views/message/ChatLine";
 import ChatLineRight from "@/views/message/ChatLineRight";
 import {VEmojiPicker} from 'v-emoji-picker'
-import {getRequest,postRequest} from "@/api/api";
-import user from "@/views/search/User";
-import {Message} from "element-ui";
+import {closeWebsocket, sendWebsocket} from "@/utils/websocket";
 export default {
-    name: "ChatContent",
+    name: "GangHsien",
     components:{ChatLine,ChatLineRight,VEmojiPicker},
-    props: ['id'],
     data() {
         return{
+            tableHeight: (windowHeight() - 320),
             msgList: [],
             text:'',
             showEmoji: false,
@@ -68,7 +67,7 @@ export default {
                 this.$refs.display.scrollTop = this.$refs.display.scrollHeight;
             });
         },
-        '$route.query.id': {
+        '$route.query.gid': {
             handler() {
                 this.loadData();
             },
@@ -76,50 +75,44 @@ export default {
     },
     mounted() {
         this.loadData();
-        this.$bus.$on('chat', this.chat);
         document.addEventListener('click', this.emojiListener);
+        this.requestWs();
     },
     beforeDestroy() {
-        this.$bus.$off('chat');
-    },
-    destroyed() {
         document.removeEventListener('click', this.emojiListener);
+        closeWebsocket();
     },
-    methods:{
+    methods: {
+        requestWs() {
+            closeWebsocket();
+            sendWebsocket(this.$store.state.CzpUser.id, {}, this.onmessage, this.onerror);
+        },
         loadData() {
-            getRequest("/czp-message/message-list", {
-                u1: this.$store.state.CzpUser.id,
-                u2: this.$route.query.id
+            getRequest("/czp-message/gh-list", {
+                toId: this.$route.query.gid
             }).then(res => {
                 if (res.code === 200) {
                     this.msgList = res.data;
-                } else {
-                    Message.error(res.message);
-                    this.$router.push({
-                        name: "chat",
-                    })
                 }
             });
         },
-        chat(data) {
-            //需要判断fromId是否是当前用户，若不是则不将该消息推送
-            if (data.fromId === this.$route.query.id) {
+        onerror() {
+        
+        },
+        onmessage(data) {
+            data = JSON.parse(data)
+            if (data.toId === this.$route.query.gid && data.fromId!==this.$store.state.CzpUser.id) {
                 this.msgList.push(data);
-            } else {
-                this.$notify({
-                    title:data.user.name,
-                    message:data.content
-                })
             }
         },
         send() {
             const param = {
                 fromId: this.$store.state.CzpUser.id,
-                toId: this.$route.query.id,
+                toId: this.$route.query.gid,
                 content: this.text,
-                type: "user",
+                type: "group",
             };
-            postRequest("/czp-message/send", param).then(res => {
+            postRequest("/czp-message/gh-send", param).then(res => {
                 if (res.code === 200) {
                     this.msgList.push(res.data);
                     this.text = '';
@@ -141,12 +134,12 @@ export default {
             if (!(this.$refs.emoji.contains(e.target) || this.$refs.exp.contains(e.target))) this.showEmoji = false;
         },
     }
-    
 }
 </script>
 
 <style scoped lang="less">
-.dialog{
+.gh_window{
+    height: calc(100vh - 165px);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -157,7 +150,7 @@ export default {
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
-    height: 100%;
+    //height: 100%;
     .title{
         height: 36px;
         -ms-flex-negative: 0;
@@ -183,7 +176,7 @@ export default {
         position: relative;
         overflow-x: hidden;
         overflow-y: scroll;
-        background-color: #f4f5f7;
+        //background-color: #f4f5f7;
         .message-list-content{
             overflow: auto;
         }
@@ -195,7 +188,7 @@ export default {
         height: 162px;
         border-top: 1px solid #d8d8d8;
         border-bottom-right-radius: 4px;
-        background-color: #f4f5f7;
+        //background-color: #f4f5f7;
         -ms-flex-negative: 0;
         flex-shrink: 0;
         padding: 0 16px;
@@ -273,7 +266,7 @@ export default {
                 word-wrap: break-word;
                 /deep/ .el-textarea__inner{
                     border: none;
-                    background-color: #f4f5f7;
+                    //background-color: #f4f5f7;
                     font-size: 14px;
                 }
                 /deep/ .el-textarea__inner:hover {
@@ -310,5 +303,4 @@ export default {
         }
     }
 }
-
 </style>

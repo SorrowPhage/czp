@@ -62,22 +62,22 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
     @Override
     public ResultMessage getMessageList(String u1, String u2) {
         //判断u2是否存在
-        UserVo user1 = czpUserMapper.userInfo(u1);
-        UserVo user2 = czpUserMapper.userInfo(u2);
-        if (Objects.isNull(user2)) {
-            return ResultMessage.failure(u2 + "用户不存在");
-        }
+        // UserVo user1 = czpUserMapper.userInfo(u1);
+        // UserVo user2 = czpUserMapper.userInfo(u2);
+        // if (Objects.isNull(user2)) {
+        //     return ResultMessage.failure(u2 + "用户不存在");
+        // }
         //将用户查询的信息中的未读修改为已读
         czpMessageMapper.updateMessageStatusToRead(u1,u2);
         List<MessageVO> dataList = czpMessageMapper.getMessageList(u1, u2);
 
-        for (MessageVO messageVO : dataList) {
-            if (messageVO.getFromId().equals(u1)) {
-                messageVO.setUser(user1);
-            } else {
-                messageVO.setUser(user2);
-            }
-        }
+        // for (MessageVO messageVO : dataList) {
+        //     if (messageVO.getFromId().equals(u1)) {
+        //         messageVO.setUser(user1);
+        //     } else {
+        //         messageVO.setUser(user2);
+        //     }
+        // }
 
         return ResultMessage.success(dataList);
     }
@@ -95,7 +95,10 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
 
         message.setSendTime(currentTime);
         message.setCreateTime(currentTime);
-        message.setUser(czpUserMapper.userInfo(message.getFromId()));
+        // message.setUser(czpUserMapper.userInfo(message.getFromId()));
+        UserVo userVo = czpUserMapper.userInfo(message.getFromId());
+        message.setAvatar(userVo.getAvatar());
+        message.setName(userVo.getName());
         //判断用户是否在线，若用户在线则消息状态修改为已读(1),不在线为未读(0)   但是因为前端的websocket在头部，通过全局事件总线进行消息的转发，
         //其实接收方不一定在聊天页面，所以这样的判断是有一点瑕疵的，但是接收方用户是否在线是确定的，所以前端在接收到消息时，需判断接收用户是否在聊天页面和发送方进行聊天
         //若不在聊天页面，则需要将该消息使用Message组件进行展示，以此达到让用户读过的感觉。
@@ -118,4 +121,23 @@ public class CzpMessageServiceImpl extends ServiceImpl<CzpMessageMapper, CzpMess
         return ResultMessage.success(message);
     }
 
+    @Override
+    public ResultMessage getGangHsienMessageList(String toId) {
+        List<MessageVO> list = czpMessageMapper.getGangHsienMessageList(toId);
+        return ResultMessage.success(list);
+    }
+
+    @Override
+    public ResultMessage sendGangHsienMessage(CzpMessage message) {
+        String currentTime = DateUtil.getSystemDateTimeString();
+        message.setSendTime(currentTime);
+        message.setCreateTime(currentTime);
+        UserVo userVo = czpUserMapper.userInfo(message.getFromId());
+        message.setAvatar(userVo.getAvatar());
+        message.setName(userVo.getName());
+        this.save(message);
+        JSONObject o = (JSONObject) JSONObject.toJSON(message);
+        socketServer.GroupSending(o.toJSONString());
+        return ResultMessage.success(message);
+    }
 }

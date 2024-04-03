@@ -49,9 +49,9 @@ file:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-#  configuration:
-#    call-setters-on-nulls: true
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 avatar:
   url: http://localhost:8088/upload/sepim/avatar/

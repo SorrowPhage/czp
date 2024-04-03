@@ -20,9 +20,18 @@
                     <el-tab-pane label="族群树" name="second" lazy>
                         <GroupTreeDetails/>
                     </el-tab-pane>
-                    <el-tab-pane label="人员信息" name="third">
+                    <el-tab-pane label="人员信息" name="third" lazy>
                         <GroupPeropleInfo/>
                     </el-tab-pane>
+                    <el-tab-pane label="聊天" name="four" lazy>
+                        <GangHsien/>
+                    </el-tab-pane>
+                    <el-tab-pane label="重要事件" name="five" lazy>
+                        <MajorHistory/>
+                    </el-tab-pane>
+<!--                    <el-tab-pane  label="设置" name="six" lazy>-->
+<!--                        <MajorHistory/>-->
+<!--                    </el-tab-pane>-->
                 </el-tabs>
             </el-col>
         </el-row>
@@ -35,9 +44,11 @@ import {getRequest} from "@/api/api";
 import GroupInfoCard from "@/views/group/down/pane/GroupInfoCard";
 import GroupTreeDetails from "@/views/group/down/GroupTreeDetails";
 import GroupPeropleInfo from "@/views/group/down/GroupPeropleInfo";
+import GangHsien from "@/views/group/down/GangHsien";
+import MajorHistory from "@/views/group/down/MajorHistory";
 export default {
     name: "GroupInfo",
-    components:{GroupInfoCard,GroupTreeDetails,GroupPeropleInfo},
+    components:{GroupInfoCard,GroupTreeDetails,GroupPeropleInfo,GangHsien,MajorHistory},
     data() {
         return{
             activeName: 'first',

@@ -12,8 +12,13 @@
             left join chat_list cl on  cl.other_id=u.id
         where cl.own_id=#{id}
     </select>
+<!--    <select id="getMessageList" resultType="com.sorrowphage.czp.entity.vo.MessageVO">-->
+<!--        select * from czp_message where (from_id=#{u1} and to_id=#{u2}) or (from_id=#{u2} and to_id=#{u1})-->
+<!--    </select>-->
     <select id="getMessageList" resultType="com.sorrowphage.czp.entity.vo.MessageVO">
-        select * from czp_message where (from_id=#{u1} and to_id=#{u2}) or (from_id=#{u2} and to_id=#{u1})
+        select m.* ,u.avatar,u.`name`  from czp_message m
+              left join czp_user u on u.id=m.from_id
+        where m.to_id in (#{fromId},#{toId}) and m.from_id in (#{fromId},#{toId})
     </select>
     <select id="getChatListFromMessage" resultType="com.sorrowphage.czp.entity.CzpUser">
         select u.* from czp_user u
@@ -21,5 +26,10 @@
               (select DISTINCT m.to_id as id from czp_message m where m.from_id=#{id} and m.type="user" union
                select DISTINCT m.from_id as id from czp_message m where m.to_id=#{id} and m.type="user")
         order by u.id
+    </select>
+    <select id="getGangHsienMessageList" resultType="com.sorrowphage.czp.entity.vo.MessageVO">
+        select m.* ,u.avatar,u.`name`  from czp_message m
+            left join czp_user u on u.id=m.from_id
+        where m.to_id=#{toId}
     </select>
 </mapper>
